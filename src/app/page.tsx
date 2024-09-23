@@ -10,8 +10,16 @@ import {
     Globe,
     GitFork,
     Check,
+    Briefcase,
+    User,
+    FileText,
+    Mail,
+    Sun,
+    Moon,
+    House,
 } from "lucide-react";
 import Link from "next/link";
+import { FloatingNavbar } from "./components/FloatingNavbar";
 
 interface ProjectCardProps {
     title: string;
@@ -68,7 +76,7 @@ const ProjectCard = ({
                     {technologies.map((tech, index) => (
                         <span
                             key={index}
-                            className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded"
+                            className="bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded"
                         >
                             {tech}
                         </span>
@@ -252,6 +260,7 @@ export default function Home() {
                     <p>© Linards M. 2024</p>
                 </div>
             </footer>
+            <FloatingNavbar />
         </div>
     );
 }
