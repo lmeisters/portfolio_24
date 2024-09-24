@@ -10,16 +10,10 @@ import {
     Globe,
     GitFork,
     Check,
-    Briefcase,
-    User,
-    FileText,
-    Mail,
-    Sun,
-    Moon,
-    House,
 } from "lucide-react";
 import Link from "next/link";
 import { FloatingNavbar } from "./components/FloatingNavbar";
+import Header from "./sections/header";
 
 interface ProjectCardProps {
     title: string;
@@ -91,33 +85,6 @@ const ProjectCard = ({
     </div>
 );
 
-const RigaTimeClock = () => {
-    const [time, setTime] = useState("");
-
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            const rigaTime = new Date(
-                now.toLocaleString("en-US", { timeZone: "Europe/Riga" })
-            );
-            setTime(
-                rigaTime.toLocaleTimeString("en-US", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: false,
-                })
-            );
-        };
-
-        updateTime();
-        const timerId = setInterval(updateTime, 1000);
-
-        return () => clearInterval(timerId);
-    }, []);
-
-    return <div>{time} Riga, Latvia</div>;
-};
-
 export default function Home() {
     const [copied, setCopied] = useState(false);
     const email = "linards@example.com";
@@ -131,21 +98,7 @@ export default function Home() {
 
     return (
         <div className="max-w-2xl mx-auto p-4 font-sans">
-            <Head>
-                <title>Linards - Portfolio</title>
-                <meta name="description" content="Linards' portfolio" />
-            </Head>
-
-            <header className="flex justify-between items-center mb-8">
-                <Link href="/">
-                    <div className="text-md font-semibold border rounded-md p-1 hover:bg-gray-100 hover:border-gray-400 transition-colors duration-300 ease-in-out cursor-pointer">
-                        LM
-                    </div>
-                </Link>
-                <div className="text-md">
-                    <RigaTimeClock />
-                </div>
-            </header>
+            <Header />
 
             <main>
                 <section className="mb-12">

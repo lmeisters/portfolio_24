@@ -9,6 +9,7 @@ import {
     Sun,
     Moon,
 } from "lucide-react";
+import Link from "next/link";
 
 export const FloatingNavbar = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -26,14 +27,14 @@ export const FloatingNavbar = () => {
         <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-lg px-6 pt-3 pb-2">
             <ul className="flex space-x-6 align-baseline">
                 <li>
-                    <a
-                        href="#home"
+                    <Link
+                        href="/"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             <House size={20} />
                         </div>
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a
@@ -46,14 +47,14 @@ export const FloatingNavbar = () => {
                     </a>
                 </li>
                 <li>
-                    <a
-                        href="#about"
+                    <Link
+                        href="/about"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             <User size={20} />
                         </div>
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a
