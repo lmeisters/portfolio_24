@@ -8,11 +8,13 @@ import {
     Mail,
     Sun,
     Moon,
+    Check,
 } from "lucide-react";
 import Link from "next/link";
 
 export const FloatingNavbar = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [emailCopied, setEmailCopied] = useState(false);
 
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
@@ -21,6 +23,13 @@ export const FloatingNavbar = () => {
         } else {
             document.body.classList.add("dark-mode");
         }
+    };
+
+    const handleCopyEmail = () => {
+        navigator.clipboard.writeText("your-email@example.com").then(() => {
+            setEmailCopied(true);
+            setTimeout(() => setEmailCopied(false), 2000); // Revert icon after 2 seconds
+        });
     };
 
     return (
@@ -37,14 +46,14 @@ export const FloatingNavbar = () => {
                     </Link>
                 </li>
                 <li>
-                    <a
-                        href="#work"
+                    <Link
+                        href="/#projects"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             <Briefcase size={20} />
                         </div>
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <Link
@@ -66,15 +75,19 @@ export const FloatingNavbar = () => {
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a
-                        href="#contact"
+                <li className="flex flex-col items-center">
+                    <button
+                        onClick={handleCopyEmail}
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
-                            <Mail size={20} />
+                            {emailCopied ? (
+                                <Check size={20} />
+                            ) : (
+                                <Mail size={20} />
+                            )}
                         </div>
-                    </a>
+                    </button>
                 </li>
                 <li>
                     <button

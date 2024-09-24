@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Head from "next/head";
+import React, { useState } from "react";
 import {
     ScrollText,
     Hand,
@@ -129,12 +128,14 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="mb-12">
-                    <div className="flex items-center space-x-2 mb-4">
-                        <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                            My Projects
-                        </span>
-                    </div>
+                <section id="projects" className="mb-12">
+                    <Link href="#projects">
+                        <div className="flex items-center space-x-2 mb-4">
+                            <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                My Projects
+                            </span>
+                        </div>
+                    </Link>
                     <h2 className="text-3xl font-bold mb-2">My latest works</h2>
                     <p className="text-gray-600 mb-8">
                         A Glimpse into My Recent Web Development Projects and
@@ -171,10 +172,12 @@ export default function Home() {
                         find me diving into new design trends or collaborating
                         on exciting tech projects.
                     </p>
-                    <button className="flex items-center text-gray-600 hover:text-black transition-colors duration-300 group">
-                        Learn more
-                        <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                    </button>
+                    <Link href="/about" passHref>
+                        <button className="flex items-center text-gray-600 hover:text-black transition-colors duration-300 group">
+                            Learn more
+                            <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                        </button>
+                    </Link>
                 </section>
 
                 <section>
