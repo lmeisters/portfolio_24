@@ -62,8 +62,8 @@ const ProjectCard = ({
                 )}
             </div>
         </div>
-        <div className="flex flex-row mb-6">
-            <div className="w-1/2 flex flex-col justify-between">
+        <div className="flex md:flex-row flex-col mb-6 gap-4">
+            <div className="w-full md:w-1/2 flex flex-col justify-between gap-4">
                 <p className="font-medium">{description}</p>
                 <div className="flex flex-wrap gap-2">
                     {technologies.map((tech, index) => (
@@ -76,7 +76,7 @@ const ProjectCard = ({
                     ))}
                 </div>
             </div>
-            <p className="text-gray-600 w-1/2">{longDescription}</p>
+            <p className="text-gray-600 w-full md:w-1/2">{longDescription}</p>
         </div>
         <div className="w-full">
             <div className="w-full h-96 bg-gray-100 rounded-md"></div>
