@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import {
     ScrollText,
     Hand,
@@ -13,7 +12,9 @@ import {
 import Link from "next/link";
 import { FloatingNavbar } from "./components/FloatingNavbar";
 import Header from "./sections/header";
+import Contact from "./sections/contact";
 import Footer from "./sections/footer";
+import { useCopyEmail } from "./hooks/useCopyEmail";
 
 interface ProjectCardProps {
     title: string;
@@ -86,15 +87,8 @@ const ProjectCard = ({
 );
 
 export default function Home() {
-    const [copied, setCopied] = useState(false);
     const email = "linards@example.com";
-
-    const handleCopyEmail = () => {
-        navigator.clipboard.writeText(email).then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        });
-    };
+    const { copied, handleCopyEmail } = useCopyEmail(email);
 
     return (
         <div className="max-w-2xl mx-auto p-4 font-sans">
@@ -180,33 +174,7 @@ export default function Home() {
                         </button>
                     </Link>
                 </section>
-
-                <section>
-                    <div className="flex items-center space-x-2 mb-4">
-                        <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                            Contact
-                        </span>
-                    </div>
-                    <h2 className="text-2xl font-bold mb-2">Get in Touch</h2>
-                    <p className="text-gray-600 mb-4">
-                        Feel free to reach out if you're looking for a skilled
-                        web developer who can bring fresh ideas and technical
-                        expertise to your team. I'm always open to discussing
-                        new opportunities and collaborations.
-                    </p>
-
-                    <button
-                        className="px-4 py-2 bg-black text-white rounded-full flex items-center hover:bg-gray-800 transition-colors duration-300 ease-in-out"
-                        onClick={handleCopyEmail}
-                    >
-                        {copied ? (
-                            <Check className="w-4 h-4 mr-2" />
-                        ) : (
-                            <Copy className="w-4 h-4 mr-2" />
-                        )}
-                        {copied ? "Copied!" : "Copy email"}
-                    </button>
-                </section>
+                <Contact />
             </main>
 
             <Footer />
