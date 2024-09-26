@@ -1,11 +1,20 @@
-const Footer = () => (
-    <footer className="mt-12 text-sm text-gray-600">
-        <hr className="mb-4" />
-        <div className="flex flex-row justify-between">
-            <p>September 16, 2024, 23:48</p>
+const Footer = () => {
+    const currentDate = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
 
-            <p>&copy; Linards M. 2024</p>
-        </div>
-    </footer>
-);
+    return (
+        <footer className="mt-12 text-sm text-gray-600">
+            <hr className="mb-4" />
+            <div className="flex flex-row justify-between">
+                <p>{currentDate}</p>
+
+                <p>&copy; Linards M. {new Date().getFullYear()}</p>
+            </div>
+        </footer>
+    );
+};
+
 export default Footer;
