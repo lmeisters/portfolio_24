@@ -126,7 +126,7 @@ const PhysicsSkill: React.FC<PhysicsSkillProps> = ({
 interface TimelineItemProps {
     title: string;
     subtitle: string;
-    year: number;
+    year: number | string;
 }
 
 const TimelineItem = ({ title, subtitle, year }: TimelineItemProps) => (
@@ -220,7 +220,7 @@ const About = () => {
                     <TimelineItem
                         title="Riga Technical University"
                         subtitle="Master's Degree of Computer Science"
-                        year="present"
+                        year="2023 - present"
                     />
                     <TimelineItem
                         title="Riga Technical University"
@@ -233,8 +233,8 @@ const About = () => {
                     <h2 className="text-xl font-bold mb-4">Experience</h2>
                     <TimelineItem
                         title="Mykoob"
-                        subtitle="Front-end Developer Intership"
-                        year="2024"
+                        subtitle="Front-end Developer Internship"
+                        year={2024}
                     />
                 </section>
 
@@ -243,22 +243,22 @@ const About = () => {
                     <TimelineItem
                         title="The Web Developer Bootcamp 2024"
                         subtitle="HTML5 CSS3 JavaScript React.js Node.js Express.js MongoDB"
-                        year="2024"
+                        year={2024}
                     />
                     <TimelineItem
                         title="Advanced CSS and Sass"
                         subtitle="SCSS/SASS Flexbox Grid"
-                        year="2024"
+                        year={2024}
                     />
                     <TimelineItem
                         title="The Complete JavaScript Course 2024"
                         subtitle="Udemy"
-                        year="2024"
+                        year={2024}
                     />
                     <TimelineItem
                         title="Web risinājumu izstrāde"
                         subtitle="Remote"
-                        year="2022"
+                        year={2022}
                     />
                 </section>
             </main>
