@@ -4,6 +4,7 @@ import { FloatingNavbar } from "../components/FloatingNavbar";
 import Header from "../sections/header";
 import { useState, useEffect, useRef } from "react";
 import Matter from "matter-js";
+import Footer from "../sections/footer";
 
 interface PhysicsSkillProps {
     name: string;
@@ -219,7 +220,7 @@ const About = () => {
                     <TimelineItem
                         title="Riga Technical University"
                         subtitle="Master's Degree of Computer Science"
-                        year="2023 - present"
+                        year="present"
                     />
                     <TimelineItem
                         title="Riga Technical University"
@@ -261,6 +262,7 @@ const About = () => {
                     />
                 </section>
             </main>
+            <Footer />
             <FloatingNavbar />
         </div>
     );

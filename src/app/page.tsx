@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { FloatingNavbar } from "./components/FloatingNavbar";
 import Header from "./sections/header";
+import Footer from "./sections/footer";
 
 interface ProjectCardProps {
     title: string;
@@ -208,14 +209,7 @@ export default function Home() {
                 </section>
             </main>
 
-            <footer className="mt-12 text-sm text-gray-600">
-                <hr className="mb-4" />
-                <div className="flex flex-row justify-between">
-                    <p>September 16, 2024, 23:48</p>
-                    <p>Latest from Riga, Latvia</p>
-                    <p>© Linards M. 2024</p>
-                </div>
-            </footer>
+            <Footer />
             <FloatingNavbar />
         </div>
     );
