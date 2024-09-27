@@ -29,7 +29,6 @@ const PhysicsSkill: React.FC<PhysicsSkillProps> = ({
         const engine = Matter.Engine.create();
         const world = engine.world;
 
-        // Adjust these values to change the size of the skill boxes
         const boxWidth = 100;
         const boxHeight = 40;
 
@@ -47,7 +46,6 @@ const PhysicsSkill: React.FC<PhysicsSkillProps> = ({
 
         Matter.World.add(world, [
             box,
-            // Bottom wall
             Matter.Bodies.rectangle(
                 containerWidth / 2,
                 containerHeight,
@@ -55,7 +53,6 @@ const PhysicsSkill: React.FC<PhysicsSkillProps> = ({
                 50,
                 { isStatic: true }
             ),
-            // Left wall
             Matter.Bodies.rectangle(
                 0,
                 containerHeight / 2,
@@ -63,7 +60,6 @@ const PhysicsSkill: React.FC<PhysicsSkillProps> = ({
                 containerHeight,
                 { isStatic: true }
             ),
-            // Right wall
             Matter.Bodies.rectangle(
                 containerWidth,
                 containerHeight / 2,
@@ -73,19 +69,24 @@ const PhysicsSkill: React.FC<PhysicsSkillProps> = ({
             ),
         ]);
 
-        // Add mouse control
-        const mouse = Matter.Mouse.create(boxRef.current);
-        const mouseConstraint = Matter.MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-                stiffness: 0.2,
-                render: {
-                    visible: false,
-                },
-            },
-        });
+        const mouse = boxRef.current
+            ? Matter.Mouse.create(boxRef.current)
+            : null;
+        const mouseConstraint = mouse
+            ? Matter.MouseConstraint.create(engine, {
+                  mouse: mouse,
+                  constraint: {
+                      stiffness: 0.2,
+                      render: {
+                          visible: false,
+                      },
+                  },
+              })
+            : null;
 
-        Matter.World.add(world, mouseConstraint);
+        if (mouseConstraint) {
+            Matter.World.add(world, mouseConstraint);
+        }
 
         const runner = Matter.Runner.create();
         Matter.Runner.run(runner, engine);
@@ -112,8 +113,8 @@ const PhysicsSkill: React.FC<PhysicsSkillProps> = ({
                 left: `${position.x}px`,
                 top: `${position.y}px`,
                 transform: `translate(-50%, -50%) rotate(${rotation}rad)`,
-                width: "100px", // Match this with boxWidth
-                height: "40px", // Match this with boxHeight
+                width: "100px",
+                height: "40px",
                 cursor: "grab",
             }}
             className="bg-white shadow-md rounded-lg px-4 py-2 text-sm font-medium flex items-center justify-center"

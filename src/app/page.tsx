@@ -17,6 +17,7 @@ import Footer from "./sections/footer";
 import { useCopyEmail } from "./hooks/useCopyEmail";
 
 interface ProjectCardProps {
+    abbreviation: string;
     title: string;
     description: string;
     longDescription: string;
@@ -26,65 +27,78 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({
+    abbreviation,
     title,
     description,
     longDescription,
     technologies,
     githubUrl,
     liveUrl,
-}: ProjectCardProps) => (
-    <div>
-        <div className="flex justify-between items-start mb-4">
-            <div>
-                <div className="flex items-baseline space-x-2 ">
-                    <div className="text-md font-extrabold border rounded-md px-2 py-1 bg-gray-200 hover:bg-gray-100 hover:border-gray-400 transition-colors duration-300 ease-in-out cursor-pointer">
-                        SS
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{title}</h3>
+}: ProjectCardProps) => {
+    return (
+        <div className="mb-8">
+            <div className="flex justify-between items-start mb-4">
+                <div>
+                    <Link
+                        href={`/projects/${encodeURIComponent(
+                            title.toLowerCase().replace(/\s+/g, "-")
+                        )}`}
+                    >
+                        <div className="flex items-baseline space-x-2 cursor-pointer">
+                            <div className="text-md font-bold border rounded-md px-2 py-1 bg-gray-200 hover:bg-gray-100 hover:border-gray-400 transition-colors duration-300 ease-in-out">
+                                {abbreviation}
+                            </div>
+                            <h3 className="text-xl font-bold mb-2 hover:underline">
+                                {title}
+                            </h3>
+                        </div>
+                    </Link>
                 </div>
-            </div>
-            <div className="flex space-x-2">
-                {githubUrl && (
-                    <Link
-                        href={githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <GitFork className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
-                    </Link>
-                )}
-                {liveUrl && (
-                    <Link
-                        href={liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <Globe className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
-                    </Link>
-                )}
-            </div>
-        </div>
-        <div className="flex md:flex-row flex-col mb-6 gap-4">
-            <div className="w-full md:w-1/2 flex flex-col justify-between gap-4">
-                <p className="font-medium">{description}</p>
-                <div className="flex flex-wrap gap-2">
-                    {technologies.map((tech, index) => (
-                        <span
-                            key={index}
-                            className="bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded"
+                <div className="flex space-x-2">
+                    {githubUrl && (
+                        <Link
+                            href={githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
-                            {tech}
-                        </span>
-                    ))}
+                            <GitFork className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
+                        </Link>
+                    )}
+                    {liveUrl && (
+                        <Link
+                            href={liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <Globe className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
+                        </Link>
+                    )}
                 </div>
             </div>
-            <p className="text-gray-600 w-full md:w-1/2">{longDescription}</p>
+            <div className="flex md:flex-row flex-col mb-6 gap-4">
+                <div className="w-full md:w-1/2 flex flex-col justify-between gap-4">
+                    <p className="font-medium">{description}</p>
+                    <div className="flex flex-wrap gap-2">
+                        {technologies.map((tech, index) => (
+                            <span
+                                key={index}
+                                className="bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded"
+                            >
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+                <p className="text-gray-600 w-full md:w-1/2">
+                    {longDescription}
+                </p>
+            </div>
+            <div className="w-full">
+                <div className="w-full h-96 bg-gray-100 rounded-md"></div>
+            </div>
         </div>
-        <div className="w-full">
-            <div className="w-full h-96 bg-gray-100 rounded-md"></div>
-        </div>
-    </div>
-);
+    );
+};
 
 export default function Home() {
     const email = "linards@example.com";
@@ -138,11 +152,25 @@ export default function Home() {
                     </p>
 
                     <ProjectCard
+                        abbreviation="SS"
                         title="SiteSelect"
                         description="A curated platform offering a collection of the web's most innovative design galleries"
                         longDescription="Throughout the years of web development I had collected a lot of website inspiration galleries but couldn't remember what each of them featured. So I made a custom website just to categorise and filter all of them."
                         technologies={["SCSS/SASS", "JavaScript", "GSAP"]}
                         githubUrl="https://github.com/lmeisters/SiteSelect"
+                        liveUrl="https://siteselect.vercel.app/"
+                    />
+                    <ProjectCard
+                        abbreviation="FF"
+                        title="FridgeFolio"
+                        description="A recipe sharing platform"
+                        longDescription="I made this website for my mom who loves cooking and sharing her recipes with friends and family. She can easily add, edit and delete recipes, and the website is also hosted on Vercel."
+                        technologies={[
+                            "Tailwind",
+                            "Typescript",
+                            "FreamerMotion",
+                        ]}
+                        githubUrl="https://github.com/lmeisters/FridgeFolio"
                         liveUrl="https://siteselect.vercel.app/"
                     />
                 </section>
