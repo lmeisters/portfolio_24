@@ -26,19 +26,12 @@ const projects = [
             demo: "https://codeconnect-demo.com",
             github: "https://github.com/yourusername/codeconnect",
         },
-        contact: {
-            name: "Your Name",
-            email: "you@example.com",
-            linkedin: "https://linkedin.com/in/yourprofile",
-        },
     },
 ];
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
     const currentProjectIndex = projects.findIndex(
-        (p) =>
-            (p.name || p.title)?.toLowerCase().replace(/\s+/g, "-") ===
-            params.slug
+        (p) => p.name.toLowerCase().replace(/\s+/g, "-") === params.slug
     );
 
     if (currentProjectIndex === -1) {
