@@ -119,7 +119,7 @@ export default function Home() {
                         with Code and Creativity
                     </p>
                     <div className="flex space-x-2">
-                        <button className="px-4 py-2 bg-black text-white rounded-full flex items-center hover:bg-gray-800 transition-colors duration-300 ease-in-ou">
+                        <button className="px-4 py-2 bg-black text-white rounded-full flex items-center hover:bg-gray-800 transition-colors duration-300 ease-in-out">
                             <ScrollText className="w-4 h-4 mr-2" />
                             Resume
                         </button>
