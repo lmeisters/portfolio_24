@@ -12,7 +12,7 @@ const Contact = () => {
                     Contact
                 </span>
             </div>
-            <h2 className="text-2xl font-bold mb-2">Get in Touch</h2>
+            <h2 className="text-3xl font-bold mb-2">Get in Touch</h2>
             <p className="text-gray-600 mb-6">
                 Feel free to reach out if you're looking for a skilled web
                 developer who can bring fresh ideas and technical expertise to

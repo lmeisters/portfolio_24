@@ -34,6 +34,26 @@ const projects = [
         links: {
             github: "github.com/lmeisters/SiteSelect",
         },
+        challenges: [
+            {
+                challenge:
+                    "Implementing real-time collaboration without conflicts",
+                solution: "Operational Transformation algorithm",
+            },
+            {
+                challenge: "Secure code execution in isolated environments",
+                solution: "Docker containers with resource limits",
+            },
+            {
+                challenge: "Scalability for concurrent users",
+                solution: "Horizontal scaling with load balancing",
+            },
+        ],
+        futureEnhancements: [
+            "Implement AI-powered code suggestions",
+            "Add support for more programming languages",
+            "Integrate with popular IDEs as a plugin",
+        ],
     },
     {
         id: 2,
@@ -63,6 +83,26 @@ const projects = [
         links: {
             github: "github.com/lmeisters/SiteSelect",
         },
+        challenges: [
+            {
+                challenge:
+                    "Implementing real-time collaboration without conflicts",
+                solution: "Operational Transformation algorithm",
+            },
+            {
+                challenge: "Secure code execution in isolated environments",
+                solution: "Docker containers with resource limits",
+            },
+            {
+                challenge: "Scalability for concurrent users",
+                solution: "Horizontal scaling with load balancing",
+            },
+        ],
+        futureEnhancements: [
+            "Implement AI-powered code suggestions",
+            "Add support for more programming languages",
+            "Integrate with popular IDEs as a plugin",
+        ],
     },
 ];
 
@@ -82,7 +122,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
             <div className="">
-                <h1 className="text-3xl font-bold mb-2">{project.name}</h1>
+                <h1 className="text-4xl font-semibold mb-4">{project.name}</h1>
                 <p className="text-sm text-gray-600 mb-6">
                     {project.description}
                 </p>
@@ -130,7 +170,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                     </div>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-8">
                     <div className="bg-gray-200 h-96 mb-4 rounded-lg"></div>
                     <div className="grid grid-cols-2 gap-4 rounded-lg">
                         <div className="bg-gray-200 h-96 rounded-lg"></div>
@@ -138,7 +178,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                     </div>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-2">Features</h2>
                     <ul className="list-decimal pl-5">
                         {project.features.map((feature, index) => (
@@ -147,9 +187,9 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                     </ul>
                 </div>
 
-                <div className="bg-gray-200 h-96 mb-6 rounded-lg"></div>
+                <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
 
-                <div className="mb-6">
+                <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-2">
                         Technologies Used
                     </h2>
@@ -157,6 +197,36 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                         {project.technologies.map((tech, index) => (
                             <li key={index}>{tech}</li>
                         ))}
+                    </ul>
+                </div>
+
+                <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
+
+                <div className="mb-8">
+                    <h2 className="text-xl font-semibold mb-2">Challenges</h2>
+                    <ul className="list-disc pl-5">
+                        {project.challenges.map((item, index) => (
+                            <li key={index}>
+                                <strong>{item.challenge}</strong>
+                                <br />
+                                Solution: {item.solution}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
+
+                <div className="mb-8">
+                    <h2 className="text-xl font-semibold mb-2">
+                        Future Enhancements
+                    </h2>
+                    <ul className="list-disc pl-5">
+                        {project.futureEnhancements.map(
+                            (enhancement, index) => (
+                                <li key={index}>{enhancement}</li>
+                            )
+                        )}
                     </ul>
                 </div>
 

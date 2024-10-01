@@ -181,7 +181,7 @@ const About = () => {
                     <img src="/profile.jpg" alt="profile" className="w-1/3" />
                 </section>
                 <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-2">About Me</h2>
+                    <h2 className="text-xl font-bold mb-2">About Me</h2>
                     <p className="text-gray-600 mb-4">
                         I'm a passionate web developer with a knack for creating
                         clean, efficient, and user-friendly websites. With

@@ -2,7 +2,6 @@
 
 import {
     ScrollText,
-    Hand,
     Copy,
     ArrowUpRight,
     Globe,
@@ -17,6 +16,10 @@ import Footer from "./sections/footer";
 import { useCopyEmail } from "./hooks/useCopyEmail";
 import Image from "next/image";
 import handEmoji from "@/assets/hand_emoji.png";
+import { useState } from "react";
+
+import siteSelectImage from "@/assets/siteselect.png";
+// import fridgeFolioImage from "@/assets/fridgefolio.png";
 
 interface ProjectCardProps {
     abbreviation: string;
@@ -26,6 +29,7 @@ interface ProjectCardProps {
     technologies: string[];
     githubUrl?: string;
     liveUrl?: string;
+    image: StaticImageData;
 }
 
 const ProjectCard = ({
@@ -36,7 +40,8 @@ const ProjectCard = ({
     technologies,
     githubUrl,
     liveUrl,
-}: ProjectCardProps) => {
+    image,
+}: ProjectCardProps & { image: StaticImageData }) => {
     return (
         <div className="mb-8">
             <div className="flex justify-between items-start mb-4">
@@ -95,8 +100,20 @@ const ProjectCard = ({
                     {longDescription}
                 </p>
             </div>
-            <div className="w-full">
-                <div className="w-full h-96 bg-gray-100 rounded-md"></div>
+            <div className="w-full h-96 bg-gray-200 rounded-xl flex justify-center items-center overflow-hidden border border-gray-300">
+                <Link
+                    href={liveUrl ?? "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <Image
+                        src={image ?? "/placeholder-image.jpg"}
+                        alt={`${title} project screenshot`}
+                        width={575}
+                        height={400}
+                        className="h-auto max-w-full max-h-full object-contain rounded-lg border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer"
+                    />
+                </Link>
             </div>
         </div>
     );
@@ -117,7 +134,7 @@ export default function Home() {
                         alt="Hand emoji"
                         width={38}
                         height={38}
-                        className="hover:animate-wave cursor-pointer mb-2 cursor-default"
+                        className="hover:animate-wave cursor-default mb-2"
                     />
                     <h1 className="text-5xl font-bold mb-2">
                         Hey, I'm Linards
@@ -145,9 +162,9 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section id="projects" className="mb-12">
+                <section id="projects" className="mb-12 scroll-mt-4">
                     <Link href="#projects">
-                        <div className="flex items-center space-x-2 mb-4">
+                        <div className="flex items-center space-x-2 mb-4 cursor-default">
                             <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
                                 My Projects
                             </span>
@@ -167,6 +184,7 @@ export default function Home() {
                         technologies={["SCSS/SASS", "JavaScript", "GSAP"]}
                         githubUrl="https://github.com/lmeisters/SiteSelect"
                         liveUrl="https://siteselect.vercel.app/"
+                        image={siteSelectImage}
                     />
                     <ProjectCard
                         abbreviation="FF"
@@ -180,6 +198,7 @@ export default function Home() {
                         ]}
                         githubUrl="https://github.com/lmeisters/FridgeFolio"
                         liveUrl="https://siteselect.vercel.app/"
+                        image={siteSelectImage}
                     />
                 </section>
 
@@ -190,7 +209,7 @@ export default function Home() {
                         </span>
                     </div>
 
-                    <h2 className="text-2xl font-bold mb-2">About Me</h2>
+                    <h2 className="text-3xl font-bold mb-2">About Me</h2>
                     <p className="text-gray-600 mb-4">
                         I'm a passionate web developer with a knack for creating
                         clean, efficient, and user-friendly websites. With
