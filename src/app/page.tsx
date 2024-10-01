@@ -15,6 +15,8 @@ import Header from "./sections/header";
 import Contact from "./sections/contact";
 import Footer from "./sections/footer";
 import { useCopyEmail } from "./hooks/useCopyEmail";
+import Image from "next/image";
+import handEmoji from "@/assets/hand_emoji.png";
 
 interface ProjectCardProps {
     abbreviation: string;
@@ -110,7 +112,13 @@ export default function Home() {
 
             <main>
                 <section className="mb-12">
-                    <Hand className="w-8 h-8 mb-4" />
+                    <Image
+                        src={handEmoji}
+                        alt="Hand emoji"
+                        width={38}
+                        height={38}
+                        className="hover:animate-wave cursor-pointer mb-2 cursor-default"
+                    />
                     <h1 className="text-5xl font-bold mb-2">
                         Hey, I'm Linards
                     </h1>
