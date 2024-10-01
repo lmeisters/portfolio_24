@@ -1,15 +1,28 @@
-const Footer = () => {
-    const currentDate = new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
+import { Linkedin, Github } from "lucide-react";
 
+const Footer = () => {
     return (
         <footer className="mt-12 text-sm text-gray-600">
             <hr className="mb-4" />
-            <div className="flex flex-row justify-between">
-                <p>{currentDate}</p>
+            <div className="flex flex-row justify-between items-center">
+                <div className="flex space-x-4">
+                    <a
+                        href="https://www.linkedin.com/in/lmeisters"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-500 hover:text-gray-700"
+                    >
+                        <Linkedin size={20} />
+                    </a>
+                    <a
+                        href="https://github.com/lmeisters"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-500 hover:text-gray-700"
+                    >
+                        <Github size={20} />
+                    </a>
+                </div>
 
                 <p>&copy; Linards M. {new Date().getFullYear()}</p>
             </div>
