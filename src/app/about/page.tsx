@@ -5,6 +5,11 @@ import Header from "../sections/header";
 import { useState, useEffect, useRef } from "react";
 import Matter from "matter-js";
 import Footer from "../sections/footer";
+import Image from "next/image";
+
+import mykoobLogo from "@/assets/mykoob_logo.webp";
+import udemyLogo from "@/assets/udemy_logo.svg";
+import rtuLogo from "@/assets/rtu_logo.svg";
 
 interface PhysicsSkillProps {
     name: string;
@@ -128,11 +133,25 @@ interface TimelineItemProps {
     title: string;
     subtitle: string;
     year: number | string;
+    imageSrc: string;
 }
 
-const TimelineItem = ({ title, subtitle, year }: TimelineItemProps) => (
+const TimelineItem = ({
+    title,
+    subtitle,
+    year,
+    imageSrc,
+}: TimelineItemProps) => (
     <div className="flex items-start space-x-4 mb-4">
-        <div className="w-2 h-2 bg-gray-300 rounded-full mt-2"></div>
+        <div className="w-12 h-12 relative flex-shrink-0 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
+            <Image
+                src={imageSrc}
+                alt={title}
+                width={imageSrc.includes("udemy") ? 20 : 36}
+                height={imageSrc.includes("udemy") ? 20 : 36}
+                className="rounded-full"
+            />
+        </div>
         <div className="flex-grow">
             <h3 className="font-medium">{title}</h3>
             <p className="text-gray-600">{subtitle}</p>
@@ -222,11 +241,13 @@ const About = () => {
                         title="Riga Technical University"
                         subtitle="Master's Degree of Computer Science"
                         year="2023 - present"
+                        imageSrc={rtuLogo.src}
                     />
                     <TimelineItem
                         title="Riga Technical University"
                         subtitle="Bachelor's Degree of Computer Science"
                         year="2016 - 2020"
+                        imageSrc={rtuLogo.src}
                     />
                 </section>
 
@@ -236,6 +257,7 @@ const About = () => {
                         title="Mykoob"
                         subtitle="Front-end Developer Internship"
                         year={2024}
+                        imageSrc={mykoobLogo.src}
                     />
                 </section>
 
@@ -245,21 +267,25 @@ const About = () => {
                         title="The Web Developer Bootcamp 2024"
                         subtitle="HTML5 CSS3 JavaScript React.js Node.js Express.js MongoDB"
                         year={2024}
+                        imageSrc={udemyLogo.src}
                     />
                     <TimelineItem
                         title="Advanced CSS and Sass"
                         subtitle="SCSS/SASS Flexbox Grid"
                         year={2024}
+                        imageSrc={udemyLogo.src}
                     />
                     <TimelineItem
                         title="The Complete JavaScript Course 2024"
                         subtitle="Udemy"
                         year={2024}
+                        imageSrc={udemyLogo.src}
                     />
                     <TimelineItem
                         title="Web risinājumu izstrāde"
                         subtitle="Remote"
                         year={2022}
+                        imageSrc={udemyLogo.src}
                     />
                 </section>
             </main>

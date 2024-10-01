@@ -15,9 +15,9 @@ import Contact from "./sections/contact";
 import Footer from "./sections/footer";
 import { useCopyEmail } from "./hooks/useCopyEmail";
 import Image from "next/image";
-import handEmoji from "@/assets/hand_emoji.png";
-import { useState } from "react";
+import { StaticImageData } from "next/image";
 
+import handEmoji from "@/assets/hand_emoji.png";
 import siteSelectImage from "@/assets/siteselect.png";
 // import fridgeFolioImage from "@/assets/fridgefolio.png";
 
@@ -100,7 +100,7 @@ const ProjectCard = ({
                     {longDescription}
                 </p>
             </div>
-            <div className="w-full h-96 bg-gray-200 rounded-xl flex justify-center items-center overflow-hidden border border-gray-300">
+            <div className="w-full h-96 bg-gray-200 rounded-lg flex justify-center items-center overflow-hidden">
                 <Link
                     href={liveUrl ?? "#"}
                     target="_blank"
@@ -111,7 +111,7 @@ const ProjectCard = ({
                         alt={`${title} project screenshot`}
                         width={575}
                         height={400}
-                        className="h-auto max-w-full max-h-full object-contain rounded-lg border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer"
+                        className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer"
                     />
                 </Link>
             </div>
