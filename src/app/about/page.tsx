@@ -7,9 +7,11 @@ import Matter from "matter-js";
 import Footer from "../sections/footer";
 import Image from "next/image";
 
+import memoji from "@/assets/memoji.png";
 import mykoobLogo from "@/assets/mykoob_logo.webp";
 import udemyLogo from "@/assets/udemy_logo.svg";
 import rtuLogo from "@/assets/rtu_logo.svg";
+import butsLogo from "@/assets/buts_logo.webp";
 
 interface PhysicsSkillProps {
     name: string;
@@ -143,7 +145,7 @@ const TimelineItem = ({
     imageSrc,
 }: TimelineItemProps) => (
     <div className="flex items-start space-x-4 mb-4">
-        <div className="w-12 h-12 relative flex-shrink-0 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
+        <div className="w-12 h-12 relative flex-shrink-0 rounded-full overflow-hidden bg-white-100 flex items-center justify-center border border-gray-200">
             <Image
                 src={imageSrc}
                 alt={title}
@@ -187,8 +189,8 @@ const About = () => {
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
             <main>
-                <section className="mb-12 flex flex-col md:flex-row">
-                    <div>
+                <section className="mb-12 flex flex-col md:flex-row items-center">
+                    <div className="md:w-2/3">
                         <h1 className="text-4xl font-semibold mb-2">
                             Thanks for stopping by
                         </h1>
@@ -197,7 +199,15 @@ const About = () => {
                             Experiences with Code and Creativity
                         </p>
                     </div>
-                    <img src="/profile.jpg" alt="profile" className="w-1/3" />
+                    <div className="md:w-1/3 flex justify-center">
+                        <Image
+                            src={memoji}
+                            alt="Memoji profile"
+                            width={150}
+                            height={150}
+                            className="rounded-full"
+                        />
+                    </div>
                 </section>
                 <section className="mb-12">
                     <h2 className="text-xl font-bold mb-2">About Me</h2>
@@ -264,8 +274,8 @@ const About = () => {
                 <section className="mb-8">
                     <h2 className="text-xl font-bold mb-4">Courses</h2>
                     <TimelineItem
-                        title="The Web Developer Bootcamp 2024"
-                        subtitle="HTML5 CSS3 JavaScript React.js Node.js Express.js MongoDB"
+                        title="The Complete JavaScript Course 2024"
+                        subtitle="JavaScript"
                         year={2024}
                         imageSrc={udemyLogo.src}
                     />
@@ -276,16 +286,16 @@ const About = () => {
                         imageSrc={udemyLogo.src}
                     />
                     <TimelineItem
-                        title="The Complete JavaScript Course 2024"
-                        subtitle="Udemy"
+                        title="The Web Developer Bootcamp 2024"
+                        subtitle="HTML5 CSS3 JavaScript React.js Node.js Express.js MongoDB"
                         year={2024}
                         imageSrc={udemyLogo.src}
                     />
                     <TimelineItem
                         title="Web risinājumu izstrāde"
-                        subtitle="Remote"
+                        subtitle="Learning CenterBUTS"
                         year={2022}
-                        imageSrc={udemyLogo.src}
+                        imageSrc={butsLogo.src}
                     />
                 </section>
             </main>

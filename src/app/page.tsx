@@ -52,7 +52,7 @@ const ProjectCard = ({
                         )}`}
                     >
                         <div className="flex items-baseline space-x-2 cursor-pointer">
-                            <div className="text-md font-bold border rounded-md px-2 py-1 bg-gray-200 hover:bg-gray-100 hover:border-gray-400 transition-colors duration-300 ease-in-out">
+                            <div className="text-md font-bold border rounded-md px-2 py-1 bg-gray-100 hover:bg-gray-50 hover:border-gray-400 border-gray-200 transition-colors duration-300 ease-in-out">
                                 {abbreviation}
                             </div>
                             <h3 className="text-xl font-bold mb-2 hover:underline">

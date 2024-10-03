@@ -50,3 +50,9 @@ body.dark-mode .border-gray-800 {
 body.dark-mode .text-gray-800 {
     color: #ffffff;
 }
+
+.dm-matter-elem,
+.dm-matter-elem-circle,
+.dm-matter-elem-pill {
+    @apply pointer-events-none whitespace-nowrap;
+}

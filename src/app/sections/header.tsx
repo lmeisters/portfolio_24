@@ -12,9 +12,7 @@ const Header = () => (
 
         <header className="flex justify-between items-center mb-8">
             <Link href="/">
-                <div className="text-md font-semibold border rounded-md p-1 hover:bg-gray-100 hover:border-gray-400 transition-colors duration-300 ease-in-out cursor-pointer">
-                    LM
-                </div>
+                <div className="text-md font-semibold cursor-pointer">LM</div>
             </Link>
             <div className="text-md">
                 <RigaTimeClock />
