@@ -16,6 +16,7 @@ import Footer from "./sections/footer";
 import { useCopyEmail } from "./hooks/useCopyEmail";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
+import Tooltip from "./components/Tooltip";
 
 import handEmoji from "@/assets/hand_emoji.png";
 import siteSelectImage from "@/assets/siteselect.png";
@@ -43,27 +44,6 @@ const ProjectCard = ({
     liveUrl,
     image,
 }: ProjectCardProps & { image: StaticImageData }) => {
-    const [tooltipStyle, setTooltipStyle] = useState({
-        display: "none",
-        left: "0px",
-        top: "0px",
-    });
-
-    const handleMouseMove = useCallback(
-        (e: React.MouseEvent<HTMLAnchorElement>) => {
-            setTooltipStyle({
-                display: "block",
-                left: `${e.clientX + 10}px`,
-                top: `${e.clientY + 10}px`,
-            });
-        },
-        []
-    );
-
-    const handleMouseLeave = useCallback(() => {
-        setTooltipStyle({ display: "none", left: "0px", top: "0px" });
-    }, []);
-
     return (
         <div className="mb-8">
             <div className="flex justify-between items-start mb-4">
@@ -85,22 +65,26 @@ const ProjectCard = ({
                 </div>
                 <div className="flex space-x-2">
                     {githubUrl && (
-                        <Link
-                            href={githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <GitFork className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
-                        </Link>
+                        <Tooltip content="View on GitHub">
+                            <Link
+                                href={githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <GitFork className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
+                            </Link>
+                        </Tooltip>
                     )}
                     {liveUrl && (
-                        <Link
-                            href={liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <Globe className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
-                        </Link>
+                        <Tooltip content="View Live Site">
+                            <Link
+                                href={liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <Globe className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
+                            </Link>
+                        </Tooltip>
                     )}
                 </div>
             </div>
@@ -123,39 +107,23 @@ const ProjectCard = ({
                 </p>
             </div>
             <div className="w-full h-96 bg-gray-200 rounded-lg flex justify-center items-center overflow-hidden">
-                <Link
-                    href={liveUrl ?? "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                >
-                    <Image
-                        src={image ?? "/placeholder-image.jpg"}
-                        alt={`${title} project screenshot`}
-                        width={575}
-                        height={400}
-                        className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer"
-                        loading="lazy"
-                        placeholder="blur"
-                    />
-                    <div
-                        className="tooltip"
-                        style={{
-                            ...tooltipStyle,
-                            position: "fixed",
-                            backgroundColor: "rgba(0, 0, 0, 0.8)",
-                            color: "white",
-                            padding: "5px 10px",
-                            borderRadius: "8px",
-                            fontSize: "14px",
-                            zIndex: 1000,
-                            pointerEvents: "none",
-                        }}
+                <Tooltip content="View Project">
+                    <Link
+                        href={liveUrl ?? "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
-                        Learn More
-                    </div>
-                </Link>
+                        <Image
+                            src={image ?? "/placeholder-image.jpg"}
+                            alt={`${title} project screenshot`}
+                            width={575}
+                            height={400}
+                            className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer"
+                            loading="lazy"
+                            placeholder="blur"
+                        />
+                    </Link>
+                </Tooltip>
             </div>
         </div>
     );
