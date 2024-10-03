@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     House,
     Briefcase,
@@ -16,12 +16,25 @@ export const FloatingNavbar = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [emailCopied, setEmailCopied] = useState(false);
 
+    useEffect(() => {
+        // Load dark mode preference from localStorage
+        const savedDarkMode = localStorage.getItem("darkMode") === "true";
+        setIsDarkMode(savedDarkMode);
+        applyDarkMode(savedDarkMode);
+    }, []);
+
     const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
-        if (isDarkMode) {
-            document.body.classList.remove("dark-mode");
-        } else {
+        const newDarkMode = !isDarkMode;
+        setIsDarkMode(newDarkMode);
+        localStorage.setItem("darkMode", newDarkMode.toString());
+        applyDarkMode(newDarkMode);
+    };
+
+    const applyDarkMode = (darkMode: boolean) => {
+        if (darkMode) {
             document.body.classList.add("dark-mode");
+        } else {
+            document.body.classList.remove("dark-mode");
         }
     };
 
