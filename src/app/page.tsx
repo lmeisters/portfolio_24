@@ -16,11 +16,11 @@ import Footer from "./sections/footer";
 import { useCopyEmail } from "./hooks/useCopyEmail";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
-import Tooltip from "./components/Tooltip";
+import Tooltip from "./components/ToolTip";
 
 import handEmoji from "@/assets/hand_emoji.png";
 import siteSelectImage from "@/assets/siteselect.png";
-import { useCallback, useState } from "react";
+
 // import fridgeFolioImage from "@/assets/fridgefolio.png";
 
 interface ProjectCardProps {
@@ -107,11 +107,11 @@ const ProjectCard = ({
                 </p>
             </div>
             <div className="w-full h-96 bg-gray-200 rounded-lg flex justify-center items-center overflow-hidden">
-                <Tooltip content="View Project">
+                <Tooltip content="Learn More">
                     <Link
-                        href={liveUrl ?? "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href={`/projects/${encodeURIComponent(
+                            title.toLowerCase().replace(/\s+/g, "-")
+                        )}`}
                     >
                         <Image
                             src={image ?? "/placeholder-image.jpg"}
@@ -142,11 +142,10 @@ export default function Home() {
                     <Image
                         src={handEmoji}
                         alt="Hand emoji"
-                        width={38}
-                        height={38}
+                        width={32}
+                        height={32}
                         className="hover:animate-wave cursor-default mb-2"
-                        loading="lazy"
-                        placeholder="blur"
+                        style={{ width: "auto", height: "auto" }}
                     />
                     <h1 className="text-5xl font-bold mb-2">
                         Hey, I'm Linards
@@ -195,6 +194,20 @@ export default function Home() {
                         longDescription="Throughout the years of web development I had collected a lot of website inspiration galleries but couldn't remember what each of them featured. So I made a custom website just to categorise and filter all of them."
                         technologies={["SCSS/SASS", "JavaScript", "GSAP"]}
                         githubUrl="https://github.com/lmeisters/SiteSelect"
+                        liveUrl="https://siteselect.vercel.app/"
+                        image={siteSelectImage}
+                    />
+                    <ProjectCard
+                        abbreviation="FF"
+                        title="FridgeFolio"
+                        description="A recipe sharing platform"
+                        longDescription="I made this website for my mom who loves cooking and sharing her recipes with friends and family. She can easily add, edit and delete recipes, and the website is also hosted on Vercel."
+                        technologies={[
+                            "Tailwind",
+                            "Typescript",
+                            "FreamerMotion",
+                        ]}
+                        githubUrl="https://github.com/lmeisters/FridgeFolio"
                         liveUrl="https://siteselect.vercel.app/"
                         image={siteSelectImage}
                     />

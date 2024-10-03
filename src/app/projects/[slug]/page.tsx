@@ -10,26 +10,21 @@ const projects = [
         id: 1,
         name: "SiteSelect",
         description:
-            "Integrated development environment for web applications. Full stack web development platform that includes code editor, version control, and instant website and API deployment. An I made a custom website just to categorize and filter all of them.",
+            "A curated platform offering a collection of the web's most innovative design galleries. Designed to inspire and elevate web projects, SiteSelect allows users to explore a diverse array of visual references. It features advanced search and filtering, responsive design, and dynamic content loading from a JSON file.",
         year: "2024",
         slug: "siteselect",
         github: "github.com/lmeisters/SiteSelect",
         deployment: "Vercel",
         features: [
-            "Real-time collaborative code editor",
-            "Support for multiple programming languages (Python, JavaScript, Java, C++)",
-            "Integrated terminal and debugger",
-            "Version control with Git integration",
-            "Code completion and intelligent suggestions",
-            "Customizable workspace and theme management",
+            "Curated design galleries from across the web",
+            "Advanced search and filtering tools",
+            "Responsive design for seamless browsing on any device",
+            "Dynamic content loading using JSON data",
         ],
         technologies: [
-            "Frontend: React.js, Redux, Socket.io (client)",
-            "Backend: Node.js, Express.js, Socket.io (server)",
-            "Database: MongoDB",
-            "Authentication: JSON Web Tokens (JWT)",
-            "Version Control: Git",
-            "Code Execution: Docker containers",
+            "Frontend: JavaScript, HTML, SCSS/SASS, GSAP",
+            "Data Handling: Fetch API, Async/Await",
+            "Deployment: Vercel",
         ],
         links: {
             github: "github.com/lmeisters/SiteSelect",
@@ -37,22 +32,20 @@ const projects = [
         challenges: [
             {
                 challenge:
-                    "Implementing real-time collaboration without conflicts",
-                solution: "Operational Transformation algorithm",
+                    "Ensuring smooth performance for dynamic content loading",
+                solution:
+                    "Implemented efficient data fetching with Fetch API and optimized animations using GSAP",
             },
             {
-                challenge: "Secure code execution in isolated environments",
-                solution: "Docker containers with resource limits",
-            },
-            {
-                challenge: "Scalability for concurrent users",
-                solution: "Horizontal scaling with load balancing",
+                challenge: "Responsive design across multiple device sizes",
+                solution:
+                    "Used SCSS/SASS for scalable styling and media queries for responsiveness",
             },
         ],
         futureEnhancements: [
-            "Implement AI-powered code suggestions",
-            "Add support for more programming languages",
-            "Integrate with popular IDEs as a plugin",
+            "Add more filtering options based on design categories",
+            "Incorporate web scraping to automatically update the galleries",
+            "Expand to include user submissions through a form instead of email",
         ],
     },
     {
