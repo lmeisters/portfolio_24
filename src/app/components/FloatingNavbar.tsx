@@ -28,7 +28,7 @@ export const FloatingNavbar = () => {
     const handleCopyEmail = () => {
         navigator.clipboard.writeText("your-email@example.com").then(() => {
             setEmailCopied(true);
-            setTimeout(() => setEmailCopied(false), 2000); // Revert icon after 2 seconds
+            setTimeout(() => setEmailCopied(false), 2000);
         });
     };
 
