@@ -129,13 +129,13 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
                 <div className="grid grid-cols-1 gap-4 mb-6">
                     <div className="flex justify-between items-center border-b border-gray-200 pb-2">
-                        <label className="text-sm font-medium text-gray-700">
+                        <label className="text-sm font-medium text-gray-800">
                             Year
                         </label>
                         <p className="text-sm text-gray-400">{project.year}</p>
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-2">
-                        <label className="text-sm font-medium text-gray-700">
+                        <label className="text-sm font-medium text-gray-800">
                             Live Demo
                         </label>
                         <a
@@ -148,7 +148,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                         </a>
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-2">
-                        <label className="text-sm font-medium text-gray-700">
+                        <label className="text-sm font-medium text-gray-800">
                             Github
                         </label>
                         <a
@@ -161,7 +161,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                         </a>
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-2">
-                        <label className="text-sm font-medium text-gray-700">
+                        <label className="text-sm font-medium text-gray-800">
                             Deployment
                         </label>
                         <p className="text-sm text-gray-400">

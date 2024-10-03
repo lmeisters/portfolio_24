@@ -19,6 +19,7 @@ import { StaticImageData } from "next/image";
 
 import handEmoji from "@/assets/hand_emoji.png";
 import siteSelectImage from "@/assets/siteselect.png";
+import { useCallback, useState } from "react";
 // import fridgeFolioImage from "@/assets/fridgefolio.png";
 
 interface ProjectCardProps {
@@ -42,6 +43,27 @@ const ProjectCard = ({
     liveUrl,
     image,
 }: ProjectCardProps & { image: StaticImageData }) => {
+    const [tooltipStyle, setTooltipStyle] = useState({
+        display: "none",
+        left: "0px",
+        top: "0px",
+    });
+
+    const handleMouseMove = useCallback(
+        (e: React.MouseEvent<HTMLAnchorElement>) => {
+            setTooltipStyle({
+                display: "block",
+                left: `${e.clientX + 10}px`,
+                top: `${e.clientY + 10}px`,
+            });
+        },
+        []
+    );
+
+    const handleMouseLeave = useCallback(() => {
+        setTooltipStyle({ display: "none", left: "0px", top: "0px" });
+    }, []);
+
     return (
         <div className="mb-8">
             <div className="flex justify-between items-start mb-4">
@@ -105,6 +127,8 @@ const ProjectCard = ({
                     href={liveUrl ?? "#"}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
                 >
                     <Image
                         src={image ?? "/placeholder-image.jpg"}
@@ -112,7 +136,25 @@ const ProjectCard = ({
                         width={575}
                         height={400}
                         className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer"
+                        loading="lazy"
+                        placeholder="blur"
                     />
+                    <div
+                        className="tooltip"
+                        style={{
+                            ...tooltipStyle,
+                            position: "fixed",
+                            backgroundColor: "rgba(0, 0, 0, 0.8)",
+                            color: "white",
+                            padding: "5px 10px",
+                            borderRadius: "8px",
+                            fontSize: "14px",
+                            zIndex: 1000,
+                            pointerEvents: "none",
+                        }}
+                    >
+                        Learn More
+                    </div>
                 </Link>
             </div>
         </div>
@@ -135,6 +177,8 @@ export default function Home() {
                         width={38}
                         height={38}
                         className="hover:animate-wave cursor-default mb-2"
+                        loading="lazy"
+                        placeholder="blur"
                     />
                     <h1 className="text-5xl font-bold mb-2">
                         Hey, I'm Linards
@@ -163,13 +207,13 @@ export default function Home() {
                 </section>
 
                 <section id="projects" className="mb-12 scroll-mt-4">
-                    <Link href="#projects">
-                        <div className="flex items-center space-x-2 mb-4 cursor-default">
-                            <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    <div className="flex items-center space-x-2 mb-4">
+                        <Link href="#projects">
+                            <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full cursor-default">
                                 My Projects
                             </span>
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                     <h2 className="text-3xl font-bold mb-2">My latest works</h2>
                     <p className="text-gray-600 mb-8">
                         A Glimpse into My Recent Web Development Projects and

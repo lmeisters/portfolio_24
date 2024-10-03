@@ -54,6 +54,7 @@ body.dark-mode {
     .text-gray-600 {
         color: var(--dark-text-secondary);
     }
+
     .text-gray-800 {
         color: var(--dark-text);
     }
