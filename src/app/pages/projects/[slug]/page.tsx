@@ -114,8 +114,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
     const project = projects[currentProjectIndex];
     const nextProject = projects[(currentProjectIndex + 1) % projects.length];
 
-    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-
     return (
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
@@ -180,7 +178,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                             placeholder="blur"
                         />
                     </div>
-                    <div className="grid grid-cols-2 gap-4 rounded-lg">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-lg">
                         <div className="bg-gray-200 h-96 rounded-lg relative overflow-hidden">
                             <video
                                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
@@ -188,7 +186,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                                 muted
                                 loop
                                 playsInline
-                                onLoadedData={() => setIsVideoLoaded(true)}
                             >
                                 <source
                                     src="/assets/videos/siteselect_search.webm"
@@ -204,7 +201,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                                 muted
                                 loop
                                 playsInline
-                                onLoadedData={() => setIsVideoLoaded(true)}
                             >
                                 <source
                                     src="/assets/videos/siteselect_filters.webm"

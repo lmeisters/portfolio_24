@@ -119,16 +119,15 @@ const PhysicsContainer: React.FC = () => {
                     chamfer: { radius: cornerRadius },
                     render: {
                         fillStyle: theme === "dark" ? "#000000" : "#ffffff",
-                        // Remove strokeStyle and lineWidth from here
                     },
                     restitution: 0.5,
                     friction: 0.1,
                 }
             );
 
-            // @ts-ignore
+            // @ts-expect-error Matter.js types don't include custom properties
             pill.label = language.name;
-            // @ts-ignore
+            // @ts-expect-error Matter.js types don't include custom properties
             pill.isGrabbable = true;
 
             return pill;
@@ -165,7 +164,11 @@ const PhysicsContainer: React.FC = () => {
         });
 
         Events.on(mouseConstraint, "startdrag", (event) => {
-            if (event.body && (event.body as any).isGrabbable) {
+            if (
+                event.body &&
+                (event.body as Matter.Body & { isGrabbable?: boolean })
+                    .isGrabbable
+            ) {
                 document.body.style.cursor = "grabbing";
             }
         });
