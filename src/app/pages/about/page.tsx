@@ -211,16 +211,16 @@ const About = () => {
                 <section className="mb-12">
                     <h2 className="text-xl font-bold mb-2">About Me</h2>
                     <p className="text-gray-600 mb-4">
-                        I'm a passionate web developer with a knack for creating
-                        clean, efficient, and user-friendly websites. With
-                        expertise in front-end and back-end development, I focus
-                        on building responsive, dynamic, and intuitive digital
-                        experiences. I enjoy turning complex problems into
-                        simple, elegant solutions, and I'm always exploring the
-                        latest technologies to stay ahead in the ever-evolving
-                        world of web development. When I'm not coding, you can
-                        find me diving into new design trends or collaborating
-                        on exciting tech projects.
+                        I&apos;m a passionate web developer with a knack for
+                        creating clean, efficient, and user-friendly websites.
+                        With expertise in front-end and back-end development, I
+                        focus on building responsive, dynamic, and intuitive
+                        digital experiences. I enjoy turning complex problems
+                        into simple, elegant solutions, and I&apos;m always
+                        exploring the latest technologies to stay ahead in the
+                        ever-evolving world of web development. When I&apos;m
+                        not coding, you can find me diving into new design
+                        trends or collaborating on exciting tech projects.
                     </p>
                 </section>
 
