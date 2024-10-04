@@ -6,6 +6,7 @@ import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
 import Image from "next/image";
 import siteSelectImage from "@/assets/images/siteselect.png";
+import { useState } from "react";
 
 const projects = [
     {
@@ -113,6 +114,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
     const project = projects[currentProjectIndex];
     const nextProject = projects[(currentProjectIndex + 1) % projects.length];
 
+    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
     return (
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
@@ -179,20 +182,36 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                     </div>
                     <div className="grid grid-cols-2 gap-4 rounded-lg">
                         <div className="bg-gray-200 h-96 rounded-lg relative overflow-hidden">
-                            <Image
-                                src={`/images/projects/${params.slug}/additional-1.jpg`}
-                                alt={`${project.name} additional image 1`}
-                                layout="fill"
-                                objectFit="cover"
-                            />
+                            <video
+                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                onLoadedData={() => setIsVideoLoaded(true)}
+                            >
+                                <source
+                                    src="/assets/videos/siteselect_search.webm"
+                                    type="video/webm"
+                                />
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
-                        <div className="bg-gray-200 h-96 rounded-lg relative overflow-hidden">
-                            <Image
-                                src={`/images/projects/${params.slug}/additional-2.jpg`}
-                                alt={`${project.name} additional image 2`}
-                                layout="fill"
-                                objectFit="cover"
-                            />
+                        <div className="bg-[#F2F2F2] h-96 rounded-lg relative overflow-hidden">
+                            <video
+                                className="absolute top-0 left-0 w-full h-full object-contain"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                onLoadedData={() => setIsVideoLoaded(true)}
+                            >
+                                <source
+                                    src="/assets/videos/siteselect_filters.webm"
+                                    type="video/webm"
+                                />
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </div>
                 </div>

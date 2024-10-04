@@ -4,10 +4,18 @@ import Image from "next/image";
 import { ScrollText, Copy, Check } from "lucide-react";
 import { useCopyEmail } from "../hooks/useCopyEmail";
 import handEmoji from "@/assets/images/hand_emoji.png";
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
     const email = "linards@example.com";
     const { copied, handleCopyEmail } = useCopyEmail(email);
+    const [animate, setAnimate] = useState(false);
+
+    useEffect(() => {
+        setAnimate(true);
+        const timer = setTimeout(() => setAnimate(false), 1000); // Adjust duration as needed
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
         <section className="mb-12">
@@ -16,7 +24,9 @@ export default function HeroSection() {
                 alt="Hand emoji"
                 width={32}
                 height={32}
-                className="hover:animate-wave cursor-default mb-2"
+                className={`cursor-default mb-2 ${
+                    animate ? "animate-wave" : ""
+                } hover:animate-wave`}
                 style={{ width: "auto", height: "auto" }}
             />
             <h1 className="text-5xl font-bold mb-2">Hey, I&apos;m Linards</h1>
