@@ -14,10 +14,10 @@ const Contact = () => {
             </div>
             <h2 className="text-3xl font-bold mb-2">Get in Touch</h2>
             <p className="text-gray-600 mb-6">
-                Feel free to reach out if you're looking for a skilled web
+                Feel free to reach out if you&apos;re looking for a skilled web
                 developer who can bring fresh ideas and technical expertise to
-                your team. I'm always open to discussing new opportunities and
-                collaborations.
+                your team. I&apos;m always open to discussing new opportunities
+                and collaborations.
             </p>
             <button
                 className="px-4 py-2 bg-black text-white rounded-full flex items-center hover:bg-gray-800 transition-colors duration-300 ease-in-out"

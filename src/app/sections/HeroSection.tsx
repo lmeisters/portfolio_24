@@ -19,7 +19,7 @@ export default function HeroSection() {
                 className="hover:animate-wave cursor-default mb-2"
                 style={{ width: "auto", height: "auto" }}
             />
-            <h1 className="text-5xl font-bold mb-2">Hey, I'm Linards</h1>
+            <h1 className="text-5xl font-bold mb-2">Hey, I&apos;m Linards</h1>
             <p className="text-gray-600 mb-4 text-lg">
                 Front-end Developer Crafting Seamless Web Experiences with Code
                 and Creativity
