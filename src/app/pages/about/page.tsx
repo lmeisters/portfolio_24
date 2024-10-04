@@ -4,131 +4,13 @@ import Image from "next/image";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
-import Matter from "matter-js";
+import PhysicsContainer from "@/app/components/PhysicsSimulation";
 
 import memoji from "@/assets/images/memoji.png";
 import mykoobLogo from "@/assets/images/mykoob_logo.webp";
 import udemyLogo from "@/assets/images/udemy_logo.svg";
 import rtuLogo from "@/assets/images/rtu_logo.svg";
 import butsLogo from "@/assets/images/buts_logo.webp";
-
-interface PhysicsSkillProps {
-    name: string;
-    index: number;
-    containerWidth: number;
-    containerHeight: number;
-}
-
-const PhysicsSkill: React.FC<PhysicsSkillProps> = ({
-    name,
-    index,
-    containerWidth,
-    containerHeight,
-}) => {
-    const boxRef = useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [rotation, setRotation] = useState(0);
-
-    useEffect(() => {
-        if (containerWidth === 0 || containerHeight === 0) return;
-
-        const engine = Matter.Engine.create();
-        const world = engine.world;
-
-        const boxWidth = 100;
-        const boxHeight = 40;
-
-        const box = Matter.Bodies.rectangle(
-            Math.random() * (containerWidth - boxWidth) + boxWidth / 2,
-            -50 - index * 30,
-            boxWidth,
-            boxHeight,
-            {
-                restitution: 0.6,
-                friction: 0.1,
-                density: 0.001,
-            }
-        );
-
-        Matter.World.add(world, [
-            box,
-            Matter.Bodies.rectangle(
-                containerWidth / 2,
-                containerHeight,
-                containerWidth,
-                50,
-                { isStatic: true }
-            ),
-            Matter.Bodies.rectangle(
-                0,
-                containerHeight / 2,
-                50,
-                containerHeight,
-                { isStatic: true }
-            ),
-            Matter.Bodies.rectangle(
-                containerWidth,
-                containerHeight / 2,
-                50,
-                containerHeight,
-                { isStatic: true }
-            ),
-        ]);
-
-        const mouse = boxRef.current
-            ? Matter.Mouse.create(boxRef.current)
-            : null;
-        const mouseConstraint = mouse
-            ? Matter.MouseConstraint.create(engine, {
-                  mouse: mouse,
-                  constraint: {
-                      stiffness: 0.2,
-                      render: {
-                          visible: false,
-                      },
-                  },
-              })
-            : null;
-
-        if (mouseConstraint) {
-            Matter.World.add(world, mouseConstraint);
-        }
-
-        const runner = Matter.Runner.create();
-        Matter.Runner.run(runner, engine);
-
-        const render = () => {
-            setPosition({ x: box.position.x, y: box.position.y });
-            setRotation(box.angle);
-            requestAnimationFrame(render);
-        };
-        render();
-
-        return () => {
-            Matter.World.clear(world, false);
-            Matter.Engine.clear(engine);
-            Matter.Runner.stop(runner);
-        };
-    }, [containerWidth, containerHeight, index]);
-
-    return (
-        <div
-            ref={boxRef}
-            style={{
-                position: "absolute",
-                left: `${position.x}px`,
-                top: `${position.y}px`,
-                transform: `translate(-50%, -50%) rotate(${rotation}rad)`,
-                width: "100px",
-                height: "40px",
-                cursor: "grab",
-            }}
-            className="bg-white shadow-md rounded-lg px-4 py-2 text-sm font-medium flex items-center justify-center"
-        >
-            {name}
-        </div>
-    );
-};
 
 interface TimelineItemProps {
     title: string;
@@ -162,28 +44,6 @@ const TimelineItem = ({
 );
 
 const About = () => {
-    const skills = ["JavaScript", "TypeScript", "React", "Node.js"];
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (containerRef.current) {
-                setContainerSize({
-                    width: containerRef.current.offsetWidth,
-                    height: containerRef.current.offsetHeight,
-                });
-            }
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
     return (
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
@@ -226,22 +86,7 @@ const About = () => {
 
                 <section className="mb-8">
                     <h2 className="text-xl font-bold mb-4">My Skills</h2>
-                    <div
-                        ref={containerRef}
-                        className="relative h-64 border-2 border-gray-200 rounded-lg overflow-hidden"
-                    >
-                        {containerSize.width > 0 &&
-                            containerSize.height > 0 &&
-                            skills.map((skill, index) => (
-                                <PhysicsSkill
-                                    key={index}
-                                    name={skill}
-                                    index={index}
-                                    containerWidth={containerSize.width}
-                                    containerHeight={containerSize.height}
-                                />
-                            ))}
-                    </div>
+                    <PhysicsContainer />
                 </section>
 
                 <section className="mb-8">
