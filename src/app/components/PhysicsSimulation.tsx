@@ -123,11 +123,9 @@ const PhysicsContainer: React.FC = () => {
                     restitution: 0.5,
                     friction: 0.1,
                 }
-            );
+            ) as Matter.Body & { label?: string; isGrabbable?: boolean };
 
-            // @ts-expect-error Matter.js types don't include custom properties
             pill.label = language.name;
-            // @ts-expect-error Matter.js types don't include custom properties
             pill.isGrabbable = true;
 
             return pill;
