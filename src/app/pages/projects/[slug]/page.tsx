@@ -6,7 +6,6 @@ import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
 import Image from "next/image";
 import siteSelectImage from "@/assets/images/siteselect.png";
-import { useState } from "react";
 
 const projects = [
     {
