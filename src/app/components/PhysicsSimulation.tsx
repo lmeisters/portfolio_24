@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 import { Events } from "matter-js";
+import { useTheme } from "next-themes"; // Add this import
 
 interface Language {
     name: string;
@@ -8,21 +9,24 @@ interface Language {
 
 const languages: Language[] = [
     { name: "JavaScript" },
-    { name: "Python" },
-    { name: "Java" },
-    { name: "C++" },
-    { name: "Ruby" },
-    { name: "Go" },
-    { name: "Rust" },
+    { name: "Tailwind" },
+    { name: "CSS" },
+    { name: "SCSS/SASS" },
+    { name: "Bootstrap" },
+    { name: "HTML" },
+    { name: "Git" },
     { name: "TypeScript" },
-    { name: "Swift" },
-    { name: "Kotlin" },
+    { name: "NodeJS" },
+    { name: "React" },
+    { name: "Express" },
+    { name: "MongoDB" },
 ];
 
 const PhysicsContainer: React.FC = () => {
     const sceneRef = useRef<HTMLDivElement>(null);
     const engineRef = useRef<Matter.Engine | null>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const { theme } = useTheme(); // Add this line
 
     useEffect(() => {
         const updateDimensions = () => {
@@ -114,8 +118,8 @@ const PhysicsContainer: React.FC = () => {
                 {
                     chamfer: { radius: cornerRadius },
                     render: {
-                        fillStyle: "#000000",
-                        strokeStyle: "transparent",
+                        fillStyle: theme === "dark" ? "#000000" : "#ffffff",
+                        // Remove strokeStyle and lineWidth from here
                     },
                     restitution: 0.5,
                     friction: 0.1,
@@ -125,7 +129,7 @@ const PhysicsContainer: React.FC = () => {
             // @ts-ignore
             pill.label = language.name;
             // @ts-ignore
-            pill.isGrabbable = true; // Add this line to mark pills as grabbable
+            pill.isGrabbable = true;
 
             return pill;
         };
@@ -177,14 +181,13 @@ const PhysicsContainer: React.FC = () => {
         Runner.run(runner, engine);
         Render.run(render);
 
-        // Custom rendering for pill labels
+        // Update the custom rendering for pill labels
         Events.on(render, "afterRender", () => {
             const context = render.context;
             pills.forEach((pill) => {
                 const name = pill.label as string;
                 const fontSize = pillHeight / 2;
                 context.font = `bold ${fontSize}px Poppins`;
-                context.fillStyle = "#ffffff";
                 context.textAlign = "center";
                 context.textBaseline = "middle";
 
@@ -194,6 +197,24 @@ const PhysicsContainer: React.FC = () => {
                 context.save();
                 context.translate(x, y);
                 context.rotate(angle);
+
+                // Draw the pill background and outline
+                context.fillStyle = theme === "dark" ? "#000000" : "#ffffff";
+                context.strokeStyle = "#808080";
+                context.lineWidth = 1;
+                context.beginPath();
+                context.roundRect(
+                    -pillWidth / 2 - pillPaddingX,
+                    -pillHeight / 2 - pillPaddingY,
+                    pillWidth + pillPaddingX * 2,
+                    pillHeight + pillPaddingY * 2,
+                    cornerRadius
+                );
+                context.fill();
+                context.stroke();
+
+                // Draw the text
+                context.fillStyle = theme === "dark" ? "#ffffff" : "#000000";
                 context.fillText(name, 0, 0);
                 context.restore();
             });
@@ -212,7 +233,7 @@ const PhysicsContainer: React.FC = () => {
             render.textures = {};
             document.body.style.cursor = "default"; // Reset cursor on cleanup
         };
-    }, [dimensions]);
+    }, [dimensions, theme]); // Add theme to the dependency array
 
     return (
         <div className="max-w-2xl mx-auto">
