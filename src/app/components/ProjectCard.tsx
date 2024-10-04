@@ -92,13 +92,14 @@ const ProjectCard = ({
                         href={`/pages/projects/${encodeURIComponent(
                             title.toLowerCase().replace(/\s+/g, "-")
                         )}`}
+                        className="flex justify-center"
                     >
                         <Image
                             src={image ?? "/placeholder-image.jpg"}
                             alt={`${title} project screenshot`}
-                            width={575}
+                            width={565}
                             height={400}
-                            className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer"
+                            className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer w-11/12"
                             loading="lazy"
                             placeholder="blur"
                         />

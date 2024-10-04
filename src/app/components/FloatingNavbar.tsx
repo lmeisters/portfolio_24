@@ -46,7 +46,7 @@ export const FloatingNavbar = () => {
     };
 
     return (
-        <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-lg px-6 pt-3 pb-2">
+        <nav className="fixed md:bottom-6 bottom-10 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-lg px-6 pt-3 pb-2">
             <ul className="flex space-x-6 align-baseline">
                 <li>
                     <Link

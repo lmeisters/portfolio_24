@@ -188,7 +188,7 @@ const About = () => {
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
             <main>
-                <section className="mb-12 flex flex-col md:flex-row items-center">
+                <section className="mb-12 flex md:flex-row md:items-center items-start">
                     <div className="md:w-2/3">
                         <h1 className="text-4xl font-semibold mb-2">
                             Thanks for stopping by
@@ -204,7 +204,7 @@ const About = () => {
                             alt="Memoji profile"
                             width={150}
                             height={150}
-                            className="rounded-full"
+                            className="rounded-full w-25 h-25 md:w-[150px] md:h-[150px]"
                         />
                     </div>
                 </section>

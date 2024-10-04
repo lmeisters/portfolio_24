@@ -5,7 +5,7 @@ import Header from "./layout/header";
 import HeroSection from "./sections/HeroSection";
 import ProjectsSection from "./sections/ProjectsSection";
 import AboutSection from "./sections/AboutSection";
-import Contact from "./sections/contact";
+import Contact from "./sections/Contact";
 import Footer from "./layout/footer";
 
 export default function Home() {
