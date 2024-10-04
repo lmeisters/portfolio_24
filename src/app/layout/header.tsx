@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Head from "next/head";
-import RigaTimeClock from "../components/RigaTimeClock";
+import RigaTimeClock from "@/app/components/RigaTimeClock";
 
 const Header = () => (
     <>

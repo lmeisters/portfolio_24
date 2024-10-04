@@ -70,7 +70,7 @@ export const FloatingNavbar = () => {
                 </li>
                 <li>
                     <Link
-                        href="/about"
+                        href="/pages/about"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">

@@ -2,8 +2,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
-import Header from "@/app/sections/header";
-import Footer from "@/app/sections/footer";
+import Header from "@/app/layout/header";
+import Footer from "@/app/layout/footer";
 
 const projects = [
     {

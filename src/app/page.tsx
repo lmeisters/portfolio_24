@@ -10,16 +10,16 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { FloatingNavbar } from "./components/FloatingNavbar";
-import Header from "./sections/header";
+import Header from "./layout/header";
 import Contact from "./sections/contact";
-import Footer from "./sections/footer";
+import Footer from "./layout/footer";
 import { useCopyEmail } from "./hooks/useCopyEmail";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
 import Tooltip from "./components/ToolTip";
 
-import handEmoji from "@/assets/hand_emoji.png";
-import siteSelectImage from "@/assets/siteselect.png";
+import handEmoji from "@/assets/images/hand_emoji.png";
+import siteSelectImage from "@/assets/images/siteselect.png";
 
 // import fridgeFolioImage from "@/assets/fridgefolio.png";
 
@@ -109,7 +109,7 @@ const ProjectCard = ({
             <div className="w-full h-96 bg-gray-200 rounded-lg flex justify-center items-center overflow-hidden">
                 <Tooltip content="Learn More">
                     <Link
-                        href={`/projects/${encodeURIComponent(
+                        href={`/pages/projects/${encodeURIComponent(
                             title.toLowerCase().replace(/\s+/g, "-")
                         )}`}
                     >
@@ -247,7 +247,7 @@ export default function Home() {
                         find me diving into new design trends or collaborating
                         on exciting tech projects.
                     </p>
-                    <Link href="/about" passHref>
+                    <Link href="/pages/about" passHref>
                         <button className="flex items-center text-gray-600 hover:text-black transition-colors duration-300 group">
                             Learn more
                             <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

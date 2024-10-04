@@ -1,17 +1,16 @@
 "use client";
-import React from "react";
-import { FloatingNavbar } from "../components/FloatingNavbar";
-import Header from "../sections/header";
-import { useState, useEffect, useRef } from "react";
-import Matter from "matter-js";
-import Footer from "../sections/footer";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { FloatingNavbar } from "@/app/components/FloatingNavbar";
+import Header from "@/app/layout/header";
+import Footer from "@/app/layout/footer";
+import Matter from "matter-js";
 
-import memoji from "@/assets/memoji.png";
-import mykoobLogo from "@/assets/mykoob_logo.webp";
-import udemyLogo from "@/assets/udemy_logo.svg";
-import rtuLogo from "@/assets/rtu_logo.svg";
-import butsLogo from "@/assets/buts_logo.webp";
+import memoji from "@/assets/images/memoji.png";
+import mykoobLogo from "@/assets/images/mykoob_logo.webp";
+import udemyLogo from "@/assets/images/udemy_logo.svg";
+import rtuLogo from "@/assets/images/rtu_logo.svg";
+import butsLogo from "@/assets/images/buts_logo.webp";
 
 interface PhysicsSkillProps {
     name: string;
