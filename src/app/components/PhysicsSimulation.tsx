@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 import { Events } from "matter-js";
-import { useTheme } from "next-themes"; // Add this import
+import { useTheme } from "next-themes";
+import { MouseConstraint } from "matter-js";
 
 interface Language {
     name: string;
@@ -149,31 +150,41 @@ const PhysicsContainer: React.FC = () => {
             },
         });
 
-        // Add these event listeners after creating the mouseConstraint
-        Events.on(mouseConstraint, "mousemove", (event) => {
-            const mousePosition = event.mouse.position;
-            const hoveredBody = Matter.Query.point(pills, mousePosition)[0];
+        Events.on(
+            mouseConstraint,
+            "mousemove",
+            (event: Matter.IEvent<MouseConstraint>) => {
+                const mousePosition = event.mouse.position;
+                const hoveredBody = Matter.Query.point(pills, mousePosition)[0];
 
-            if (hoveredBody) {
-                document.body.style.cursor = "grab";
-            } else {
+                if (hoveredBody) {
+                    document.body.style.cursor = "grab";
+                } else {
+                    document.body.style.cursor = "default";
+                }
+            }
+        );
+
+        Events.on(
+            mouseConstraint,
+            "startdrag",
+            (event: MouseConstraint.StartDragEvent) => {
+                if (
+                    event.body &&
+                    (event.body as Matter.Body & { isGrabbable?: boolean })
+                        .isGrabbable
+                ) {
+                    document.body.style.cursor = "grabbing";
+                }
+            }
+        );
+        Events.on(
+            mouseConstraint,
+            "enddrag",
+            (event: Matter.IEvent<MouseConstraint>) => {
                 document.body.style.cursor = "default";
             }
-        });
-
-        Events.on(mouseConstraint, "startdrag", (event) => {
-            if (
-                event.body &&
-                (event.body as Matter.Body & { isGrabbable?: boolean })
-                    .isGrabbable
-            ) {
-                document.body.style.cursor = "grabbing";
-            }
-        });
-
-        Events.on(mouseConstraint, "enddrag", () => {
-            document.body.style.cursor = "default";
-        });
+        );
 
         World.add(engine.world, mouseConstraint);
 
@@ -182,7 +193,6 @@ const PhysicsContainer: React.FC = () => {
         Runner.run(runner, engine);
         Render.run(render);
 
-        // Update the custom rendering for pill labels
         Events.on(render, "afterRender", () => {
             const context = render.context;
             pills.forEach((pill) => {
@@ -229,12 +239,12 @@ const PhysicsContainer: React.FC = () => {
             if (render.canvas) {
                 render.canvas.remove();
             }
-            render.canvas = null;
-            render.context = null;
+            render.canvas = null!;
+            render.context = null!;
             render.textures = {};
-            document.body.style.cursor = "default"; // Reset cursor on cleanup
+            document.body.style.cursor = "default";
         };
-    }, [dimensions, theme]); // Add theme to the dependency array
+    }, [dimensions, theme]);
 
     return (
         <div className="max-w-2xl mx-auto">
