@@ -4,6 +4,8 @@ import Link from "next/link";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
+import Image from "next/image";
+import siteSelectImage from "@/assets/images/siteselect.png";
 
 const projects = [
     {
@@ -115,7 +117,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
             <div className="">
-                <h1 className="text-4xl font-semibold mb-4">{project.name}</h1>
+                <h1 className="text-5xl font-semibold mb-4">{project.name}</h1>
                 <p className="text-sm text-gray-600 mb-6">
                     {project.description}
                 </p>
@@ -164,16 +166,40 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 </div>
 
                 <div className="mb-8">
-                    <div className="bg-gray-200 h-96 mb-4 rounded-lg"></div>
+                    <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
+                        <Image
+                            src={siteSelectImage}
+                            alt={`${project.name} main image`}
+                            width={565}
+                            height={400}
+                            className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 w-11/12"
+                            loading="lazy"
+                            placeholder="blur"
+                        />
+                    </div>
                     <div className="grid grid-cols-2 gap-4 rounded-lg">
-                        <div className="bg-gray-200 h-96 rounded-lg"></div>
-                        <div className="bg-gray-200 h-96 rounded-lg"></div>
+                        <div className="bg-gray-200 h-96 rounded-lg relative overflow-hidden">
+                            <Image
+                                src={`/images/projects/${params.slug}/additional-1.jpg`}
+                                alt={`${project.name} additional image 1`}
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                        </div>
+                        <div className="bg-gray-200 h-96 rounded-lg relative overflow-hidden">
+                            <Image
+                                src={`/images/projects/${params.slug}/additional-2.jpg`}
+                                alt={`${project.name} additional image 2`}
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                        </div>
                     </div>
                 </div>
 
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold mb-2">Features</h2>
-                    <ul className="list-decimal pl-5">
+                    <h2 className="text-3xl font-semibold mb-2">Features</h2>
+                    <ul className="list-decimal pl-5 text-gray-600">
                         {project.features.map((feature, index) => (
                             <li key={index}>{feature}</li>
                         ))}
@@ -183,10 +209,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
 
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold mb-2">
+                    <h2 className="text-3xl font-semibold mb-2">
                         Technologies Used
                     </h2>
-                    <ul className="list-disc pl-5">
+                    <ul className="list-disc pl-5 text-gray-600">
                         {project.technologies.map((tech, index) => (
                             <li key={index}>{tech}</li>
                         ))}
@@ -196,8 +222,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
 
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold mb-2">Challenges</h2>
-                    <ul className="list-disc pl-5">
+                    <h2 className="text-3xl font-semibold mb-2">Challenges</h2>
+                    <ul className="list-disc pl-5 text-gray-600">
                         {project.challenges.map((item, index) => (
                             <li key={index}>
                                 <strong>{item.challenge}</strong>
@@ -211,10 +237,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
 
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold mb-2">
+                    <h2 className="text-3xl font-semibold mb-2">
                         Future Enhancements
                     </h2>
-                    <ul className="list-disc pl-5">
+                    <ul className="list-disc pl-5 text-gray-600">
                         {project.futureEnhancements.map(
                             (enhancement, index) => (
                                 <li key={index}>{enhancement}</li>
@@ -227,7 +253,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             </div>
 
             <Link
-                href={`/projects/${
+                href={`/pages/projects/${
                     nextProject?.name?.toLowerCase().replace(/\s+/g, "-") ??
                     "default-slug"
                 }`}

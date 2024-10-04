@@ -17,6 +17,8 @@
     --background-color: var(--light-bg);
     --text-color: var(--light-text);
     --transition-duration: 0.3s;
+    --font-sans: var(--font-poppins);
+    --font-mono: var(--font-fira-code);
 }
 
 body {
@@ -24,6 +26,7 @@ body {
     color: var(--text-color);
     transition: color var(--transition-duration) ease,
         background-color var(--transition-duration) ease;
+    font-family: var(--font-sans);
 }
 
 * {
@@ -84,4 +87,8 @@ body.dark-mode {
     .text-gray-500:hover {
         color: var(--hover-bg);
     }
+}
+
+code {
+    font-family: var(--font-mono);
 }
