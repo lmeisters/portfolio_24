@@ -27,7 +27,7 @@ const PhysicsContainer: React.FC = () => {
     const sceneRef = useRef<HTMLDivElement>(null);
     const engineRef = useRef<Matter.Engine | null>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-    const { theme } = useTheme(); // Add this line
+    const { theme } = useTheme();
 
     useEffect(() => {
         const updateDimensions = () => {
@@ -121,8 +121,9 @@ const PhysicsContainer: React.FC = () => {
                     render: {
                         fillStyle: theme === "dark" ? "#000000" : "#ffffff",
                     },
-                    restitution: 0.5,
-                    friction: 0.1,
+                    restitution: 0.2, // bounce
+                    friction: 0.1, // friction
+                    density: 0.02, // density
                 }
             ) as Matter.Body & { label?: string; isGrabbable?: boolean };
 
@@ -178,13 +179,9 @@ const PhysicsContainer: React.FC = () => {
                 }
             }
         );
-        Events.on(
-            mouseConstraint,
-            "enddrag",
-            (event: Matter.IEvent<MouseConstraint>) => {
-                document.body.style.cursor = "default";
-            }
-        );
+        Events.on(mouseConstraint, "enddrag", () => {
+            document.body.style.cursor = "default";
+        });
 
         World.add(engine.world, mouseConstraint);
 
@@ -192,6 +189,24 @@ const PhysicsContainer: React.FC = () => {
 
         Runner.run(runner, engine);
         Render.run(render);
+
+        const resetPillIfOutOfBounds = (pill: Matter.Body) => {
+            const buffer = 100; // Extra space to allow for some off-screen movement
+            if (
+                pill.position.y > dimensions.height + buffer ||
+                pill.position.x < -buffer ||
+                pill.position.x > dimensions.width + buffer
+            ) {
+                Matter.Body.setPosition(pill, {
+                    x:
+                        Math.random() * (dimensions.width - pillWidth) +
+                        pillWidth / 2,
+                    y: -pillHeight,
+                });
+                Matter.Body.setVelocity(pill, { x: 0, y: 0 });
+                Matter.Body.setAngularVelocity(pill, 0);
+            }
+        };
 
         Events.on(render, "afterRender", () => {
             const context = render.context;
@@ -228,6 +243,9 @@ const PhysicsContainer: React.FC = () => {
                 context.fillStyle = theme === "dark" ? "#ffffff" : "#000000";
                 context.fillText(name, 0, 0);
                 context.restore();
+
+                // Check and reset pill position if out of bounds
+                resetPillIfOutOfBounds(pill);
             });
         });
 
