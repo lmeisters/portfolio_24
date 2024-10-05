@@ -46,15 +46,15 @@ export const FloatingNavbar = () => {
     };
 
     return (
-        <nav className="fixed md:bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-lg px-6 pt-3 pb-2">
-            <ul className="flex space-x-6 align-baseline">
+        <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-lg px-4 sm:px-6 py-2 sm:py-3">
+            <ul className="flex items-center space-x-5 sm:space-x-6">
                 <li>
                     <Link
                         href="/"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
-                            <House size={20} />
+                            <House size={28} className="sm:w-6 sm:h-6" />
                         </div>
                     </Link>
                 </li>
@@ -64,7 +64,7 @@ export const FloatingNavbar = () => {
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
-                            <Briefcase size={20} />
+                            <Briefcase size={28} className="sm:w-6 sm:h-6" />
                         </div>
                     </Link>
                 </li>
@@ -74,7 +74,7 @@ export const FloatingNavbar = () => {
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
-                            <User size={20} />
+                            <User size={28} className="sm:w-6 sm:h-6" />
                         </div>
                     </Link>
                 </li>
@@ -84,7 +84,7 @@ export const FloatingNavbar = () => {
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
-                            <FileText size={20} />
+                            <FileText size={28} className="sm:w-6 sm:h-6" />
                         </div>
                     </a>
                 </li>
@@ -95,23 +95,23 @@ export const FloatingNavbar = () => {
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             {emailCopied ? (
-                                <Check size={20} />
+                                <Check size={28} className="sm:w-6 sm:h-6" />
                             ) : (
-                                <Mail size={20} />
+                                <Mail size={28} className="sm:w-6 sm:h-6" />
                             )}
                         </div>
                     </button>
                 </li>
-                <li>
+                <li className="flex items-center justify-center">
                     <button
                         onClick={toggleDarkMode}
-                        className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
+                        className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300 p-1"
                     >
-                        <div className="transition-transform transform duration-300 hover:scale-110">
+                        <div className="transition-transform transform duration-300 hover:scale-110 flex items-center justify-center">
                             {isDarkMode ? (
-                                <Moon size={20} />
+                                <Moon size={28} className="sm:w-6 sm:h-6" />
                             ) : (
-                                <Sun size={20} />
+                                <Sun size={28} className="sm:w-6 sm:h-6" />
                             )}
                         </div>
                     </button>
