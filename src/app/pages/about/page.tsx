@@ -24,24 +24,27 @@ const TimelineItem = ({
     subtitle,
     year,
     imageSrc,
-}: TimelineItemProps) => (
-    <div className="flex items-start space-x-4 mb-4">
-        <div className="w-12 h-12 relative flex-shrink-0 rounded-full overflow-hidden bg-white-100 flex items-center justify-center border border-gray-200">
-            <Image
-                src={imageSrc}
-                alt={title}
-                width={imageSrc.includes("udemy") ? 20 : 36}
-                height={imageSrc.includes("udemy") ? 20 : 36}
-                className="rounded-full"
-            />
+}: TimelineItemProps) => {
+    return (
+        <div className="flex items-start space-x-4 mb-4">
+            <div className="w-12 h-12 relative flex-shrink-0 rounded-full overflow-hidden bg-white-100 flex items-center justify-center border border-gray-200">
+                <Image
+                    src={imageSrc}
+                    alt={title}
+                    width={48}
+                    height={48}
+                    className="rounded-full w-9 h-9"
+                    style={{ objectFit: "contain" }}
+                />
+            </div>
+            <div className="flex-grow">
+                <h3 className="font-medium">{title}</h3>
+                <p className="text-gray-600">{subtitle}</p>
+            </div>
+            <span className="text-gray-500">{year}</span>
         </div>
-        <div className="flex-grow">
-            <h3 className="font-medium">{title}</h3>
-            <p className="text-gray-600">{subtitle}</p>
-        </div>
-        <span className="text-gray-500">{year}</span>
-    </div>
-);
+    );
+};
 
 const About = () => {
     return (

@@ -26,6 +26,7 @@ const PhysicsContainer: React.FC = () => {
     const engineRef = useRef<Matter.Engine | null>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const { theme } = useTheme();
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const updateDimensions = () => {
@@ -41,6 +42,17 @@ const PhysicsContainer: React.FC = () => {
         window.addEventListener("resize", updateDimensions);
 
         return () => window.removeEventListener("resize", updateDimensions);
+    }, []);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 500);
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+
+        return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
     useEffect(() => {
@@ -205,7 +217,7 @@ const PhysicsContainer: React.FC = () => {
             const context = render.context;
             pills.forEach((pill) => {
                 const name = pill.label as string;
-                const fontSize = pillHeight / 2;
+                const fontSize = isMobile ? pillHeight * 0.75 : pillHeight / 2; // Increase font size for mobile
                 context.font = `bold ${fontSize}px Poppins`;
                 context.textAlign = "center";
                 context.textBaseline = "middle";
@@ -239,6 +251,13 @@ const PhysicsContainer: React.FC = () => {
             });
         });
 
+        // Prevent reset on scroll
+        const handleScroll = () => {
+            Matter.Mouse.clearSourceEvents(mouse);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
         return () => {
             Render.stop(render);
             Runner.stop(runner);
@@ -251,8 +270,9 @@ const PhysicsContainer: React.FC = () => {
             render.context = null!;
             render.textures = {};
             document.body.style.cursor = "default";
+            window.removeEventListener("scroll", handleScroll);
         };
-    }, [dimensions, theme]);
+    }, [dimensions, theme, isMobile]); // Add isMobile to the dependency array
 
     return (
         <div className="max-w-2xl mx-auto">

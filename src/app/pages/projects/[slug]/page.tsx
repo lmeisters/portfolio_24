@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
-import Image from "next/image";
+import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import siteSelectImage from "@/assets/images/siteselect.png";
 
 const projects = [
@@ -167,14 +167,12 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
                 <div className="mb-8">
                     <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
-                        <Image
-                            src={siteSelectImage}
+                        <LazyLoadMedia
+                            src={siteSelectImage.src}
                             alt={`${project.name} main image`}
                             width={565}
                             height={400}
-                            className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 w-11/12"
-                            loading="lazy"
-                            placeholder="blur"
+                            title={project.name}
                         />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-lg">

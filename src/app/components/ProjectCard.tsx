@@ -1,7 +1,8 @@
 import Link from "next/link";
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 import { GitFork, Globe } from "lucide-react";
 import Tooltip from "./ToolTip";
+import LazyLoadImage from "./LazyLoadMedia";
 
 interface ProjectCardProps {
     abbreviation: string;
@@ -94,14 +95,13 @@ const ProjectCard = ({
                         )}`}
                         className="flex justify-center"
                     >
-                        <Image
-                            src={image ?? "/placeholder-image.jpg"}
+                        <LazyLoadImage
+                            src={image ? image.src : "/placeholder-image.jpg"}
                             alt={`${title} project screenshot`}
                             width={565}
                             height={400}
-                            className="h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-transform duration-500 ease-in-out hover:scale-105 cursor-pointer w-11/12"
-                            loading="lazy"
-                            placeholder="blur"
+                            title={title}
+                            applyHoverEffect={true}
                         />
                     </Link>
                 </Tooltip>

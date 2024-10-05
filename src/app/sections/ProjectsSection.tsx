@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ProjectCard from "../components/ProjectCard";
 import siteSelectImage from "@/assets/images/siteselect.png";
+import fridgefolioImage from "@/assets/images/fridgefolio.png";
 
 export default function ProjectsSection() {
     return (
@@ -36,7 +37,7 @@ export default function ProjectsSection() {
                 technologies={["Tailwind", "Typescript", "FreamerMotion"]}
                 githubUrl="https://github.com/lmeisters/FridgeFolio"
                 liveUrl="https://siteselect.vercel.app/"
-                image={siteSelectImage}
+                image={fridgefolioImage}
             />
             <ProjectCard
                 abbreviation="FF"

@@ -24,10 +24,9 @@ export default function HeroSection() {
                 alt="Hand emoji"
                 width={32}
                 height={32}
-                className={`cursor-default mb-2 ${
+                className={`cursor-default mb-2 w-8 h-8 ${
                     animate ? "animate-wave" : ""
                 } hover:animate-wave`}
-                style={{ width: "auto", height: "auto" }}
             />
             <h1 className="text-5xl font-bold mb-2">Hey, I&apos;m Linards</h1>
             <p className="text-gray-600 mb-4 text-lg">
