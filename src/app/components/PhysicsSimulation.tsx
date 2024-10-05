@@ -3,6 +3,7 @@ import Matter from "matter-js";
 import { Events } from "matter-js";
 import { useTheme } from "next-themes";
 import { MouseConstraint } from "matter-js";
+import { useEffect } from "react";
 
 interface Language {
     name: string;
@@ -155,7 +156,7 @@ const PhysicsContainer: React.FC = () => {
             mouseConstraint,
             "mousemove",
             (event: Matter.IEvent<MouseConstraint>) => {
-                const mousePosition = event.mouse.position;
+                const mousePosition = mouseConstraint.mouse.position;
                 const hoveredBody = Matter.Query.point(pills, mousePosition)[0];
 
                 if (hoveredBody) {
