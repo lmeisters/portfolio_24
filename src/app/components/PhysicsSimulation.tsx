@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
-import { Events } from "matter-js";
 import { useTheme } from "next-themes";
-import { MouseConstraint } from "matter-js";
-import { useEffect } from "react";
 
 interface Language {
     name: string;
@@ -122,9 +119,9 @@ const PhysicsContainer: React.FC = () => {
                     render: {
                         fillStyle: theme === "dark" ? "#000000" : "#ffffff",
                     },
-                    restitution: 0.2, // bounce
-                    friction: 0.1, // friction
-                    density: 0.02, // density
+                    restitution: 0.2,
+                    friction: 0.1,
+                    density: 0.02,
                 }
             ) as Matter.Body & { label?: string; isGrabbable?: boolean };
 
@@ -137,7 +134,7 @@ const PhysicsContainer: React.FC = () => {
         const pills = languages.map((lang, index) => {
             const x =
                 Math.random() * (dimensions.width - pillWidth) + pillWidth / 2;
-            const y = -pillHeight * (index + 1); // Start above the container
+            const y = -pillHeight * (index + 1);
             return createPill(x, y, lang);
         });
 
@@ -152,35 +149,30 @@ const PhysicsContainer: React.FC = () => {
             },
         });
 
-        Events.on(
-            mouseConstraint,
-            "mousemove",
-            (event: Matter.IEvent<MouseConstraint>) => {
-                const mousePosition = mouseConstraint.mouse.position;
-                const hoveredBody = Matter.Query.point(pills, mousePosition)[0];
+        Matter.Events.on(mouseConstraint, "mousemove", () => {
+            const mousePosition = mouseConstraint.mouse.position;
+            const hoveredBody = Matter.Query.point(pills, mousePosition)[0];
 
-                if (hoveredBody) {
-                    document.body.style.cursor = "grab";
-                } else {
-                    document.body.style.cursor = "default";
-                }
+            if (hoveredBody) {
+                document.body.style.cursor = "grab";
+            } else {
+                document.body.style.cursor = "default";
             }
-        );
+        });
 
-        Events.on(
-            mouseConstraint,
-            "startdrag",
-            (event: MouseConstraint.StartDragEvent) => {
-                if (
-                    event.body &&
-                    (event.body as Matter.Body & { isGrabbable?: boolean })
-                        .isGrabbable
-                ) {
-                    document.body.style.cursor = "grabbing";
-                }
+        Matter.Events.on(mouseConstraint, "startdrag", () => {
+            if (
+                mouseConstraint.body &&
+                (
+                    mouseConstraint.body as Matter.Body & {
+                        isGrabbable?: boolean;
+                    }
+                ).isGrabbable
+            ) {
+                document.body.style.cursor = "grabbing";
             }
-        );
-        Events.on(mouseConstraint, "enddrag", () => {
+        });
+        Matter.Events.on(mouseConstraint, "enddrag", () => {
             document.body.style.cursor = "default";
         });
 
@@ -192,7 +184,7 @@ const PhysicsContainer: React.FC = () => {
         Render.run(render);
 
         const resetPillIfOutOfBounds = (pill: Matter.Body) => {
-            const buffer = 100; // Extra space to allow for some off-screen movement
+            const buffer = 100;
             if (
                 pill.position.y > dimensions.height + buffer ||
                 pill.position.x < -buffer ||
@@ -209,7 +201,7 @@ const PhysicsContainer: React.FC = () => {
             }
         };
 
-        Events.on(render, "afterRender", () => {
+        Matter.Events.on(render, "afterRender", () => {
             const context = render.context;
             pills.forEach((pill) => {
                 const name = pill.label as string;
@@ -225,7 +217,6 @@ const PhysicsContainer: React.FC = () => {
                 context.translate(x, y);
                 context.rotate(angle);
 
-                // Draw the pill background and outline
                 context.fillStyle = theme === "dark" ? "#000000" : "#ffffff";
                 context.strokeStyle = "#808080";
                 context.lineWidth = 1;
@@ -240,12 +231,10 @@ const PhysicsContainer: React.FC = () => {
                 context.fill();
                 context.stroke();
 
-                // Draw the text
                 context.fillStyle = theme === "dark" ? "#ffffff" : "#000000";
                 context.fillText(name, 0, 0);
                 context.restore();
 
-                // Check and reset pill position if out of bounds
                 resetPillIfOutOfBounds(pill);
             });
         });
@@ -253,7 +242,7 @@ const PhysicsContainer: React.FC = () => {
         return () => {
             Render.stop(render);
             Runner.stop(runner);
-            World.clear(engine.world);
+            World.clear(engine.world, false);
             Engine.clear(engine);
             if (render.canvas) {
                 render.canvas.remove();

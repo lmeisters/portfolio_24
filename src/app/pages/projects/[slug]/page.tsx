@@ -220,8 +220,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                     </ul>
                 </div>
 
-                <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
-
                 <div className="mb-8">
                     <h2 className="text-3xl font-semibold mb-2">
                         Technologies Used
@@ -232,8 +230,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                         ))}
                     </ul>
                 </div>
-
-                <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
 
                 <div className="mb-8">
                     <h2 className="text-3xl font-semibold mb-2">Challenges</h2>
