@@ -7,6 +7,7 @@ import Footer from "@/app/layout/footer";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import siteSelectImage from "@/assets/images/siteselect.png";
 import terrainlyImage from "@/assets/images/terrainly.webp";
+import aiImageGeneratorImage from "@/assets/images/ai_image_generator.webp";
 
 const projects = [
     {
@@ -113,6 +114,62 @@ const projects = [
             // features: "/assets/videos/terrainly_features.webm",
         },
     },
+    {
+        id: 3,
+        name: "AI Image Generator",
+        description:
+            "This project is an AI image generator application built using React, Node.js, Express, and MongoDB. It leverages the DALL-E 2 AI model to create images from user-provided prompts. Users can generate unique images, share them on the website, and browse a community showcase of AI-generated art.",
+        year: "2024",
+        slug: "ai-image-generator",
+        github: "github.com/lmeisters/AI_Image_Generator_Dall-E",
+        liveDemo: "ai-image-generator-dall-e.vercel.app",
+        deployment: "Render",
+        features: [
+            "User registration and authentication",
+            "Create, read, update, and delete (CRUD) parks",
+            "Leave reviews and ratings for parks",
+            "Image upload functionality with Cloudinary",
+            "Interactive map integration using Mapbox",
+            "Responsive design using Bootstrap",
+        ],
+        technologies: [
+            "Backend: Node.js, Express, MongoDB (with Mongoose), Helmet",
+            "Frontend: EJS (Embedded JavaScript), Bootstrap 5, CSS, GSAP",
+            "Authentication: Passport.js",
+            "File Uploads: Multer, Cloudinary",
+            "Mapping: Mapbox API, Mapbox GL JS",
+            "Version Control: Git",
+        ],
+        links: {
+            github: "github.com/lmeisters/AI_Image_Generator_Dall-E",
+        },
+        challenges: [
+            {
+                challenge: "Ensuring secure and efficient user authentication",
+                solution: "Utilized Passport.js for robust authentication",
+            },
+            {
+                challenge: "Handling file uploads and integrating Cloudinary",
+                solution:
+                    "Used Multer for handling file uploads and Cloudinary for image storage and delivery",
+            },
+            {
+                challenge: "Integrating Mapbox for interactive maps",
+                solution:
+                    "Utilized Mapbox GL JS for map rendering and integration",
+            },
+        ],
+        futureEnhancements: [
+            "Enhanced search and filtering options",
+            "User-generated content moderation",
+            "Advanced analytics and reporting tools",
+        ],
+        mainImage: aiImageGeneratorImage,
+        videos: {
+            // demo: "/assets/videos/terrainly_demo.webm",
+            // features: "/assets/videos/terrainly_features.webm",
+        },
+    },
 ];
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
@@ -190,26 +247,23 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                         />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-lg">
-                        {Object.entries(project.videos).map(
-                            ([key, src], index) => (
-                                <div
-                                    key={key}
-                                    className="bg-gray-200 h-96 rounded-lg relative overflow-hidden"
+                        {Object.entries(project.videos).map(([key, src]) => (
+                            <div
+                                key={key}
+                                className="bg-gray-200 h-96 rounded-lg relative overflow-hidden"
+                            >
+                                <video
+                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
                                 >
-                                    <video
-                                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
-                                        autoPlay
-                                        muted
-                                        loop
-                                        playsInline
-                                    >
-                                        <source src={src} type="video/webm" />
-                                        Your browser does not support the video
-                                        tag.
-                                    </video>
-                                </div>
-                            )
-                        )}
+                                    <source src={src} type="video/webm" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        ))}
                     </div>
                 </div>
 

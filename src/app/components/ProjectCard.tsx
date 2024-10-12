@@ -3,9 +3,10 @@ import { StaticImageData } from "next/image";
 import { GitFork, Globe } from "lucide-react";
 import Tooltip from "./ToolTip";
 import LazyLoadImage from "./LazyLoadMedia";
+import Image from "next/image";
 
 interface ProjectCardProps {
-    logo?: string;
+    logo?: string | StaticImageData;
     abbreviation?: string;
     title: string;
     description: string;
@@ -39,10 +40,11 @@ const ProjectCard = ({
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <div className="text-md font-bold border rounded-md px-2 py-1 bg-gray-100 hover:bg-gray-50 hover:border-gray-400 border-gray-200 transition-colors duration-300 ease-in-out flex items-center justify-center min-w-[32px] h-8">
                                 {logo ? (
-                                    <img
+                                    <Image
                                         src={logo}
                                         alt={`${title} logo`}
-                                        className="w-5 h-5"
+                                        width={20}
+                                        height={20}
                                     />
                                 ) : (
                                     abbreviation
