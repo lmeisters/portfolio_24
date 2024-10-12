@@ -8,7 +8,7 @@ const RigaTimeClock = () => {
         const rigaTime = new Date(
             now.toLocaleString("en-US", { timeZone: "Europe/Riga" })
         );
-        return rigaTime.toLocaleTimeString("en-US", {
+        return rigaTime.toLocaleTimeString("en-GB", {
             hour: "2-digit",
             minute: "2-digit",
             hour12: false,

@@ -1,7 +1,10 @@
 import Link from "next/link";
 import ProjectCard from "../components/ProjectCard";
 import siteSelectImage from "@/assets/images/siteselect.png";
-import fridgefolioImage from "@/assets/images/fridgefolio.png";
+import terrainlyImage from "@/assets/images/terrainly.webp";
+import terrainlyLogo from "@/assets/images/terrainly_logo.png";
+import aiImageGeneratorImage from "@/assets/images/ai_image_generator.webp";
+// import fridgefolioImage from "@/assets/images/fridgefolio.png";
 
 export default function ProjectsSection() {
     return (
@@ -23,31 +26,31 @@ export default function ProjectsSection() {
                 abbreviation="SS"
                 title="SiteSelect"
                 description="A curated platform offering a collection of the web's most innovative design galleries"
-                longDescription="Throughout the years of web development I had collected a lot of website inspiration galleries but couldn't remember what each of them featured. So I made a custom website just to categorise and filter all of them."
+                longDescription="I built a custom platform to organize and filter website inspiration galleries I collected over the years, making it easier to find specific design references."
                 technologies={["SCSS/SASS", "JavaScript", "GSAP"]}
                 githubUrl="https://github.com/lmeisters/SiteSelect"
                 liveUrl="https://siteselect.vercel.app/"
                 image={siteSelectImage}
             />
             <ProjectCard
-                abbreviation="FF"
-                title="FridgeFolio"
-                description="A recipe sharing platform"
-                longDescription="I made this website for my mom who loves cooking and sharing her recipes with friends and family. She can easily add, edit and delete recipes, and the website is also hosted on Vercel."
-                technologies={["Tailwind", "Typescript", "FreamerMotion"]}
-                githubUrl="https://github.com/lmeisters/FridgeFolio"
-                liveUrl="https://siteselect.vercel.app/"
-                image={fridgefolioImage}
+                logo={terrainlyLogo.src}
+                title="Terrainly"
+                description="A full stack web app for discovering, reviewing, and managing parks around Latvia."
+                longDescription="I initially built this web app as a course project, but this year I chose to continue developing it to enhance its frontend and expand its functionality."
+                technologies={["EJS", "Javascript", "MongoDB"]}
+                githubUrl="https://github.com/lmeisters/Terrainly"
+                liveUrl="https://terrainly.onrender.com"
+                image={terrainlyImage}
             />
             <ProjectCard
-                abbreviation="FF"
-                title="FridgeFolio"
-                description="A recipe sharing platform"
-                longDescription="I made this website for my mom who loves cooking and sharing her recipes with friends and family. She can easily add, edit and delete recipes, and the website is also hosted on Vercel."
-                technologies={["Tailwind", "Typescript", "FreamerMotion"]}
-                githubUrl="https://github.com/lmeisters/FridgeFolio"
-                liveUrl="https://siteselect.vercel.app/"
-                image={siteSelectImage}
+                abbreviation="IG"
+                title="AI Image Generator"
+                description="Web app that creates and showcases unique images from user prompts."
+                longDescription="I built this app to enhance my full-stack skills and explore AI-powered image generation with DALL-E 2"
+                technologies={["Tailwind", "React", "Node.js"]}
+                githubUrl="https://github.com/lmeisters/AI_Image_Generator_Dall-E"
+                liveUrl="https://ai-image-generator-dall-e.vercel.app/"
+                image={aiImageGeneratorImage}
             />
         </section>
     );

@@ -15,12 +15,7 @@ export default function AboutSection() {
                 I&apos;m a passionate web developer with a knack for creating
                 clean, efficient, and user-friendly websites. With expertise in
                 front-end and back-end development, I focus on building
-                responsive, dynamic, and intuitive digital experiences. I enjoy
-                turning complex problems into simple, elegant solutions, and
-                I&apos;m always exploring the latest technologies to stay ahead
-                in the ever-evolving world of web development. When I&apos;m not
-                coding, you can find me diving into new design trends or
-                collaborating on exciting tech projects.
+                responsive, dynamic, and intuitive digital experiences.
             </p>
             <Link href="/pages/about" passHref>
                 <button className="flex items-center text-gray-600 hover:text-black transition-colors duration-300 group">

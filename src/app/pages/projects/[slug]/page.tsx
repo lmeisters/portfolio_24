@@ -6,6 +6,7 @@ import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import siteSelectImage from "@/assets/images/siteselect.png";
+import terrainlyImage from "@/assets/images/terrainly.webp";
 
 const projects = [
     {
@@ -17,6 +18,7 @@ const projects = [
         slug: "siteselect",
         github: "github.com/lmeisters/SiteSelect",
         deployment: "Vercel",
+        liveDemo: "siteselect-demo.vercel.app",
         features: [
             "Curated design galleries from across the web",
             "Advanced search and filtering tools",
@@ -49,55 +51,67 @@ const projects = [
             "Incorporate web scraping to automatically update the galleries",
             "Expand to include user submissions through a form instead of email",
         ],
+        mainImage: siteSelectImage,
+        videos: {
+            search: "/assets/videos/siteselect_search.webm",
+            filters: "/assets/videos/siteselect_filters.webm",
+        },
     },
     {
         id: 2,
-        name: "FridgeFolio",
+        name: "Terrainly",
         description:
-            "Integrated development environment for web applications. Full stack web development platform that includes code editor, version control, and instant website and API deployment. An I made a custom website just to categorize and filter all of them.",
+            "A full-stack web application that allows users to discover, create, and review parks around Latvia. This application leverages Node.js, Express, and MongoDB to deliver a robust and interactive user experience with features like user authentication, park management, and a review system. This platform is designed to connect nature enthusiasts and provide a comprehensive resource for outdoor adventures in Latvia's beautiful landscapes.",
         year: "2024",
-        slug: "siteselect",
-        github: "github.com/lmeisters/SiteSelect",
-        deployment: "Vercel",
+        slug: "terrainly",
+        github: "github.com/lmeisters/Terrainly",
+        liveDemo: "terrainly.onrender.com",
+        deployment: "Render",
         features: [
-            "Real-time collaborative code editor",
-            "Support for multiple programming languages (Python, JavaScript, Java, C++)",
-            "Integrated terminal and debugger",
-            "Version control with Git integration",
-            "Code completion and intelligent suggestions",
-            "Customizable workspace and theme management",
+            "User registration and authentication",
+            "Create, read, update, and delete (CRUD) parks",
+            "Leave reviews and ratings for parks",
+            "Image upload functionality with Cloudinary",
+            "Interactive map integration using Mapbox",
+            "Responsive design using Bootstrap",
         ],
         technologies: [
-            "Frontend: React.js, Redux, Socket.io (client)",
-            "Backend: Node.js, Express.js, Socket.io (server)",
-            "Database: MongoDB",
-            "Authentication: JSON Web Tokens (JWT)",
+            "Backend: Node.js, Express, MongoDB (with Mongoose), Helmet",
+            "Frontend: EJS (Embedded JavaScript), Bootstrap 5, CSS, GSAP",
+            "Authentication: Passport.js",
+            "File Uploads: Multer, Cloudinary",
+            "Mapping: Mapbox API, Mapbox GL JS",
             "Version Control: Git",
-            "Code Execution: Docker containers",
         ],
         links: {
-            github: "github.com/lmeisters/SiteSelect",
+            github: "github.com/lmeisters/Terrainly",
         },
         challenges: [
             {
-                challenge:
-                    "Implementing real-time collaboration without conflicts",
-                solution: "Operational Transformation algorithm",
+                challenge: "Ensuring secure and efficient user authentication",
+                solution: "Utilized Passport.js for robust authentication",
             },
             {
-                challenge: "Secure code execution in isolated environments",
-                solution: "Docker containers with resource limits",
+                challenge: "Handling file uploads and integrating Cloudinary",
+                solution:
+                    "Used Multer for handling file uploads and Cloudinary for image storage and delivery",
             },
             {
-                challenge: "Scalability for concurrent users",
-                solution: "Horizontal scaling with load balancing",
+                challenge: "Integrating Mapbox for interactive maps",
+                solution:
+                    "Utilized Mapbox GL JS for map rendering and integration",
             },
         ],
         futureEnhancements: [
-            "Implement AI-powered code suggestions",
-            "Add support for more programming languages",
-            "Integrate with popular IDEs as a plugin",
+            "Enhanced search and filtering options",
+            "User-generated content moderation",
+            "Advanced analytics and reporting tools",
         ],
+        mainImage: terrainlyImage,
+        videos: {
+            // demo: "/assets/videos/terrainly_demo.webm",
+            // features: "/assets/videos/terrainly_features.webm",
+        },
     },
 ];
 
@@ -134,12 +148,12 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                             Live Demo
                         </label>
                         <a
-                            href={`https://${params.slug}.vercel.app`}
+                            href={`https://${project.liveDemo}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-gray-400 hover:underline"
                         >
-                            {`${params.slug}.vercel.app`}
+                            {project.liveDemo}
                         </a>
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-2">
@@ -168,44 +182,34 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 <div className="mb-8">
                     <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
                         <LazyLoadMedia
-                            src={siteSelectImage.src}
+                            src={project.mainImage.src}
                             alt={`${project.name} main image`}
-                            width={565}
+                            width={590}
                             height={400}
                             title={project.name}
                         />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-lg">
-                        <div className="bg-gray-200 h-96 rounded-lg relative overflow-hidden">
-                            <video
-                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                            >
-                                <source
-                                    src="/assets/videos/siteselect_search.webm"
-                                    type="video/webm"
-                                />
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div className="bg-[#F2F2F2] h-96 rounded-lg relative overflow-hidden">
-                            <video
-                                className="absolute top-0 left-0 w-full h-full object-contain"
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                            >
-                                <source
-                                    src="/assets/videos/siteselect_filters.webm"
-                                    type="video/webm"
-                                />
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
+                        {Object.entries(project.videos).map(
+                            ([key, src], index) => (
+                                <div
+                                    key={key}
+                                    className="bg-gray-200 h-96 rounded-lg relative overflow-hidden"
+                                >
+                                    <video
+                                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                    >
+                                        <source src={src} type="video/webm" />
+                                        Your browser does not support the video
+                                        tag.
+                                    </video>
+                                </div>
+                            )
+                        )}
                     </div>
                 </div>
 
