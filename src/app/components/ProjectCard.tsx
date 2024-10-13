@@ -2,7 +2,7 @@ import Link from "next/link";
 import { StaticImageData } from "next/image";
 import { GitFork, Globe } from "lucide-react";
 import Tooltip from "./ToolTip";
-import LazyLoadImage from "./LazyLoadMedia";
+import LazyLoadMedia from "./LazyLoadMedia";
 import Image from "next/image";
 
 interface ProjectCardProps {
@@ -107,7 +107,7 @@ const ProjectCard = ({
                         )}`}
                         className="flex justify-center"
                     >
-                        <LazyLoadImage
+                        <LazyLoadMedia
                             src={image ? image.src : "/placeholder-image.jpg"}
                             alt={`${title} project screenshot`}
                             width={565}

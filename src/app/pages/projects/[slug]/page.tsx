@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
-// import LazyLoadMedia from "@/app/components/LazyLoadMedia";
+import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import siteSelectImage from "@/assets/images/siteselect.png";
 import terrainlyImage from "@/assets/images/terrainly.webp";
 import aiImageGeneratorImage from "@/assets/images/ai_image_generator.webp";
@@ -241,24 +241,13 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
                 <div className="mb-8">
                     <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
-                        <video
-                            src={project.mainVideo}
+                        <LazyLoadMedia
+                            src={project.mainVideo ?? ""}
                             width={600}
                             height={400}
                             title={project.name}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="border border-gray-300 rounded-md"
+                            isVideo={true}
                         />
-                        {/* <LazyLoadMedia
-                            src={project.mainImage.src}
-                            alt={`${project.name} main image`}
-                            width={590}
-                            height={400}
-                            title={project.name}
-                        /> */}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-lg">
                         {Object.entries(project.videos).map(([key, src]) => (
@@ -266,16 +255,14 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                                 key={key}
                                 className="bg-gray-200 h-96 rounded-lg relative overflow-hidden"
                             >
-                                <video
-                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
-                                    autoPlay
-                                    muted
-                                    loop
-                                    playsInline
-                                >
-                                    <source src={src} type="video/webm" />
-                                    Your browser does not support the video tag.
-                                </video>
+                                <LazyLoadMedia
+                                    src={src}
+                                    width={400}
+                                    height={300}
+                                    title={`${project.name} - ${key}`}
+                                    isVideo={true}
+                                    // className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
+                                />
                             </div>
                         ))}
                     </div>
