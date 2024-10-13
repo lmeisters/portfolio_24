@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
+import Tooltip from "@/app/components/ToolTip";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import siteSelectImage from "@/assets/images/siteselect.png";
 import terrainlyImage from "@/assets/images/terrainly.webp";
@@ -207,27 +208,49 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                         <label className="text-sm font-medium text-gray-800">
                             Live Demo
                         </label>
-                        <a
-                            href={`https://${project.liveDemo}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm text-gray-400 hover:underline"
-                        >
-                            {project.liveDemo}
-                        </a>
+                        {project.deployment === "Render" ||
+                        project.deployment === "Render & Firebase" ? (
+                            <Tooltip content="Apps on Render need ~40 seconds to spin up">
+                                <a
+                                    href={`https://${project.liveDemo}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-sm text-gray-400 hover:underline"
+                                >
+                                    {project.liveDemo}
+                                </a>
+                            </Tooltip>
+                        ) : (
+                            <Tooltip content="View Live Site">
+                                <a
+                                    href={`https://${project.liveDemo}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-sm text-gray-400 hover:underline"
+                                >
+                                    {project.liveDemo}
+                                </a>
+                            </Tooltip>
+                        )}
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-2">
                         <label className="text-sm font-medium text-gray-800">
                             Github
                         </label>
-                        <a
-                            href={`https://${project.github}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm text-gray-400 hover:underline"
+                        <Tooltip
+                            content={`View Github Repository: ${project.github}`}
                         >
-                            {project.github}
-                        </a>
+                            <a
+                                href={`https://${project.github}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sm text-gray-400 hover:underline truncate max-w-[150px] sm:max-w-none"
+                            >
+                                {project.github.length > 20
+                                    ? `${project.github.substring(0, 30)}...`
+                                    : project.github}
+                            </a>
+                        </Tooltip>
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-2">
                         <label className="text-sm font-medium text-gray-800">
@@ -245,7 +268,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                     </h2>
 
                     {/* Main video */}
-                    <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
+                    <div className="w-full h-auto md:h-96 bg-gray-200 rounded-lg flex justify-center items-center overflow-hidden border border-gray-300 md:border-none mb-4">
                         <LazyLoadMedia
                             src={project.mainVideo ?? ""}
                             width={600}
@@ -270,7 +293,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                     {/* Alternate between videos and other sections */}
                     {Object.entries(project.videos).map(([key, src], index) => (
                         <React.Fragment key={key}>
-                            <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
+                            <div className="w-full h-auto md:h-96 bg-gray-200 rounded-lg flex justify-center items-center overflow-hidden border border-gray-300 md:border-none mb-4">
                                 <LazyLoadMedia
                                     src={src}
                                     width={600}

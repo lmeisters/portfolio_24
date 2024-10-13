@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ReactNode } from "react";
+import React, { useState, useCallback, ReactNode, useEffect } from "react";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link"; // Add this import if using Next.js
 
@@ -10,11 +10,28 @@ interface TooltipProps {
 const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [isMobile, setIsMobile] = useState(false);
 
-    const handleMouseEnter = useCallback((e: React.MouseEvent) => {
-        setIsVisible(true);
-        setPosition({ x: e.clientX, y: e.clientY });
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768); // Adjust this breakpoint as needed
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+
+        return () => window.removeEventListener("resize", checkMobile);
     }, []);
+
+    const handleMouseEnter = useCallback(
+        (e: React.MouseEvent) => {
+            if (!isMobile) {
+                setIsVisible(true);
+                setPosition({ x: e.clientX, y: e.clientY });
+            }
+        },
+        [isMobile]
+    );
 
     const handleMouseLeave = useCallback(() => {
         setIsVisible(false);
@@ -32,7 +49,7 @@ const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
             className="inline-block"
         >
             {children}
-            {isVisible && (
+            {isVisible && !isMobile && (
                 <div
                     className="fixed z-50 px-2 py-1 text-sm text-white bg-black rounded shadow-lg pointer-events-none flex items-center"
                     style={{

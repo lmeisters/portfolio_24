@@ -58,7 +58,7 @@ const ProjectCard = ({
                 </div>
                 <div className="flex space-x-2">
                     {githubUrl && (
-                        <Tooltip content="View on GitHub">
+                        <Tooltip content="View Github Repository">
                             <Link
                                 href={githubUrl}
                                 target="_blank"
@@ -99,20 +99,20 @@ const ProjectCard = ({
                     {longDescription}
                 </p>
             </div>
-            <div className="w-full h-96 bg-gray-200 rounded-lg flex justify-center items-center overflow-hidden">
+            <div className="w-full h-auto md:h-96 bg-gray-200 rounded-lg flex justify-center items-center overflow-hidden border border-gray-300 md:border-none md:p-6">
                 <Tooltip content="Learn More">
                     <Link
                         href={`/pages/projects/${encodeURIComponent(
                             title.toLowerCase().replace(/\s+/g, "-")
                         )}`}
-                        className="flex justify-center group"
+                        className="flex justify-center group w-full h-full"
                     >
                         <LazyLoadMedia
                             src={image ? image.src : "/placeholder-image.jpg"}
                             title={`${title} project screenshot`}
                             width={565}
                             height={400}
-                            className="transition-transform duration-300 group-hover:scale-105"
+                            className="transition-transform duration-300 group-hover:scale-105 w-full h-full object-cover rounded-lg"
                         />
                     </Link>
                 </Tooltip>
