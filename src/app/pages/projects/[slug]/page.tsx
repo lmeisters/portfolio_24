@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
@@ -8,7 +9,6 @@ import Footer from "@/app/layout/footer";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import siteSelectImage from "@/assets/images/siteselect.png";
 import terrainlyImage from "@/assets/images/terrainly.webp";
-import aiImageGeneratorImage from "@/assets/images/ai_image_generator.webp";
 
 const projects = [
     {
@@ -127,52 +127,50 @@ const projects = [
         year: "2024",
         slug: "ai-image-generator",
         github: "github.com/lmeisters/AI_Image_Generator_Dall-E",
-        liveDemo: "ai-image-generator-dall-e.vercel.app",
-        deployment: "Render",
+        liveDemo: "image-generator-beed6.web.app",
+        deployment: "Render & Firebase",
         features: [
-            "User registration and authentication",
-            "Create, read, update, and delete (CRUD) parks",
-            "Leave reviews and ratings for parks",
-            "Image upload functionality with Cloudinary",
-            "Interactive map integration using Mapbox",
-            "Responsive design using Bootstrap",
+            "Image generation using DALL-E 2 AI model",
+            '"Surprise Me" feature for random prompt suggestions',
+            "Community showcase of generated images",
+            "Search functionality to find specific images",
+            "Image download capability",
+            "Responsive design for various screen sizes",
         ],
         technologies: [
-            "Backend: Node.js, Express, MongoDB (with Mongoose), Helmet",
-            "Frontend: EJS (Embedded JavaScript), Bootstrap 5, CSS, GSAP",
-            "Authentication: Passport.js",
-            "File Uploads: Multer, Cloudinary",
-            "Mapping: Mapbox API, Mapbox GL JS",
-            "Version Control: Git",
+            "Backend: Node.js, Express, MongoDB, Mongoose, OpenAI API (for DALL-E 2), Cloudinary (for image storage)",
+            "Frontend: React, React Router, Tailwind CSS, Vite (build tool)",
+            "Other: RESTful API, Axios (for HTTP requests), File-Saver (for image downloads)",
         ],
         links: {
             github: "github.com/lmeisters/AI_Image_Generator_Dall-E",
         },
         challenges: [
             {
-                challenge: "Ensuring secure and efficient user authentication",
-                solution: "Utilized Passport.js for robust authentication",
+                challenge: "Integrating the DALL-E 2 AI model effectively",
+                solution:
+                    "Utilized the OpenAI API to seamlessly incorporate DALL-E 2 functionality",
             },
             {
-                challenge: "Handling file uploads and integrating Cloudinary",
+                challenge: "Managing image storage and retrieval",
                 solution:
-                    "Used Multer for handling file uploads and Cloudinary for image storage and delivery",
+                    "Implemented Cloudinary for efficient image storage and delivery",
             },
             {
-                challenge: "Integrating Mapbox for interactive maps",
+                challenge: "Creating a responsive and intuitive user interface",
                 solution:
-                    "Utilized Mapbox GL JS for map rendering and integration",
+                    "Leveraged React and Tailwind CSS for a flexible and user-friendly design",
             },
         ],
         futureEnhancements: [
-            "Enhanced search and filtering options",
-            "User-generated content moderation",
-            "Advanced analytics and reporting tools",
+            "Implement user accounts and authentication",
+            "Add more AI models for image generation",
+            "Introduce image editing features",
+            "Develop a mobile app version",
         ],
-        mainImage: aiImageGeneratorImage,
+        mainVideo: "/assets/image_gen/ai_image_generator_demo.webm",
         videos: {
-            // demo: "/assets/videos/terrainly_demo.webm",
-            // features: "/assets/videos/terrainly_features.webm",
+            create: "/assets/image_gen/ai_image_generator_create.webm",
         },
     },
 ];
@@ -242,6 +240,11 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 </div>
 
                 <div className="mb-8">
+                    <h2 className="text-3xl font-semibold mb-2">
+                        Project Details
+                    </h2>
+
+                    {/* Main video */}
                     <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
                         <LazyLoadMedia
                             src={project.mainVideo ?? ""}
@@ -251,74 +254,84 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                             isVideo={true}
                         />
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-lg">
-                        {Object.entries(project.videos).map(([key, src]) => (
-                            <div
-                                key={key}
-                                className="bg-gray-200 h-96 rounded-lg relative overflow-hidden"
-                            >
+
+                    {/* Features */}
+                    <div className="mb-8">
+                        <h2 className="text-3xl font-semibold mb-2">
+                            Features
+                        </h2>
+                        <ul className="list-decimal pl-5 text-gray-600">
+                            {project.features.map((feature, index) => (
+                                <li key={index}>{feature}</li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Alternate between videos and other sections */}
+                    {Object.entries(project.videos).map(([key, src], index) => (
+                        <React.Fragment key={key}>
+                            <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
                                 <LazyLoadMedia
                                     src={src}
-                                    width={400}
-                                    height={300}
+                                    width={600}
+                                    height={400}
                                     title={`${project.name} - ${key}`}
                                     isVideo={true}
-                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover "
                                 />
                             </div>
-                        ))}
+
+                            {index === 0 && (
+                                <div className="mb-8">
+                                    <h2 className="text-3xl font-semibold mb-2">
+                                        Technologies Used
+                                    </h2>
+                                    <ul className="list-disc pl-5 text-gray-600">
+                                        {project.technologies.map(
+                                            (tech, index) => (
+                                                <li key={index}>{tech}</li>
+                                            )
+                                        )}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {index === 1 && (
+                                <div className="mb-8">
+                                    <h2 className="text-3xl font-semibold mb-2">
+                                        Challenges
+                                    </h2>
+                                    <ul className="list-disc pl-5 text-gray-600">
+                                        {project.challenges.map(
+                                            (item, index) => (
+                                                <li key={index}>
+                                                    <strong>
+                                                        {item.challenge}
+                                                    </strong>
+                                                    <br />
+                                                    Solution: {item.solution}
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </div>
+                            )}
+                        </React.Fragment>
+                    ))}
+
+                    {/* Future Enhancements */}
+                    <div className="mb-8">
+                        <h2 className="text-3xl font-semibold mb-2">
+                            Future Enhancements
+                        </h2>
+                        <ul className="list-disc pl-5 text-gray-600">
+                            {project.futureEnhancements.map(
+                                (enhancement, index) => (
+                                    <li key={index}>{enhancement}</li>
+                                )
+                            )}
+                        </ul>
                     </div>
                 </div>
-
-                <div className="mb-8">
-                    <h2 className="text-3xl font-semibold mb-2">Features</h2>
-                    <ul className="list-decimal pl-5 text-gray-600">
-                        {project.features.map((feature, index) => (
-                            <li key={index}>{feature}</li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="mb-8">
-                    <h2 className="text-3xl font-semibold mb-2">
-                        Technologies Used
-                    </h2>
-                    <ul className="list-disc pl-5 text-gray-600">
-                        {project.technologies.map((tech, index) => (
-                            <li key={index}>{tech}</li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="mb-8">
-                    <h2 className="text-3xl font-semibold mb-2">Challenges</h2>
-                    <ul className="list-disc pl-5 text-gray-600">
-                        {project.challenges.map((item, index) => (
-                            <li key={index}>
-                                <strong>{item.challenge}</strong>
-                                <br />
-                                Solution: {item.solution}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="bg-gray-200 h-96 mb-8 rounded-lg"></div>
-
-                <div className="mb-8">
-                    <h2 className="text-3xl font-semibold mb-2">
-                        Future Enhancements
-                    </h2>
-                    <ul className="list-disc pl-5 text-gray-600">
-                        {project.futureEnhancements.map(
-                            (enhancement, index) => (
-                                <li key={index}>{enhancement}</li>
-                            )
-                        )}
-                    </ul>
-                </div>
-
-                <div className="bg-gray-200 h-96 rounded-lg"></div>
             </div>
 
             <Link
