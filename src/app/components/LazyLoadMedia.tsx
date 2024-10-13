@@ -3,29 +3,28 @@ import Image from "next/image";
 
 interface LazyLoadMediaProps {
     src: string;
-    alt?: string;
     width: number;
     height: number;
     title: string;
-    applyHoverEffect?: boolean;
     isVideo?: boolean;
+    className?: string;
 }
 
 const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     src,
-    alt,
     width,
     height,
     title,
-    applyHoverEffect = false,
     isVideo = false,
+    className,
 }) => {
     const [isLoading, setIsLoading] = useState(true);
     const videoRef = useRef<HTMLVideoElement>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
         if (isVideo && videoRef.current) {
-            const video = videoRef.current;
+            const video = videoRef.current as HTMLVideoElement;
             const observer = new IntersectionObserver(
                 (entries) => {
                     if (entries[0].isIntersecting) {
@@ -47,52 +46,39 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         setIsLoading(false);
     };
 
-    return (
-        <div
-            className={`relative overflow-hidden w-11/12 ${
-                applyHoverEffect
-                    ? "transition-transform duration-300 ease-in-out hover:scale-105"
-                    : ""
-            }`}
+    const mediaClasses = `
+        h-auto max-w-full max-h-full object-contain rounded-md
+        transition-all duration-500 ease-in-out
+        ${isLoading ? "blur-sm scale-105" : "blur-0 scale-100"}
+        ${className || ""}
+    `;
+
+    return isVideo ? (
+        <video
+            ref={videoRef}
+            width={width}
+            height={height}
+            title={title}
+            className={mediaClasses}
+            onLoadedData={handleLoadComplete}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
         >
-            {isVideo ? (
-                <video
-                    ref={videoRef}
-                    width={width}
-                    height={height}
-                    title={title}
-                    className={`h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-all duration-500 ease-in-out ${
-                        isLoading
-                            ? "scale-110 blur-2xl grayscale"
-                            : "scale-100 blur-0 grayscale-0"
-                    }`}
-                    onLoadedData={handleLoadComplete}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                >
-                    Your browser does not support the video tag.
-                </video>
-            ) : (
-                <Image
-                    src={src || "/placeholder-image.jpg"}
-                    alt={alt || `${title} project screenshot`}
-                    width={width}
-                    height={height}
-                    className={`h-auto max-w-full max-h-full object-contain rounded-md border border-gray-300 transition-all duration-500 ease-in-out ${
-                        isLoading
-                            ? "scale-110 blur-2xl grayscale"
-                            : "scale-100 blur-0 grayscale-0"
-                    }`}
-                    onLoad={handleLoadComplete}
-                />
-            )}
-            {isLoading && (
-                <div className="absolute inset-0 bg-gray-200 animate-pulse" />
-            )}
-        </div>
+            <source src={src} type="video/webm" />
+        </video>
+    ) : (
+        <Image
+            ref={imageRef}
+            src={src || "/placeholder-image.jpg"}
+            alt={title}
+            width={width}
+            height={height}
+            className={mediaClasses}
+            onLoad={handleLoadComplete}
+        />
     );
 };
 

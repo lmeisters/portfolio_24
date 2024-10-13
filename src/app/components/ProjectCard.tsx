@@ -105,15 +105,14 @@ const ProjectCard = ({
                         href={`/pages/projects/${encodeURIComponent(
                             title.toLowerCase().replace(/\s+/g, "-")
                         )}`}
-                        className="flex justify-center"
+                        className="flex justify-center group"
                     >
                         <LazyLoadMedia
                             src={image ? image.src : "/placeholder-image.jpg"}
-                            alt={`${title} project screenshot`}
+                            title={`${title} project screenshot`}
                             width={565}
                             height={400}
-                            title={title}
-                            applyHoverEffect={true}
+                            className="transition-transform duration-300 group-hover:scale-105"
                         />
                     </Link>
                 </Tooltip>

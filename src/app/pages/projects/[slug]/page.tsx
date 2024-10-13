@@ -111,10 +111,12 @@ const projects = [
             "Advanced analytics and reporting tools",
         ],
         mainImage: terrainlyImage,
-        mainVideo: "/assets/videos/terrainly_demo.webm",
+        mainVideo: "/assets/videos/terrainly/terrainly_demo.webm",
         videos: {
-            // demo: "/assets/videos/terrainly_demo.webm",
-            // features: "/assets/videos/terrainly_features.webm",
+            register: "/assets/videos/terrainly/terrainly_register.webm",
+            addPark: "/assets/videos/terrainly/terrainly_add_park.webm",
+            editPark: "/assets/videos/terrainly/terrainly_edit_park.webm",
+            reviewPark: "/assets/videos/terrainly/terrainly_review.webm",
         },
     },
     {
@@ -261,7 +263,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                                     height={300}
                                     title={`${project.name} - ${key}`}
                                     isVideo={true}
-                                    // className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover scale-150"
+                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover "
                                 />
                             </div>
                         ))}
