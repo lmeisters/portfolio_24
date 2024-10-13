@@ -1,10 +1,11 @@
 "use client";
+
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
-import LazyLoadMedia from "@/app/components/LazyLoadMedia";
+// import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import siteSelectImage from "@/assets/images/siteselect.png";
 import terrainlyImage from "@/assets/images/terrainly.webp";
 import aiImageGeneratorImage from "@/assets/images/ai_image_generator.webp";
@@ -53,6 +54,7 @@ const projects = [
             "Expand to include user submissions through a form instead of email",
         ],
         mainImage: siteSelectImage,
+        mainVideo: "/assets/videos/siteselect_main.webm",
         videos: {
             search: "/assets/videos/siteselect_search.webm",
             filters: "/assets/videos/siteselect_filters.webm",
@@ -109,6 +111,7 @@ const projects = [
             "Advanced analytics and reporting tools",
         ],
         mainImage: terrainlyImage,
+        mainVideo: "/assets/videos/terrainly_demo.webm",
         videos: {
             // demo: "/assets/videos/terrainly_demo.webm",
             // features: "/assets/videos/terrainly_features.webm",
@@ -238,13 +241,24 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
                 <div className="mb-8">
                     <div className="bg-gray-200 h-96 mb-4 rounded-lg relative overflow-hidden flex justify-center items-center">
-                        <LazyLoadMedia
+                        <video
+                            src={project.mainVideo}
+                            width={600}
+                            height={400}
+                            title={project.name}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="border border-gray-300 rounded-md"
+                        />
+                        {/* <LazyLoadMedia
                             src={project.mainImage.src}
                             alt={`${project.name} main image`}
                             width={590}
                             height={400}
                             title={project.name}
-                        />
+                        /> */}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-lg">
                         {Object.entries(project.videos).map(([key, src]) => (
