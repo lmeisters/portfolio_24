@@ -30,8 +30,7 @@ export default function HeroSection() {
             />
             <h1 className="text-5xl font-bold mb-2">Hey, I&apos;m Linards</h1>
             <p className="text-gray-600 mb-4 text-lg">
-                Front-end Developer Crafting Seamless Web Experiences with Code
-                and Creativity
+                Front-End Developer creating efficient, user-friendly web applications with modern design.
             </p>
             <div className="flex space-x-2">
                 <button className="px-4 py-2 bg-black text-white rounded-full flex items-center hover:bg-gray-800 transition-colors duration-300 ease-in-out">

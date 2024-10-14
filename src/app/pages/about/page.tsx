@@ -73,17 +73,22 @@ const About = () => {
                 </section>
                 <section className="mb-12">
                     <h2 className="text-xl font-bold mb-2">About Me</h2>
+                    <p className="text-gray-600 mb-2">
+                        I’m a front-end developer with a background in Computer
+                        Science from Riga Technical University, currently
+                        pursuing my Master’s degree. My skills include HTML,
+                        CSS, JavaScript, and TypeScript, along with experience
+                        using frameworks like React, Next.js, and Tailwind.
+                    </p>
                     <p className="text-gray-600 mb-4">
-                        I&apos;m a passionate web developer with a knack for
-                        creating clean, efficient, and user-friendly websites.
-                        With expertise in front-end and back-end development, I
-                        focus on building responsive, dynamic, and intuitive
-                        digital experiences. I enjoy turning complex problems
-                        into simple, elegant solutions, and I&apos;m always
-                        exploring the latest technologies to stay ahead in the
-                        ever-evolving world of web development. When I&apos;m
-                        not coding, you can find me diving into new design
-                        trends or collaborating on exciting tech projects.
+                        During my internship at Mykoob, I built a strong
+                        foundation in SCSS and modern JavaScript, working
+                        through detailed projects that sharpened my coding and
+                        design skills. Outside of work, I create web apps that
+                        solve real-life problems, focusing on clear,
+                        user-centered functionality. I draw design inspiration
+                        from industry trends and continuously refine my approach
+                        to building responsive, well-architected websites.
                     </p>
                 </section>
 

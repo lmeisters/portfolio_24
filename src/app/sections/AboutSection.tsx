@@ -12,10 +12,11 @@ export default function AboutSection() {
 
             <h2 className="text-3xl font-bold mb-2">About Me</h2>
             <p className="text-gray-600 mb-4">
-                I&apos;m a passionate web developer with a knack for creating
-                clean, efficient, and user-friendly websites. With expertise in
-                front-end and back-end development, I focus on building
-                responsive, dynamic, and intuitive digital experiences.
+                I'm a front-end developer focused on building functional,
+                responsive web applications. I enjoy simplifying tasks with
+                custom apps and staying updated on UI/UX trends to improve my
+                designs. I turn inspiration into well-executed, user-centered
+                websites.
             </p>
             <Link href="/pages/about" passHref>
                 <button className="flex items-center text-gray-600 hover:text-black transition-colors duration-300 group">
