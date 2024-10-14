@@ -8,7 +8,6 @@ import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
 import Tooltip from "@/app/components/ToolTip";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
-import siteSelectImage from "@/assets/images/siteselect.png";
 import terrainlyImage from "@/assets/images/terrainly.webp";
 
 const projects = [
@@ -54,11 +53,11 @@ const projects = [
             "Incorporate web scraping to automatically update the galleries",
             "Expand to include user submissions through a form instead of email",
         ],
-        mainImage: siteSelectImage,
-        mainVideo: "/assets/videos/siteselect_main.webm",
+
+        mainVideo: "/assets/siteselect/siteselect_demo.webm",
         videos: {
-            search: "/assets/videos/siteselect_search.webm",
-            filters: "/assets/videos/siteselect_filters.webm",
+            search: "/assets/siteselect/siteselect_search.webm",
+            filters: "/assets/siteselect/siteselect_filter.webm",
         },
     },
     {

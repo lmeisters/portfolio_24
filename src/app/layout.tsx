@@ -11,6 +11,13 @@ const poppins = Poppins({
 export const metadata: Metadata = {
     title: "LM Portfolio",
     description: "Welcome to my portfolio",
+    icons: {
+        icon: [
+            { url: "/favicon.png", sizes: "32x32" },
+            { url: "/icon.png", sizes: "192x192" },
+        ],
+        apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
+    },
 };
 
 export default function RootLayout({

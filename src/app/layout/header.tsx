@@ -8,7 +8,7 @@ const Header = () => (
     <>
         <Head>
             <title>Linards - Portfolio</title>
-            <meta name="description" content="Linards' portfolio" />
+            <meta name="description" content="Linards portfolio" />
         </Head>
 
         <header className="flex justify-between items-center mb-8">

@@ -30,7 +30,7 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
     return (
         <div className="mb-8">
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-center mb-4">
                 <div>
                     <Link
                         href={`/pages/projects/${encodeURIComponent(

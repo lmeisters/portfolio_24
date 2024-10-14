@@ -49,7 +49,7 @@ export default function ProjectsSection() {
                 longDescription="I built this app to enhance my full-stack skills and explore AI-powered image generation with DALL-E 2"
                 technologies={["Tailwind", "React", "Node.js"]}
                 githubUrl="https://github.com/lmeisters/AI_Image_Generator_Dall-E"
-                liveUrl="https://ai-image-generator-dall-e.vercel.app/"
+                liveUrl="https://image-generator-beed6.web.app"
                 image={aiImageGeneratorImage}
             />
         </section>
