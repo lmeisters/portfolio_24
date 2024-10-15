@@ -99,7 +99,7 @@ const About = () => {
                             title="Memoji avatar"
                             width={125}
                             height={125}
-                            className="rounded-full w-full h-auto max-w-[125px]"
+                            className="rounded-full h-auto max-w-[125px]"
                         />
                     </div>
                 </section>
