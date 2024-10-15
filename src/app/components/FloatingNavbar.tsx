@@ -80,7 +80,9 @@ export const FloatingNavbar = () => {
                 </li>
                 <li>
                     <a
-                        href="#resume"
+                        href="https://drive.google.com/file/d/13GIt5G6ntvy689au6VADfyzG9CJBAvqa/view"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
