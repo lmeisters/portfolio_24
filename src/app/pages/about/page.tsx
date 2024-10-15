@@ -6,7 +6,7 @@ import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
 import PhysicsContainer from "@/app/components/PhysicsSimulation";
 
-import memoji from "@/assets/images/memoji.png";
+import avatar from "@/assets/images/avatar.webp";
 import mykoobLogo from "@/assets/images/mykoob_logo.webp";
 import udemyLogo from "@/assets/images/udemy_logo.svg";
 import rtuLogo from "@/assets/images/rtu_logo.svg";
@@ -63,11 +63,11 @@ const About = () => {
                     </div>
                     <div className="md:w-1/3 flex justify-center">
                         <Image
-                            src={memoji}
-                            alt="Memoji profile"
-                            width={150}
-                            height={150}
-                            className="rounded-full w-25 h-25 md:w-[150px] md:h-[150px]"
+                            src={avatar}
+                            alt="Memoji avatar"
+                            width={125}
+                            height={125}
+                            className="rounded-full w-25 h-25 md:w-[125px] md:h-[125px]"
                         />
                     </div>
                 </section>
