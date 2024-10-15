@@ -51,7 +51,6 @@ const projects = [
         futureEnhancements: [
             "Add more filtering options based on design categories",
             "Incorporate web scraping to automatically update the galleries",
-            "Expand to include user submissions through a form instead of email",
         ],
 
         mainVideo: "/assets/siteselect/siteselect_demo.webm",

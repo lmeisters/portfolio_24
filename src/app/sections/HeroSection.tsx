@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ScrollText, Copy, Check } from "lucide-react";
 import { useCopyEmail } from "../hooks/useCopyEmail";
-import handEmoji from "@/assets/images/hand_emoji.png";
+import handEmoji from "@/assets/images/hand_emoji.webp";
 import { useState, useEffect } from "react";
 
 export default function HeroSection() {
