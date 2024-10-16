@@ -146,9 +146,9 @@ const projects = [
         },
         challenges: [
             {
-                challenge: "Integrating the DALL-E 2 AI model effectively",
+                challenge: "Integrating DALL-E 2 AI model effectively",
                 solution:
-                    "Utilized the OpenAI API to seamlessly incorporate DALL-E 2 functionality",
+                    "Utilized OpenAI API to seamlessly incorporate DALL-E 2 functionality",
             },
             {
                 challenge: "Managing image storage and retrieval",
@@ -165,7 +165,6 @@ const projects = [
             "Implement user accounts and authentication",
             "Add more AI models for image generation",
             "Introduce image editing features",
-            "Develop a mobile app version",
         ],
         mainVideo: "/assets/image_gen/ai_image_generator_demo.webm",
         videos: {

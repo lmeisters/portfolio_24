@@ -10,7 +10,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-    title: "Linards M. Portfolio",
+    title: "Linards Meisters | Frontend Developer Portfolio",
     description:
         "Welcome to my portfolio - Showcasing web development projects and skills",
     icons: {
@@ -24,22 +24,22 @@ export const metadata: Metadata = {
         type: "website",
         locale: "en_LV",
         url: "https://portfoliolm.vercel.app",
-        title: "Linards M. Portfolio",
+        title: "Linards Meisters | Frontend Developer Portfolio",
         description:
             "Welcome to my portfolio - Showcasing web development projects and skills",
-        siteName: "Linards M. Portfolio",
+        siteName: "Linards Meisters | Frontend Developer Portfolio",
         images: [
             {
                 url: "/og-image.png",
                 width: 1200,
                 height: 630,
-                alt: "Linards M. Portfolio",
+                alt: "Linards Meisters | Frontend Developer Portfolio",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Linards M. Portfolio",
+        title: "Linards Meisters | Frontend Developer Portfolio",
         description:
             "Welcome to my portfolio - Showcasing web development projects and skills",
         images: ["/og-image.png"],
