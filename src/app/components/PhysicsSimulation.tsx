@@ -8,17 +8,17 @@ interface Language {
 }
 
 const languages: Language[] = [
+    { name: "HTML", category: "frontend" },
     { name: "JavaScript", category: "frontend" },
     { name: "TypeScript", category: "frontend" },
     { name: "React", category: "frontend" },
-    { name: "HTML", category: "frontend" },
-    { name: "NodeJS", category: "backend" },
-    { name: "Express", category: "backend" },
-    { name: "MongoDB", category: "backend" },
-    { name: "Tailwind", category: "styling" },
     { name: "CSS", category: "styling" },
     { name: "SCSS/SASS", category: "styling" },
     { name: "Bootstrap", category: "styling" },
+    { name: "Tailwind", category: "styling" },
+    { name: "NodeJS", category: "backend" },
+    { name: "Express", category: "backend" },
+    { name: "MongoDB", category: "backend" },
     { name: "Git", category: "tools" },
 ];
 

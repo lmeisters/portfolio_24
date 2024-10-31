@@ -15,6 +15,7 @@ interface ProjectCardProps {
     githubUrl?: string;
     liveUrl?: string;
     image: StaticImageData;
+    videoSrc?: string;
 }
 
 const ProjectCard = ({
@@ -27,6 +28,7 @@ const ProjectCard = ({
     githubUrl,
     liveUrl,
     image,
+    videoSrc,
 }: ProjectCardProps) => {
     return (
         <div className="mb-8">
@@ -46,6 +48,10 @@ const ProjectCard = ({
                                         width={24}
                                         height={24}
                                         className="w-6 h-6 object-contain"
+                                        style={{
+                                            width: "auto",
+                                            height: "auto",
+                                        }}
                                     />
                                 ) : (
                                     abbreviation
@@ -110,6 +116,7 @@ const ProjectCard = ({
                     >
                         <LazyLoadMedia
                             src={image ? image.src : "/placeholder-image.jpg"}
+                            videoSrc={videoSrc}
                             title={`${title} project screenshot`}
                             width={565}
                             height={400}

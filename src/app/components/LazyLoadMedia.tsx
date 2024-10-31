@@ -1,94 +1,145 @@
+"use client";
+
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 interface LazyLoadMediaProps {
     src: string;
+    videoSrc?: string;
     width: number;
     height: number;
     title: string;
-    isVideo?: boolean;
     className?: string;
+    isVideo?: boolean;
 }
 
 const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     src,
+    videoSrc,
     width,
     height,
     title,
-    isVideo = false,
     className,
+    isVideo = false,
 }) => {
+    const [isHovering, setIsHovering] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [isInView, setIsInView] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const imageRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
-
-        return () => clearTimeout(timeoutId);
-    }, [src]);
-
-    useEffect(() => {
-        if (isVideo && videoRef.current) {
-            const video = videoRef.current as HTMLVideoElement;
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    if (entries[0].isIntersecting) {
-                        video.src = src;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setIsInView(true);
                         observer.disconnect();
                     }
-                },
-                { threshold: 0.1 }
-            );
-            observer.observe(video);
+                });
+            },
+            { threshold: 0.1 }
+        );
 
-            return () => {
-                observer.unobserve(video);
-            };
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
         }
-    }, [isVideo, src]);
 
-    const handleLoadComplete = () => {
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (isVideo && isInView && videoRef.current) {
+            videoRef.current.play().catch((error) => {
+                console.log("Auto-play failed:", error);
+            });
+        }
+    }, [isVideo, isInView]);
+
+    const handleLoad = () => {
         setIsLoading(false);
+    };
+
+    const handleMouseEnter = () => {
+        if (videoSrc && videoRef.current) {
+            setIsHovering(true);
+            videoRef.current.play();
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (videoSrc && videoRef.current) {
+            setIsHovering(false);
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+        }
     };
 
     const mediaClasses = `
         h-auto max-w-full max-h-full object-contain rounded-md
         transition-all duration-500 ease-in-out
-        ${isLoading ? "blur-sm scale-105" : "blur-0 scale-100"}
+        ${isLoading ? "blur-sm" : "blur-0"}
         ${className || ""}
     `;
 
-    return isVideo ? (
-        <video
-            ref={videoRef}
-            width={width}
-            height={height}
-            title={title}
-            className={mediaClasses}
-            onLoadedData={handleLoadComplete}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
+    // If it's a direct video without preview image
+    if (isVideo) {
+        return (
+            <div ref={containerRef}>
+                {isInView && (
+                    <video
+                        ref={videoRef}
+                        width={width}
+                        height={height}
+                        className={mediaClasses}
+                        muted
+                        playsInline
+                        preload="metadata"
+                        loop
+                        onLoadedData={handleLoad}
+                    >
+                        <source src={src} type="video/webm" />
+                    </video>
+                )}
+            </div>
+        );
+    }
+
+    // For image with optional video hover
+    return (
+        <div
+            ref={containerRef}
+            className="relative w-full h-full"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
-            <source src={src} type="video/webm" />
-        </video>
-    ) : (
-        <Image
-            ref={imageRef}
-            src={src || "/placeholder-image.jpg"}
-            alt={title}
-            width={width}
-            height={height}
-            className={mediaClasses}
-            onLoad={handleLoadComplete}
-            loading="eager"
-            priority={width > 200}
-        />
+            <Image
+                src={src}
+                alt={title}
+                width={width}
+                height={height}
+                className={`${mediaClasses} ${
+                    isHovering ? "opacity-0" : "opacity-100"
+                }`}
+                priority={width > 200}
+                onLoad={handleLoad}
+            />
+            {videoSrc && isInView && (
+                <video
+                    ref={videoRef}
+                    width={width}
+                    height={height}
+                    className={`${mediaClasses} absolute top-0 left-0 ${
+                        isHovering ? "opacity-100" : "opacity-0"
+                    }`}
+                    muted
+                    playsInline
+                    preload="metadata"
+                >
+                    <source src={videoSrc} type="video/webm" />
+                </video>
+            )}
+        </div>
     );
 };
 
