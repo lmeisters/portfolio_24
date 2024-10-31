@@ -37,7 +37,7 @@ export default function HeroSection() {
                 <button
                     onClick={() =>
                         window.open(
-                            "https://drive.google.com/file/d/13GIt5G6ntvy689au6VADfyzG9CJBAvqa/view?usp=sharing",
+                            "https://drive.google.com/file/d/1_uUxYKSwakk_O9ZBZYH-jw03ZaM2X-gN/view",
                             "_blank",
                             "noopener,noreferrer"
                         )
