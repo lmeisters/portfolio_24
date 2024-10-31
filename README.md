@@ -22,4 +22,4 @@ This is a modern, responsive personal portfolio website built with **Next.js** a
 -   Matter.js
 -   next-themes (for dark mode)
 
-![Portfolio Preview](.public/og-image.png)
+![Portfolio Preview](public/og-image.png)
