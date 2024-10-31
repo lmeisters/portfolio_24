@@ -1,5 +1,6 @@
 import { Copy, Check } from "lucide-react";
 import { useCopyEmail } from "../hooks/useCopyEmail";
+import { CopyEmailButton } from "../components/CopyEmailButton";
 
 const Contact = () => {
     const email = "linards@example.com";
@@ -18,17 +19,7 @@ const Contact = () => {
                 development skills. Let's connect and discuss how I can
                 contribute to your team
             </p>
-            <button
-                className="px-4 py-2 bg-black text-white rounded-full flex items-center hover:bg-gray-800 transition-colors duration-300 ease-in-out"
-                onClick={handleCopyEmail}
-            >
-                {copied ? (
-                    <Check className="w-4 h-4 mr-2" />
-                ) : (
-                    <Copy className="w-4 h-4 mr-2" />
-                )}
-                {copied ? "Copied!" : "Copy email"}
-            </button>
+            <CopyEmailButton email={email} variant="default" />
         </section>
     );
 };

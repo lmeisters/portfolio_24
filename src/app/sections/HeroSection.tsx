@@ -1,19 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { ScrollText, Copy, Check } from "lucide-react";
-import { useCopyEmail } from "../hooks/useCopyEmail";
+import { ScrollText } from "lucide-react";
 import handEmoji from "@/assets/images/hand_emoji.webp";
 import { useState, useEffect } from "react";
+import { CopyEmailButton } from "@/app/components/CopyEmailButton";
 
 export default function HeroSection() {
     const email = "linards@example.com";
-    const { copied, handleCopyEmail } = useCopyEmail(email);
     const [animate, setAnimate] = useState(false);
 
     useEffect(() => {
         setAnimate(true);
-        const timer = setTimeout(() => setAnimate(false), 1000); // Adjust duration as needed
+        const timer = setTimeout(() => setAnimate(false), 3000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -47,17 +46,7 @@ export default function HeroSection() {
                     <ScrollText className="w-4 h-4 mr-2" />
                     Resume
                 </button>
-                <button
-                    className="px-4 py-2 border border-gray-300 rounded-full flex items-center hover:bg-gray-100 hover:border-gray-400 transition-colors duration-300 ease-in-out"
-                    onClick={handleCopyEmail}
-                >
-                    {copied ? (
-                        <Check className="w-4 h-4 mr-2" />
-                    ) : (
-                        <Copy className="w-4 h-4 mr-2" />
-                    )}
-                    {copied ? "Copied!" : "Copy email"}
-                </button>
+                <CopyEmailButton email={email} variant="outline" />
             </div>
         </section>
     );
