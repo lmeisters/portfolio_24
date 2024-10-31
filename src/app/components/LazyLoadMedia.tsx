@@ -23,6 +23,14 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     const imageRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timeoutId);
+    }, [src]);
+
+    useEffect(() => {
         if (isVideo && videoRef.current) {
             const video = videoRef.current as HTMLVideoElement;
             const observer = new IntersectionObserver(
@@ -78,6 +86,8 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
             height={height}
             className={mediaClasses}
             onLoad={handleLoadComplete}
+            loading="eager"
+            priority={width > 200}
         />
     );
 };
