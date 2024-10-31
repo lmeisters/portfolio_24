@@ -7,6 +7,7 @@ import Footer from "@/app/layout/footer";
 import PhysicsContainer from "@/app/components/PhysicsSimulation";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import Tooltip from "@/app/components/ToolTip";
+import { useState } from "react";
 
 import avatar from "@/assets/images/avatar.webp";
 import mykoobLogo from "@/assets/images/mykoob_logo.webp";
@@ -79,6 +80,8 @@ const TimelineItem = ({
 };
 
 const About = () => {
+    const [showPhysics, setShowPhysics] = useState(true);
+
     return (
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
@@ -86,7 +89,7 @@ const About = () => {
                 <section className="mb-12 flex items-center">
                     <div className="w-2/3 pr-4">
                         <h1 className="text-4xl font-semibold mb-2">
-                            Thanks for stopping by
+                            Thanks for <br /> stopping by
                         </h1>
                         <p className="text-gray-600 mb-4 text-lg">
                             Front-end Developer Crafting Seamless Web
@@ -103,7 +106,7 @@ const About = () => {
                         />
                     </div>
                 </section>
-                <section className="mb-12">
+                <section className="mb-8">
                     <h2 className="text-xl font-bold mb-2">About Me</h2>
                     <p className="text-gray-600 mb-2">
                         I'm a front-end developer with a background in Computer
@@ -112,21 +115,53 @@ const About = () => {
                         CSS, JavaScript, and TypeScript, along with experience
                         using frameworks like React, Next.js, and Tailwind.
                     </p>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 mb-2">
                         During my internship at Mykoob, I built a strong
                         foundation in SCSS and modern JavaScript, working
                         through detailed projects that sharpened my coding and
-                        design skills. Outside of work, I create web apps that
-                        solve real-life problems, focusing on clear,
-                        user-centered functionality. I draw design inspiration
-                        from industry trends and continuously refine my approach
-                        to building responsive, well-architected websites.
+                        design skills.
+                    </p>
+                    <p className="text-gray-600 mb-4">
+                        Outside of work, I create web apps that solve real-life
+                        problems, focusing on clear, user-centered
+                        functionality. I draw design inspiration from industry
+                        trends and continuously refine my approach to building
+                        responsive, well-architected websites.
                     </p>
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-xl font-bold mb-4">My Skills</h2>
-                    <PhysicsContainer />
+                    <div className="flex items-center gap-2 mb-4">
+                        <h2 className="text-xl font-bold">My Skills</h2>
+                        <div className="flex items-center gap-2 ml-auto">
+                            <Tooltip
+                                content={
+                                    showPhysics
+                                        ? "Display skills in a static grid layout"
+                                        : "Enable physics simulation for skill showcase"
+                                }
+                            >
+                                <button
+                                    onClick={() => setShowPhysics(!showPhysics)}
+                                    className="relative inline-flex h-5 w-10 items-center rounded-full transition-colors
+                                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+                                        focus-visible:ring-offset-white
+                                        bg-black"
+                                    role="switch"
+                                    aria-checked={showPhysics}
+                                >
+                                    <span
+                                        className={`${
+                                            showPhysics
+                                                ? "translate-x-6"
+                                                : "translate-x-1"
+                                        } inline-block h-3 w-3 transform rounded-full bg-white transition-transform`}
+                                    />
+                                </button>
+                            </Tooltip>
+                        </div>
+                    </div>
+                    <PhysicsContainer showPhysics={showPhysics} />
                 </section>
 
                 <section className="mb-8">

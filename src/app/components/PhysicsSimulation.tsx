@@ -4,29 +4,35 @@ import { useTheme } from "next-themes";
 
 interface Language {
     name: string;
+    category: "frontend" | "backend" | "styling" | "tools";
 }
 
 const languages: Language[] = [
-    { name: "JavaScript" },
-    { name: "Tailwind" },
-    { name: "CSS" },
-    { name: "SCSS/SASS" },
-    { name: "Bootstrap" },
-    { name: "HTML" },
-    { name: "Git" },
-    { name: "TypeScript" },
-    { name: "NodeJS" },
-    { name: "React" },
-    { name: "Express" },
-    { name: "MongoDB" },
+    { name: "JavaScript", category: "frontend" },
+    { name: "TypeScript", category: "frontend" },
+    { name: "React", category: "frontend" },
+    { name: "HTML", category: "frontend" },
+    { name: "NodeJS", category: "backend" },
+    { name: "Express", category: "backend" },
+    { name: "MongoDB", category: "backend" },
+    { name: "Tailwind", category: "styling" },
+    { name: "CSS", category: "styling" },
+    { name: "SCSS/SASS", category: "styling" },
+    { name: "Bootstrap", category: "styling" },
+    { name: "Git", category: "tools" },
 ];
 
-const PhysicsContainer: React.FC = () => {
+interface PhysicsContainerProps {
+    showPhysics: boolean;
+}
+
+const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
     const sceneRef = useRef<HTMLDivElement>(null);
     const engineRef = useRef<Matter.Engine | null>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const { theme } = useTheme();
     const [isMobile, setIsMobile] = useState(false);
+    const [physicsKey, setPhysicsKey] = useState(0);
 
     useEffect(() => {
         const updateDimensions = () => {
@@ -56,7 +62,8 @@ const PhysicsContainer: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if (dimensions.width === 0 || dimensions.height === 0) return;
+        if (!showPhysics || dimensions.width === 0 || dimensions.height === 0)
+            return;
 
         const Engine = Matter.Engine;
         const Render = Matter.Render;
@@ -66,6 +73,7 @@ const PhysicsContainer: React.FC = () => {
         const Mouse = Matter.Mouse;
         const MouseConstraint = Matter.MouseConstraint;
 
+        // Create new engine
         const engine = Engine.create();
         engineRef.current = engine;
 
@@ -272,13 +280,70 @@ const PhysicsContainer: React.FC = () => {
             document.body.style.cursor = "default";
             window.removeEventListener("scroll", handleScroll);
         };
-    }, [dimensions, theme, isMobile]); // Add isMobile to the dependency array
+    }, [dimensions, theme, isMobile, showPhysics, physicsKey]);
+
+    useEffect(() => {
+        if (!showPhysics && engineRef.current) {
+            const engine = engineRef.current;
+            Matter.World.clear(engine.world, false);
+            Matter.Engine.clear(engine);
+        }
+        if (showPhysics) {
+            setPhysicsKey((prev) => prev + 1);
+        }
+    }, [showPhysics]);
+
+    const StaticSkills = () => {
+        const categorizedLanguages = languages.reduce((acc, lang) => {
+            if (!acc[lang.category]) {
+                acc[lang.category] = [];
+            }
+            acc[lang.category].push(lang);
+            return acc;
+        }, {} as Record<string, Language[]>);
+
+        return (
+            <div className="grid grid-cols-1 gap-4">
+                {Object.entries(categorizedLanguages).map(
+                    ([category, items]) => (
+                        <div
+                            key={category}
+                            className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4"
+                        >
+                            <h3 className="text-md font-regular capitalize min-w-[75px]">
+                                {category}:
+                            </h3>
+                            <div className="flex flex-wrap gap-1.5">
+                                {items.map((lang) => (
+                                    <div
+                                        key={lang.name}
+                                        className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-sm font-medium inline-flex items-center"
+                                    >
+                                        {lang.name}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )
+                )}
+            </div>
+        );
+    };
 
     return (
         <div className="max-w-2xl mx-auto">
-            <div className="relative h-64 border border-gray-200 rounded-lg overflow-hidden">
-                <div ref={sceneRef} className="absolute inset-0" />
-            </div>
+            {showPhysics ? (
+                <div
+                    key={physicsKey}
+                    className="relative h-64 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+                >
+                    <div ref={sceneRef} className="absolute inset-0" />
+                </div>
+            ) : (
+                <div>
+                    <StaticSkills />
+                </div>
+            )}
         </div>
     );
 };

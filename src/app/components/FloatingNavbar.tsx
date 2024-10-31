@@ -39,7 +39,7 @@ export const FloatingNavbar = () => {
     };
 
     const handleCopyEmail = () => {
-        navigator.clipboard.writeText("your-email@example.com").then(() => {
+        navigator.clipboard.writeText("linards.meisters@gmail.com").then(() => {
             setEmailCopied(true);
             setTimeout(() => setEmailCopied(false), 2000);
         });
