@@ -4,10 +4,10 @@ import Image from "next/image";
 import { ScrollText } from "lucide-react";
 import handEmoji from "@/assets/images/hand_emoji.webp";
 import { useState, useEffect } from "react";
-import { CopyEmailButton } from "@/app/components/CopyEmailButton";
+import { CopyEmailButton } from "../components/CopyEmailButton";
 
 export default function HeroSection() {
-    const email = "linards@example.com";
+    const email = "linards.meisters@gmail.com";
     const [animate, setAnimate] = useState(false);
 
     useEffect(() => {

@@ -1,10 +1,7 @@
-import { Copy, Check } from "lucide-react";
-import { useCopyEmail } from "../hooks/useCopyEmail";
 import { CopyEmailButton } from "../components/CopyEmailButton";
 
 const Contact = () => {
-    const email = "linards@example.com";
-    const { copied, handleCopyEmail } = useCopyEmail(email);
+    const email = "linards.meisters@gmail.com";
 
     return (
         <section>

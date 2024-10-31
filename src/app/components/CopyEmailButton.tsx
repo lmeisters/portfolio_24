@@ -6,7 +6,7 @@ import confetti from "canvas-confetti";
 
 interface CopyEmailButtonProps {
     email: string;
-    variant?: "default" | "outline" | "ghost";
+    variant?: "default" | "outline";
     className?: string;
 }
 
@@ -43,7 +43,6 @@ export function CopyEmailButton({
         default: "bg-black text-white hover:bg-gray-800",
         outline:
             "border border-gray-300 bg-white hover:bg-gray-100 hover:border-gray-400",
-        ghost: "hover:bg-gray-100",
     };
 
     const baseClasses =
@@ -51,7 +50,7 @@ export function CopyEmailButton({
     const variantClasses = !copied
         ? variants[variant]
         : variant === "default"
-        ? "bg-black text-gray-300"
+        ? "bg-gray-100 text-gray-500"
         : variant === "outline"
         ? "border border-gray-300 bg-white text-gray-500"
         : "bg-gray-100 text-gray-500";
@@ -74,3 +73,5 @@ export function CopyEmailButton({
         </button>
     );
 }
+
+export default CopyEmailButton;

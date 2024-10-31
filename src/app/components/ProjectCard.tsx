@@ -38,13 +38,14 @@ const ProjectCard = ({
                         )}`}
                     >
                         <div className="flex items-center space-x-2 cursor-pointer">
-                            <div className="text-md font-bold border rounded-md px-2 py-1 bg-gray-100 hover:bg-gray-50 hover:border-gray-400 border-gray-200 transition-colors duration-300 ease-in-out flex items-center justify-center min-w-[32px] h-8">
+                            <div className="text-md font-bold border rounded-md px-2 py-1 bg-gray-100 hover:bg-gray-50 hover:border-gray-400 border-gray-200 transition-colors duration-300 ease-in-out flex items-center justify-center w-8 h-8">
                                 {logo ? (
                                     <Image
                                         src={logo}
                                         alt={`${title} logo`}
-                                        width={20}
-                                        height={20}
+                                        width={24}
+                                        height={24}
+                                        className="w-6 h-6 object-contain"
                                     />
                                 ) : (
                                     abbreviation
