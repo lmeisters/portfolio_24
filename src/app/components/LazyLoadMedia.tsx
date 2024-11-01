@@ -78,7 +78,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     const mediaClasses = `
         h-auto max-w-full max-h-full object-contain rounded-md
         transition-all duration-500 ease-in-out
-        ${isLoading ? "blur-sm" : "blur-0"}
+        ${isLoading ? "blur-lg scale-[1.02]" : "blur-0 scale-100"}
         ${className || ""}
     `;
 
@@ -135,6 +135,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                     muted
                     playsInline
                     preload="metadata"
+                    onLoadedData={handleLoad}
                 >
                     <source src={videoSrc} type="video/webm" />
                 </video>
