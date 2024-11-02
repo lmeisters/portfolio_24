@@ -87,22 +87,22 @@ const About = () => {
             <Header />
             <main>
                 <section className="mb-12 flex items-center">
-                    <div className="w-2/3 pr-4">
+                    <div className="w-2/3">
                         <h1 className="text-4xl font-semibold mb-2">
-                            Thanks for <br /> stopping by
+                            Thanks for stopping by
                         </h1>
-                        <p className="text-gray-600 mb-4 text-lg">
+                        <p className="text-gray-600 text-lg">
                             Front-end Developer Crafting Seamless Web
                             Experiences with Code and Creativity
                         </p>
                     </div>
-                    <div className="w-1/3 flex justify-center">
+                    <div className="w-1/3 flex">
                         <LazyLoadMedia
                             src={avatar.src}
                             title="Memoji avatar"
                             width={125}
                             height={125}
-                            className="rounded-full h-auto max-w-[125px]"
+                            className="rounded-full h-auto max-w-[125px] ml-auto"
                         />
                     </div>
                 </section>
@@ -137,8 +137,8 @@ const About = () => {
                             <Tooltip
                                 content={
                                     showPhysics
-                                        ? "Display skills in a static grid layout"
-                                        : "Enable physics simulation for skill showcase"
+                                        ? "Switch to static grid view"
+                                        : "Switch to interactive physics view"
                                 }
                             >
                                 <button
