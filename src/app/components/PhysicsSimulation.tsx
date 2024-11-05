@@ -1,6 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 import { useTheme } from "next-themes";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+    weight: ["400", "700"],
+    subsets: ["latin"],
+    display: "swap",
+});
 
 interface Language {
     name: string;
@@ -85,8 +92,20 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                 height: dimensions.height,
                 wireframes: false,
                 background: "transparent",
+                pixelRatio: window.devicePixelRatio || 1,
+                hasBounds: true,
             },
         });
+
+        // After creating the render, scale the view for high DPI
+        const scaleFactor = window.devicePixelRatio || 1;
+        if (scaleFactor > 1) {
+            render.canvas.style.width = `${dimensions.width}px`;
+            render.canvas.style.height = `${dimensions.height}px`;
+            render.canvas.width = dimensions.width * scaleFactor;
+            render.canvas.height = dimensions.height * scaleFactor;
+            render.context.scale(scaleFactor, scaleFactor);
+        }
 
         const runner = Runner.create();
 
@@ -225,8 +244,8 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             const context = render.context;
             pills.forEach((pill) => {
                 const name = pill.label as string;
-                const fontSize = isMobile ? pillHeight * 0.75 : pillHeight / 2; // Increase font size for mobile
-                context.font = `bold ${fontSize}px Poppins`;
+                const fontSize = isMobile ? pillHeight * 0.75 : pillHeight / 2;
+                context.font = `bold ${fontSize}px ${poppins.style.fontFamily}, -apple-system, system-ui, BlinkMacSystemFont, sans-serif`;
                 context.textAlign = "center";
                 context.textBaseline = "middle";
 
