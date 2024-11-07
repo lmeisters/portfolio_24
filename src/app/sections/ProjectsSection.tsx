@@ -43,7 +43,7 @@ export default function ProjectsSection() {
                 githubUrl="https://github.com/lmeisters/SiteSelect"
                 liveUrl="https://siteselect.vercel.app/"
                 image={siteSelectImage}
-                videoSrc="/assets/siteselect/siteselect_demo.webm"
+                videoSrc="/assets/videos/siteselect/siteselect_demo.webm"
             />
             <ProjectCard
                 logo={terrainlyLogo.src}
@@ -65,7 +65,7 @@ export default function ProjectsSection() {
                 githubUrl="https://github.com/lmeisters/AI_Image_Generator_Dall-E"
                 liveUrl="https://image-generator-beed6.web.app"
                 image={aiImageGeneratorImage}
-                videoSrc="/assets/image_gen/ai_image_generator_demo.webm"
+                videoSrc="/assets/videos/image_gen/ai_image_generator_demo.webm"
             /> */}
         </section>
     );

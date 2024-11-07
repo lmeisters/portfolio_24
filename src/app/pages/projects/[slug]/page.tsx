@@ -109,10 +109,10 @@ const projects = [
             "Incorporate web scraping to automatically update the galleries",
         ],
 
-        mainVideo: "/assets/siteselect/siteselect_demo.webm",
+        mainVideo: "/assets/videos/siteselect/siteselect_demo.webm",
         videos: {
-            search: "/assets/siteselect/siteselect_search.webm",
-            filters: "/assets/siteselect/siteselect_filter.webm",
+            search: "/assets/videos/siteselect/siteselect_search.webm",
+            filters: "/assets/videos/siteselect/siteselect_filter.webm",
         },
     },
     {
@@ -225,9 +225,9 @@ const projects = [
             "Add more AI models for image generation",
             "Introduce image editing features",
         ],
-        mainVideo: "/assets/image_gen/ai_image_generator_demo.webm",
+        mainVideo: "/assets/videos/image_gen/ai_image_generator_demo.webm",
         videos: {
-            create: "/assets/image_gen/ai_image_generator_create.webm",
+            create: "/assets/videos/image_gen/ai_image_generator_create.webm",
         },
     },
 ];
