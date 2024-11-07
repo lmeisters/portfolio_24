@@ -8,11 +8,66 @@ import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
 import Tooltip from "@/app/components/ToolTip";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
-import terrainlyImage from "@/assets/images/terrainly.webp";
 
 const projects = [
     {
         id: 1,
+        name: "PurePlaylist",
+        description:
+            "A Spotify playlist filtering web app that allows users to filter playlists based on various criteria such as genre, mood, and tempo.",
+        year: "2024",
+        slug: "pureplaylist",
+        github: "github.com/lmeisters/PurePlaylist",
+        deployment: "Vercel",
+        liveDemo: "pureplaylist.vercel.app",
+        features: [
+            "Keyword Filtering: Filter songs by specific keywords in titles, genres, or artist names",
+            "Artist and Genre Filtering: Narrow down your playlist by selecting or excluding artists and genres",
+            "User-Friendly Interface: Intuitive modal-based filtering options for seamless interaction",
+            "Responsive Design: Works across all devices—desktop, tablet, and mobile",
+        ],
+        technologies: [
+            "Frontend: React, Next.js, Tailwind CSS, Shadcn UI",
+            "State Management: React Query",
+            "Authentication: Next-Auth",
+            "API Integration: Spotify API",
+            "Deployment: Vercel",
+        ],
+        links: {
+            github: "github.com/lmeisters/PurePlaylist",
+        },
+        challenges: [
+            {
+                challenge:
+                    "Large amount of tracks loading in a timely manner while keeping the user experience smooth",
+                solution:
+                    "Implemented pagination and virtualized lists to handle large playlists efficiently, with loading states and progressive data fetching",
+            },
+            {
+                challenge:
+                    "Making sure all of the tracks in large playlists get filtered, sorted and deleted by the users requests",
+                solution:
+                    "Utilized client-side caching and optimized filtering algorithms to handle bulk operations efficiently while maintaining responsive UI",
+            },
+        ],
+        futureEnhancements: [
+            "Identify and remove duplicate tracks to keep playlists clutter-free",
+            "Keep playlists fresh with new releases from artists users follow or like",
+            "Set filters and create playlists automatically, right on schedule",
+        ],
+
+        mainVideo: "/assets/videos/pure_playlist/pure_playlist_demo.webm",
+        videos: {
+            filtering:
+                "/assets/videos/pure_playlist/pure_playlist_playlist_filtering.webm",
+            filters:
+                "/assets/videos/pure_playlist/pure_playlist_track_filter.webm",
+            sorting:
+                "/assets/videos/pure_playlist/pure_playlist_track_sorting.webm",
+        },
+    },
+    {
+        id: 2,
         name: "SiteSelect",
         description:
             "A curated platform offering a collection of the web's most innovative design galleries. Designed to inspire and elevate web projects, SiteSelect allows users to explore a diverse array of visual references. It features advanced search and filtering, responsive design, and dynamic content loading from a JSON file.",
@@ -22,14 +77,15 @@ const projects = [
         deployment: "Vercel",
         liveDemo: "siteselect-demo.vercel.app",
         features: [
-            "Curated design galleries from across the web",
-            "Advanced search and filtering tools",
-            "Responsive design for seamless browsing on any device",
-            "Dynamic content loading using JSON data",
+            "Curated Collection: Hand-picked design galleries from across the web",
+            "Search Functionality: Advanced search and filtering tools for precise discovery",
+            "Responsive Interface: Seamless browsing experience across all device sizes",
+            "Dynamic Loading: Efficient content loading system using JSON data structure",
         ],
         technologies: [
-            "Frontend: JavaScript, HTML, SCSS/SASS, GSAP",
-            "Data Handling: Fetch API, Async/Await",
+            "Frontend: JavaScript, HTML, SCSS/SASS",
+            "Animation: GSAP",
+            "Data Handling: Fetch API",
             "Deployment: Vercel",
         ],
         links: {
@@ -60,7 +116,7 @@ const projects = [
         },
     },
     {
-        id: 2,
+        id: 3,
         name: "Terrainly",
         description:
             "A full-stack web application that allows users to discover, create, and review parks around Latvia. This application leverages Node.js, Express, and MongoDB to deliver a robust and interactive user experience with features like user authentication, park management, and a review system. This platform is designed to connect nature enthusiasts and provide a comprehensive resource for outdoor adventures in Latvia's beautiful landscapes.",
@@ -70,20 +126,21 @@ const projects = [
         liveDemo: "terrainly.onrender.com",
         deployment: "Render",
         features: [
-            "User registration and authentication",
-            "Create, read, update, and delete (CRUD) parks",
-            "Leave reviews and ratings for parks",
-            "Image upload functionality with Cloudinary",
-            "Interactive map integration using Mapbox",
-            "Responsive design using Bootstrap",
+            "User Authentication: Complete registration and login system for personalized experience",
+            "Park Management: Full CRUD functionality for creating and managing park entries",
+            "Review System: Interactive platform for leaving reviews and ratings on parks",
+            "Media Integration: Advanced image upload functionality using Cloudinary",
+            "Interactive Mapping: Dynamic map integration powered by Mapbox",
+            "Responsive Design: Bootstrap-based adaptive layout for all devices",
         ],
         technologies: [
-            "Backend: Node.js, Express, MongoDB (with Mongoose), Helmet",
-            "Frontend: EJS (Embedded JavaScript), Bootstrap 5, CSS, GSAP",
+            "Frontend: EJS, Bootstrap 5, CSS",
+            "Backend: Node.js, Express, MongoDB",
             "Authentication: Passport.js",
-            "File Uploads: Multer, Cloudinary",
-            "Mapping: Mapbox API, Mapbox GL JS",
-            "Version Control: Git",
+            "Media Storage: Cloudinary",
+            "Mapping: Mapbox API",
+            "Security: Helmet",
+            "Deployment: Render",
         ],
         links: {
             github: "github.com/lmeisters/Terrainly",
@@ -109,7 +166,6 @@ const projects = [
             "User-generated content moderation",
             "Advanced analytics and reporting tools",
         ],
-        mainImage: terrainlyImage,
         mainVideo: "/assets/videos/terrainly/terrainly_demo.webm",
         videos: {
             register: "/assets/videos/terrainly/terrainly_register.webm",
@@ -119,7 +175,7 @@ const projects = [
         },
     },
     {
-        id: 3,
+        id: 4,
         name: "AI Image Generator",
         description:
             "This project is an AI image generator application built using React, Node.js, Express, and MongoDB. It leverages the DALL-E 2 AI model to create images from user-provided prompts. Users can generate unique images, share them on the website, and browse a community showcase of AI-generated art.",
@@ -129,17 +185,20 @@ const projects = [
         liveDemo: "image-generator-beed6.web.app",
         deployment: "Render & Firebase",
         features: [
-            "Image generation using DALL-E 2 AI model",
-            '"Surprise Me" feature for random prompt suggestions',
-            "Community showcase of generated images",
-            "Search functionality to find specific images",
-            "Image download capability",
-            "Responsive design for various screen sizes",
+            "AI Generation: Custom image creation using DALL-E 2 AI model",
+            "Random Inspiration: 'Surprise Me' feature for automated prompt suggestions",
+            "Community Gallery: Shared showcase of AI-generated artwork",
+            "Search System: Advanced functionality to find specific generated images",
+            "Download Options: Direct image download capability for users",
+            "Responsive Interface: Adaptive design supporting various screen sizes",
         ],
         technologies: [
-            "Backend: Node.js, Express, MongoDB, Mongoose, OpenAI API (for DALL-E 2), Cloudinary (for image storage)",
-            "Frontend: React, React Router, Tailwind CSS, Vite (build tool)",
-            "Other: RESTful API, Axios (for HTTP requests), File-Saver (for image downloads)",
+            "Frontend: React, Tailwind CSS, React Router",
+            "Backend: Node.js, Express, MongoDB",
+            "AI Integration: OpenAI API (DALL-E 2)",
+            "Media Storage: Cloudinary",
+            "Build Tools: Vite",
+            "Deployment: Render, Firebase",
         ],
         links: {
             github: "github.com/lmeisters/AI_Image_Generator_Dall-E",
@@ -277,12 +336,15 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
                     {/* Features */}
                     <div className="mb-8">
-                        <h2 className="text-3xl font-semibold mb-2">
+                        <h3 className="text-2xl font-semibold mb-2">
                             Features
-                        </h2>
+                        </h3>
                         <ul className="list-decimal pl-5 text-gray-600">
                             {project.features.map((feature, index) => (
-                                <li key={index}>{feature}</li>
+                                <li key={index}>
+                                    <strong>{feature.split(":")[0]}:</strong>
+                                    {feature.split(":")[1]}
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -302,13 +364,18 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
                             {index === 0 && (
                                 <div className="mb-8">
-                                    <h2 className="text-3xl font-semibold mb-2">
+                                    <h2 className="text-2xl font-semibold mb-2">
                                         Technologies Used
                                     </h2>
                                     <ul className="list-disc pl-5 text-gray-600">
                                         {project.technologies.map(
                                             (tech, index) => (
-                                                <li key={index}>{tech}</li>
+                                                <li key={index}>
+                                                    <strong>
+                                                        {tech.split(":")[0]}:
+                                                    </strong>
+                                                    {tech.split(":")[1]}
+                                                </li>
                                             )
                                         )}
                                     </ul>
@@ -317,10 +384,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
                             {index === 1 && (
                                 <div className="mb-8">
-                                    <h2 className="text-3xl font-semibold mb-2">
+                                    <h2 className="text-2xl font-semibold mb-2">
                                         Challenges
                                     </h2>
-                                    <ul className="list-disc pl-5 text-gray-600">
+                                    <ul className="list-disc pl-5 space-y-2 text-gray-600">
                                         {project.challenges.map(
                                             (item, index) => (
                                                 <li key={index}>
@@ -340,7 +407,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
                     {/* Future Enhancements */}
                     <div className="mb-8">
-                        <h2 className="text-3xl font-semibold mb-2">
+                        <h2 className="text-2xl font-semibold mb-2">
                             Future Enhancements
                         </h2>
                         <ul className="list-disc pl-5 text-gray-600">
