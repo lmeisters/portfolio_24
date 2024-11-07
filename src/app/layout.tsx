@@ -10,6 +10,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://portfoliolm.vercel.app"),
     title: "Linards Meisters | Frontend Developer Portfolio",
     description:
         "Welcome to my portfolio - Showcasing web development projects and skills",
