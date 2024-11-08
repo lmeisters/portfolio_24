@@ -31,7 +31,7 @@ const ProjectCard = ({
     videoSrc,
 }: ProjectCardProps) => {
     return (
-        <div className="mb-8">
+        <div className="mb-8 last-of-type:mb-4">
             <div className="flex justify-between items-center mb-4">
                 <div>
                     <Link

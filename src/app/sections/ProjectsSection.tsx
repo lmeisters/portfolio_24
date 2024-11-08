@@ -3,19 +3,18 @@ import ProjectCard from "../components/ProjectCard";
 import siteSelectImage from "@/assets/images/siteselect.webp";
 import terrainlyImage from "@/assets/images/terrainly.webp";
 import terrainlyLogo from "@/assets/images/terrainly_logo.webp";
-// import aiImageGeneratorImage from "@/assets/images/ai_image_generator.webp";
+
 import purePlaylistImage from "@/assets/images/pure_playlist.webp";
 import purePlaylistLogo from "@/assets/images/pure_playlist_logo.webp";
+import { ArrowUpRight } from "lucide-react";
 
 export default function ProjectsSection() {
     return (
         <section id="projects" className="mb-12 scroll-mt-4">
             <div className="flex items-center space-x-2 mb-4">
-                <Link href="#projects">
-                    <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full cursor-default">
-                        My Projects
-                    </span>
-                </Link>
+                <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    My Projects
+                </span>
             </div>
             <h2 className="text-3xl font-bold mb-2">My latest works</h2>
             <p className="text-gray-600 mb-8">
@@ -56,17 +55,13 @@ export default function ProjectsSection() {
                 image={terrainlyImage}
                 videoSrc="/assets/videos/terrainly/terrainly_demo.webm"
             />
-            {/* <ProjectCard
-                abbreviation="IG"
-                title="AI Image Generator"
-                description="Web app that creates and showcases unique images from user prompts"
-                longDescription="I built this app to enhance my full-stack skills and explore AI-powered image generation with DALL-E 2"
-                technologies={["React", "Tailwind", "Node.js"]}
-                githubUrl="https://github.com/lmeisters/AI_Image_Generator_Dall-E"
-                liveUrl="https://image-generator-beed6.web.app"
-                image={aiImageGeneratorImage}
-                videoSrc="/assets/videos/image_gen/ai_image_generator_demo.webm"
-            /> */}
+
+            <Link href="/pages/works">
+                <button className="flex items-center text-gray-600 hover:text-black transition-colors duration-300 group">
+                    See all projects
+                    <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </button>
+            </Link>
         </section>
     );
 }
