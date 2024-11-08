@@ -26,6 +26,16 @@
     --font-mono: var(--font-fira-code);
 }
 
+::selection {
+    background-color: #ffd700;
+    color: #000000;
+}
+
+::-moz-selection {
+    background-color: #ffd700;
+    color: #000000;
+}
+
 body {
     background-color: var(--background-color);
     color: var(--text-color);
