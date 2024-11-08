@@ -117,7 +117,7 @@ code {
         #000 100%
     );
     background-size: 200% auto;
-    animation: shimmer 2s ease-in-out forwards;
+    animation: shimmer 2s ease-in-out 1s forwards;
 }
 
 .dark-mode .animate-shimmer {
@@ -130,5 +130,5 @@ code {
         #fff 100%
     );
     background-size: 200% auto;
-    animation: shimmer 2s ease-in-out forwards;
+    animation: shimmer 2s ease-in-out 1s forwards;
 }
