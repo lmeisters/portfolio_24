@@ -7,6 +7,8 @@ const poppins = Poppins({
     weight: ["400", "700"],
     subsets: ["latin"],
     display: "swap",
+    variable: "--font-poppins",
+    preload: true,
 });
 
 export const metadata: Metadata = {
@@ -61,6 +63,9 @@ export const metadata: Metadata = {
         address: false,
         telephone: false,
     },
+    other: {
+        "google-font-preconnect": ["https://fonts.gstatic.com"],
+    },
 };
 
 export default function RootLayout({
@@ -69,7 +74,14 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={poppins.className}>
+        <html lang="en" className={`${poppins.variable} font-sans`}>
+            <head>
+                <link
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossOrigin="anonymous"
+                />
+            </head>
             <body>
                 {children}
                 <SpeedInsights />
