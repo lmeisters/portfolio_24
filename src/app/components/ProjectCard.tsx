@@ -16,6 +16,7 @@ interface ProjectCardProps {
     liveUrl?: string;
     image: StaticImageData;
     videoSrc?: string;
+    isNew?: boolean;
 }
 
 const ProjectCard = ({
@@ -29,6 +30,7 @@ const ProjectCard = ({
     liveUrl,
     image,
     videoSrc,
+    isNew,
 }: ProjectCardProps) => {
     return (
         <div className="mb-8 last-of-type:mb-4">
@@ -57,7 +59,16 @@ const ProjectCard = ({
                                     abbreviation
                                 )}
                             </div>
-                            <h3 className="text-xl font-bold mb-0">{title}</h3>
+                            <div className="flex items-center gap-2">
+                                <h3 className="text-xl font-bold mb-0">
+                                    {title}
+                                </h3>
+                                {isNew && (
+                                    <span className="animate-shimmer bg-black text-white text-[10px] font-medium px-1 rounded translate-y-[-10px]">
+                                        New
+                                    </span>
+                                )}
+                            </div>
                         </div>
                     </Link>
                 </div>

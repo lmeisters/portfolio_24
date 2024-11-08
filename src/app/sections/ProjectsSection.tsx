@@ -27,11 +27,12 @@ export default function ProjectsSection() {
                 title="PurePlaylist"
                 description="A Spotify playlist management app for easy sorting, filtering, and organization"
                 longDescription="I created PurePlaylist to simplify managing large playlists, allowing users to organize their music to suit their preferences with just a few clicks"
-                technologies={["TypeScript", "Tailwind", "Spotify API"]}
+                technologies={["TypeScript", "Tailwind", "React"]}
                 githubUrl="https://github.com/lmeisters/PurePlaylist"
                 liveUrl="https://pureplaylist.vercel.app"
                 image={purePlaylistImage}
                 videoSrc="/assets/videos/pure_playlist/pure_playlist_demo.webm"
+                isNew={true}
             />
             <ProjectCard
                 abbreviation="SS"
