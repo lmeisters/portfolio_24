@@ -119,3 +119,16 @@ code {
     background-size: 200% auto;
     animation: shimmer 2s ease-in-out forwards;
 }
+
+.dark-mode .animate-shimmer {
+    background: linear-gradient(
+        110deg,
+        #fff 0%,
+        #fff 40%,
+        #ccc 50%,
+        #fff 60%,
+        #fff 100%
+    );
+    background-size: 200% auto;
+    animation: shimmer 2s ease-in-out forwards;
+}
