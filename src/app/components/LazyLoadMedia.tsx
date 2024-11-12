@@ -11,6 +11,7 @@ interface LazyLoadMediaProps {
     title: string;
     className?: string;
     isVideo?: boolean;
+    disableHover?: boolean;
 }
 
 const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
@@ -21,6 +22,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     title,
     className,
     isVideo = false,
+    disableHover = false,
 }) => {
     const [isHovering, setIsHovering] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -109,7 +111,11 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     return (
         <div
             ref={containerRef}
-            className="relative w-full h-full overflow-hidden group transition-transform duration-300 hover:scale-105"
+            className={`relative w-full h-full overflow-hidden ${
+                !disableHover
+                    ? "group transition-transform duration-300 hover:scale-105"
+                    : ""
+            }`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >

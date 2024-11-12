@@ -125,7 +125,7 @@ export default function ProjectsPage() {
                     {projects.map((project) => (
                         <div
                             key={project.title}
-                            className="group relative flex flex-col h-full"
+                            className="relative flex flex-col h-full"
                         >
                             <div className="flex flex-col flex-grow">
                                 <div className="flex items-center justify-between mb-3">

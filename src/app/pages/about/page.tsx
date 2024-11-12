@@ -103,6 +103,7 @@ const About = () => {
                             width={125}
                             height={125}
                             className="rounded-full h-auto max-w-[125px] ml-auto"
+                            disableHover={true}
                         />
                     </div>
                 </section>
