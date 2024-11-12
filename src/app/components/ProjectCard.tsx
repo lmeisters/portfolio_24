@@ -129,7 +129,7 @@ const ProjectCard = ({
                             title={`${title} project screenshot`}
                             width={565}
                             height={400}
-                            className="transition-transform duration-300 group-hover:scale-105 w-full h-full object-cover rounded-lg"
+                            className="w-full h-full object-cover rounded-lg"
                         />
                     </Link>
                 </Tooltip>

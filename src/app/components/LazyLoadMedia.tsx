@@ -80,7 +80,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         transition-all duration-500 ease-in-out
         ${isLoading ? "blur-lg scale-[1.02]" : "blur-0 scale-100"}
         ${className || ""}
-    `;
+    `.trim();
 
     // If it's a direct video without preview image
     if (isVideo) {
@@ -109,7 +109,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     return (
         <div
             ref={containerRef}
-            className="relative w-full h-full"
+            className="relative w-full h-full overflow-hidden group transition-transform duration-300 hover:scale-105"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -129,7 +129,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                     ref={videoRef}
                     width={width}
                     height={height}
-                    className={`${mediaClasses} absolute top-0 left-0 ${
+                    className={`${mediaClasses} absolute inset-0 object-cover ${
                         isHovering ? "opacity-100" : "opacity-0"
                     }`}
                     muted
