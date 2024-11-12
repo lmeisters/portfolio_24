@@ -15,7 +15,7 @@ import Tooltip from "@/app/components/ToolTip";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 
 // Assets/Images
-import siteSelectImage from "@/assets/images/siteselect.webp";
+import siteSelectImage from "@/assets/images/siteselect_works.webp";
 import terrainlyImage from "@/assets/images/terrainly.webp";
 import terrainlyLogo from "@/assets/images/terrainly_logo.webp";
 import purePlaylistImage from "@/assets/images/pure_playlist.webp";
