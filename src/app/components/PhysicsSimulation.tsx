@@ -209,6 +209,7 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
         const contentWidth = iconSize + spacing + longestTextWidth;
         const pillWidth = Math.max(contentWidth + pillPaddingX * 2, baseWidth); // Ensure minimum width
 
+        // Single optimized createPill function
         const createPill = (x: number, y: number, language: Language) => {
             // Calculate width for this specific language
             const textWidth = context.measureText(language.name).width;
@@ -217,30 +218,28 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             const contentWidth = iconSize + spacing + textWidth;
             const individualPillWidth = contentWidth + pillPaddingX * 1.5;
 
-            // Create the actual collision body with the full dimensions including padding
             const pill = Bodies.rectangle(
                 x,
                 y,
-                individualPillWidth + pillPaddingX * 2, // Add padding to collision width
-                pillHeight + pillPaddingY * 2, // Add padding to collision height
+                individualPillWidth + pillPaddingX * 2,
+                pillHeight + pillPaddingY * 2,
                 {
                     chamfer: { radius: cornerRadius },
                     render: {
                         fillStyle: theme === "dark" ? "#000000" : "#ffffff",
-                        // Optionally visualize the collision bounds for debugging
-                        // strokeStyle: "#FF0000",
-                        // lineWidth: 1
                     },
-                    restitution: 0.2,
-                    friction: 0.8,
-                    density: 0.003,
+                    restitution: 0.3,
+                    friction: 0.9,
+                    density: 0.001,
+                    frictionAir: 0.02,
+                    sleepThreshold: 30,
                     collisionFilter: {
                         category: pillCategory,
                         mask: defaultCategory | pillCategory,
                         group: 0,
                     },
-                    slop: 0.01,
-                    timeScale: 0.7,
+                    slop: 0.005,
+                    timeScale: 1,
                 }
             ) as Matter.Body & {
                 label?: string;
@@ -250,7 +249,7 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
 
             pill.label = language.name;
             pill.isGrabbable = true;
-            pill.width = individualPillWidth; // Store the width for rendering
+            pill.width = individualPillWidth;
 
             return pill;
         };
@@ -351,7 +350,16 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
 
         Matter.Events.on(render, "afterRender", () => {
             const context = render.context;
+            context.imageSmoothingEnabled = false; // Disable anti-aliasing
+
             pills.forEach((pill) => {
+                // Only render pills that are in view
+                if (
+                    pill.position.y < -100 ||
+                    pill.position.y > dimensions.height + 100
+                )
+                    return;
+
                 const name = pill.label as string;
                 const language = languages.find((lang) => lang.name === name)!;
                 const fontSize = isMobile ? pillHeight * 0.5 : pillHeight * 0.5;
@@ -430,11 +438,25 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
 
         window.addEventListener("scroll", handleScroll);
 
-        // Update engine properties with better collision handling
+        // Optimize engine settings
+        engine.enableSleeping = true;
         engine.world.gravity.y = 1;
         engine.constraintIterations = 8;
         engine.positionIterations = 12;
         engine.velocityIterations = 10;
+
+        // Batch physics updates
+        const updateInterval = 1000 / 60; // 60 FPS
+        let lastUpdate = 0;
+
+        Matter.Events.on(engine, "beforeUpdate", (event: any) => {
+            const now = performance.now();
+            if (now - lastUpdate < updateInterval) {
+                event.source.timing.timestamp = event.timestamp; // Preserve last timestamp
+                return;
+            }
+            lastUpdate = now;
+        });
 
         return () => {
             Render.stop(render);
