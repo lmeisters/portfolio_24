@@ -156,6 +156,8 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             },
         };
 
+        const wallPadding = 50; // Minimum space from edges
+
         const walls = [
             Bodies.rectangle(
                 dimensions.width / 2,
@@ -202,10 +204,17 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
         const pillWidth = Math.max(contentWidth + pillPaddingX * 2, baseWidth); // Ensure minimum width
 
         const createPill = (x: number, y: number, language: Language) => {
+            // Calculate width for this specific language
+            const textWidth = context.measureText(language.name).width;
+            const iconSize = fontSize * 1.2;
+            const spacing = 4; // Reduced spacing
+            const contentWidth = iconSize + spacing + textWidth;
+            const individualPillWidth = contentWidth + pillPaddingX * 1.5; // Reduced padding
+
             const pill = Bodies.rectangle(
                 x,
                 y,
-                pillWidth + pillPaddingX * 2,
+                individualPillWidth,
                 pillHeight + pillPaddingY * 2,
                 {
                     chamfer: { radius: cornerRadius },
@@ -216,17 +225,23 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                     friction: 0.1,
                     density: 0.02,
                 }
-            ) as Matter.Body & { label?: string; isGrabbable?: boolean };
+            ) as Matter.Body & {
+                label?: string;
+                isGrabbable?: boolean;
+                width?: number;
+            };
 
             pill.label = language.name;
             pill.isGrabbable = true;
+            pill.width = individualPillWidth; // Store the width for rendering
 
             return pill;
         };
 
         const pills = languages.map((lang, index) => {
             const x =
-                Math.random() * (dimensions.width - pillWidth) + pillWidth / 2;
+                Math.random() * (dimensions.width - wallPadding * 2) +
+                wallPadding;
             const y = -pillHeight * (index + 1);
             return createPill(x, y, lang);
         });
@@ -276,7 +291,9 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
         Runner.run(runner, engine);
         Render.run(render);
 
-        const resetPillIfOutOfBounds = (pill: Matter.Body) => {
+        const resetPillIfOutOfBounds = (
+            pill: Matter.Body & { width?: number }
+        ) => {
             const buffer = 100;
             if (
                 pill.position.y > dimensions.height + buffer ||
@@ -285,8 +302,8 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             ) {
                 Matter.Body.setPosition(pill, {
                     x:
-                        Math.random() * (dimensions.width - pillWidth) +
-                        pillWidth / 2,
+                        Math.random() * (dimensions.width - wallPadding * 2) +
+                        wallPadding,
                     y: -pillHeight,
                 });
                 Matter.Body.setVelocity(pill, { x: 0, y: 0 });
@@ -317,9 +334,9 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                 context.lineWidth = 1;
                 context.beginPath();
                 context.roundRect(
-                    -pillWidth / 2 - pillPaddingX,
+                    -(pill.width || 0) / 2 - pillPaddingX,
                     -pillHeight / 2 - pillPaddingY,
-                    pillWidth + pillPaddingX * 2,
+                    (pill.width || 0) + pillPaddingX * 2,
                     pillHeight + pillPaddingY * 2,
                     cornerRadius
                 );
@@ -337,13 +354,14 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                 const img = new Image();
                 img.src = `data:image/svg+xml;base64,${btoa(svgString)}`;
 
-                // Improved positioning calculations
-                const iconSize = fontSize * 1.2;
-                const textWidth = context.measureText(name).width;
-                const spacing = 6; // Slightly reduced spacing to keep things compact
-                const totalWidth = iconSize + spacing + textWidth;
+                // Use the pill's stored width instead of global pillWidth
+                const pillWidth = (pill as any).width;
 
                 // Center everything as a unit
+                const iconSize = fontSize * 1.2;
+                const spacing = 4; // Match the reduced spacing from createPill
+                const textWidth = context.measureText(name).width;
+                const totalWidth = iconSize + spacing + textWidth;
                 const startX = -totalWidth / 2;
 
                 // Draw icon and text with proper spacing
