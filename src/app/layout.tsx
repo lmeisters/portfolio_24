@@ -1,7 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import dynamic from "next/dynamic";
 
 const poppins = Poppins({
     weight: ["400", "700"],
@@ -10,6 +10,14 @@ const poppins = Poppins({
     variable: "--font-poppins",
     preload: true,
 });
+
+const SpeedInsights = dynamic(
+    () =>
+        import("@vercel/speed-insights/next").then((mod) => mod.SpeedInsights),
+    {
+        ssr: false,
+    }
+);
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://portfoliolm.vercel.app"),
@@ -81,10 +89,11 @@ export default function RootLayout({
                     href="https://fonts.gstatic.com"
                     crossOrigin="anonymous"
                 />
+                <link rel="icon" href="/favicon.ico" />
             </head>
             <body>
                 {children}
-                <SpeedInsights />
+                {process.env.NODE_ENV === "production" && <SpeedInsights />}
             </body>
         </html>
     );

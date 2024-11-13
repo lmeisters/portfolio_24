@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
 const PhysicsContainer = dynamic(
     () => import("./PhysicsSimulation").then((mod) => mod.PhysicsSimulation),
@@ -27,8 +28,18 @@ interface LazyPhysicsContainerProps {
 export function LazyPhysicsContainer({
     showPhysics,
 }: LazyPhysicsContainerProps) {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return <LoadingPlaceholder />;
+    }
+
     return (
-        <div>
+        <div className="relative h-64 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
             <PhysicsContainer showPhysics={showPhysics} />
         </div>
     );

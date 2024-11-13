@@ -4,11 +4,10 @@ import Image from "next/image";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { LazyPhysicsContainer } from "@/app/components/LazyPhysicsContainer";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import Tooltip from "@/app/components/ToolTip";
-import { useState } from "react";
 
 import avatar from "@/assets/images/avatar.webp";
 import mykoobLogo from "@/assets/images/mykoob_logo.webp";
@@ -82,6 +81,11 @@ const TimelineItem = ({
 
 const About = () => {
     const [showPhysics, setShowPhysics] = useState(true);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     return (
         <div className="max-w-2xl mx-auto p-4 font-sans">
@@ -163,13 +167,15 @@ const About = () => {
                             </Tooltip>
                         </div>
                     </div>
-                    <Suspense
-                        fallback={
-                            <div className="relative h-64 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden animate-pulse bg-gray-100 dark:bg-gray-800" />
-                        }
-                    >
-                        <LazyPhysicsContainer showPhysics={showPhysics} />
-                    </Suspense>
+                    {isMounted && (
+                        <Suspense
+                            fallback={
+                                <div className="relative h-64 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden animate-pulse bg-gray-100 dark:bg-gray-800" />
+                            }
+                        >
+                            <LazyPhysicsContainer showPhysics={showPhysics} />
+                        </Suspense>
+                    )}
                 </section>
 
                 <section className="mb-8">

@@ -7,6 +7,9 @@ const nextConfig = {
         });
         return config;
     },
+    images: {
+        domains: ["portfoliolm.vercel.app"],
+    },
 };
 
 export default nextConfig;
