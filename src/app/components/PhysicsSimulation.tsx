@@ -186,7 +186,6 @@ export function PhysicsSimulation({ showPhysics }: PhysicsContainerProps) {
 
         const pillPaddingX = isMobile ? 8 : 12;
         const pillPaddingY = isMobile ? 6 : 8;
-        const baseWidth = isMobile ? 24 : 30;
         const pillHeight = isMobile ? 24 : 30;
         const cornerRadius = pillHeight / 3;
 
@@ -199,19 +198,8 @@ export function PhysicsSimulation({ showPhysics }: PhysicsContainerProps) {
         const fontSize = isMobile ? pillHeight * 0.5 : pillHeight * 0.5;
         context.font = `bold ${fontSize}px ${poppins.style.fontFamily}, -apple-system, system-ui, BlinkMacSystemFont, sans-serif`;
 
-        const longestTextWidth = Math.max(
-            ...languages.map((lang) => context.measureText(lang.name).width)
-        );
-        const iconSize = fontSize * 1.5;
-        const spacing = 6;
-
-        // Calculate total pill width needed for the longest item
-        const contentWidth = iconSize + spacing + longestTextWidth;
-        const pillWidth = Math.max(contentWidth + pillPaddingX * 2, baseWidth); // Ensure minimum width
-
         // Single optimized createPill function
         const createPill = (x: number, y: number, language: Language) => {
-            // Calculate width for this specific language
             const textWidth = context.measureText(language.name).width;
             const iconSize = fontSize * 1.2;
             const spacing = 4;
@@ -400,9 +388,6 @@ export function PhysicsSimulation({ showPhysics }: PhysicsContainerProps) {
                 const img = new Image();
                 img.src = `data:image/svg+xml;base64,${btoa(svgString)}`;
 
-                // Use the pill's stored width instead of global pillWidth
-                const pillWidth = (pill as any).width;
-
                 // Center everything as a unit
                 const iconSize = isMobile ? fontSize * 1 : fontSize * 1.2;
                 const spacing = 4; // Match the reduced spacing from createPill
@@ -449,14 +434,18 @@ export function PhysicsSimulation({ showPhysics }: PhysicsContainerProps) {
         const updateInterval = 1000 / 60; // 60 FPS
         let lastUpdate = 0;
 
-        Matter.Events.on(engine, "beforeUpdate", (event: any) => {
-            const now = performance.now();
-            if (now - lastUpdate < updateInterval) {
-                event.source.timing.timestamp = event.timestamp; // Preserve last timestamp
-                return;
+        Matter.Events.on(
+            engine,
+            "beforeUpdate",
+            (event: Matter.IEventTimestamped<Matter.Engine>) => {
+                const now = performance.now();
+                if (now - lastUpdate < updateInterval) {
+                    event.source.timing.timestamp = event.timestamp;
+                    return;
+                }
+                lastUpdate = now;
             }
-            lastUpdate = now;
-        });
+        );
 
         // In the useEffect where the physics is set up, after creating the pills and before World.add
         // Add a periodic force to keep pills moving
