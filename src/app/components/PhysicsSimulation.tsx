@@ -511,10 +511,10 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                                     return (
                                         <div
                                             key={lang.name}
-                                            className="bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-200 
-                                                 px-2 py-0.5 rounded text-sm font-medium inline-flex items-center gap-1.5"
+                                            className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs
+                                                 inline-flex items-center gap-1.5"
                                         >
-                                            <Icon className="w-4 h-4 text-gray-700 dark:text-gray-200" />
+                                            <Icon className="w-4 h-4 text-gray-700" />
                                             {lang.name}
                                         </div>
                                     );
