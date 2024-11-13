@@ -4,7 +4,8 @@ import Image from "next/image";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
-import PhysicsContainer from "@/app/components/PhysicsSimulation";
+import { Suspense } from "react";
+import { LazyPhysicsContainer } from "@/app/components/LazyPhysicsContainer";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import Tooltip from "@/app/components/ToolTip";
 import { useState } from "react";
@@ -162,7 +163,13 @@ const About = () => {
                             </Tooltip>
                         </div>
                     </div>
-                    <PhysicsContainer showPhysics={showPhysics} />
+                    <Suspense
+                        fallback={
+                            <div className="relative h-64 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden animate-pulse bg-gray-100 dark:bg-gray-800" />
+                        }
+                    >
+                        <LazyPhysicsContainer showPhysics={showPhysics} />
+                    </Suspense>
                 </section>
 
                 <section className="mb-8">

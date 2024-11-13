@@ -72,7 +72,7 @@ interface PhysicsContainerProps {
     showPhysics: boolean;
 }
 
-const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
+export function PhysicsSimulation({ showPhysics }: PhysicsContainerProps) {
     const sceneRef = useRef<HTMLDivElement>(null);
     const engineRef = useRef<Matter.Engine | null>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -558,6 +558,4 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             )}
         </div>
     );
-};
-
-export default PhysicsContainer;
+}
