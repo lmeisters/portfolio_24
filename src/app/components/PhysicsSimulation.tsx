@@ -182,15 +182,15 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             ),
         ];
 
-        const pillPaddingX = 12;
-        const pillPaddingY = 8;
-        const baseWidth = 30;
-        const pillHeight = 30;
+        const pillPaddingX = isMobile ? 8 : 12;
+        const pillPaddingY = isMobile ? 6 : 8;
+        const baseWidth = isMobile ? 24 : 30;
+        const pillHeight = isMobile ? 24 : 30;
         const cornerRadius = pillHeight / 3;
 
         // Calculate standard pill size based on the longest name
         const context = document.createElement("canvas").getContext("2d")!;
-        const fontSize = isMobile ? pillHeight * 0.6 : pillHeight * 0.5;
+        const fontSize = isMobile ? pillHeight * 0.5 : pillHeight * 0.5;
         context.font = `bold ${fontSize}px ${poppins.style.fontFamily}, -apple-system, system-ui, BlinkMacSystemFont, sans-serif`;
 
         const longestTextWidth = Math.max(
@@ -316,7 +316,7 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             pills.forEach((pill) => {
                 const name = pill.label as string;
                 const language = languages.find((lang) => lang.name === name)!;
-                const fontSize = isMobile ? pillHeight * 0.6 : pillHeight * 0.5;
+                const fontSize = isMobile ? pillHeight * 0.5 : pillHeight * 0.5;
                 context.font = `bold ${fontSize}px ${poppins.style.fontFamily}, -apple-system, system-ui, BlinkMacSystemFont, sans-serif`;
                 context.textAlign = "left";
                 context.textBaseline = "middle";
@@ -358,7 +358,7 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                 const pillWidth = (pill as any).width;
 
                 // Center everything as a unit
-                const iconSize = fontSize * 1.2;
+                const iconSize = isMobile ? fontSize * 1 : fontSize * 1.2;
                 const spacing = 4; // Match the reduced spacing from createPill
                 const textWidth = context.measureText(name).width;
                 const totalWidth = iconSize + spacing + textWidth;
