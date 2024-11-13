@@ -229,16 +229,16 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                         fillStyle: theme === "dark" ? "#000000" : "#ffffff",
                     },
                     restitution: 0.3,
-                    friction: 0.9,
+                    friction: 0.1,
                     density: 0.001,
-                    frictionAir: 0.02,
-                    sleepThreshold: 30,
+                    frictionAir: 0.001,
+                    sleepThreshold: Infinity,
                     collisionFilter: {
                         category: pillCategory,
                         mask: defaultCategory | pillCategory,
                         group: 0,
                     },
-                    slop: 0.005,
+                    slop: 0.01,
                     timeScale: 1,
                 }
             ) as Matter.Body & {
@@ -439,7 +439,7 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
         window.addEventListener("scroll", handleScroll);
 
         // Optimize engine settings
-        engine.enableSleeping = true;
+        engine.enableSleeping = false;
         engine.world.gravity.y = 1;
         engine.constraintIterations = 8;
         engine.positionIterations = 12;
@@ -456,6 +456,21 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                 return;
             }
             lastUpdate = now;
+        });
+
+        // In the useEffect where the physics is set up, after creating the pills and before World.add
+        // Add a periodic force to keep pills moving
+        Matter.Events.on(engine, "beforeUpdate", () => {
+            pills.forEach((pill) => {
+                // Apply a small random force to each pill
+                if (Math.random() < 0.02) {
+                    // 2% chance each frame
+                    Matter.Body.applyForce(pill, pill.position, {
+                        x: (Math.random() - 0.5) * 0.0001,
+                        y: (Math.random() - 0.5) * 0.0001,
+                    });
+                }
+            });
         });
 
         return () => {
