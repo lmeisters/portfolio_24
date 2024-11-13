@@ -2,6 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 import { useTheme } from "next-themes";
 import { Poppins } from "next/font/google";
+import {
+    FaHtml5,
+    FaJsSquare,
+    FaReact,
+    FaCss3Alt,
+    FaSass,
+    FaBootstrap,
+    FaNodeJs,
+    FaGitAlt,
+} from "react-icons/fa";
+import {
+    SiTypescript,
+    SiTailwindcss,
+    SiExpress,
+    SiMongodb,
+} from "react-icons/si";
+import ReactDOMServer from "react-dom/server";
 
 const poppins = Poppins({
     weight: ["400", "700"],
@@ -12,21 +29,43 @@ const poppins = Poppins({
 interface Language {
     name: string;
     category: "frontend" | "backend" | "styling" | "tools";
+    icon: React.ElementType;
+    color: string;
 }
 
 const languages: Language[] = [
-    { name: "HTML", category: "frontend" },
-    { name: "JavaScript", category: "frontend" },
-    { name: "TypeScript", category: "frontend" },
-    { name: "React", category: "frontend" },
-    { name: "CSS", category: "styling" },
-    { name: "SCSS/SASS", category: "styling" },
-    { name: "Bootstrap", category: "styling" },
-    { name: "Tailwind", category: "styling" },
-    { name: "NodeJS", category: "backend" },
-    { name: "Express", category: "backend" },
-    { name: "MongoDB", category: "backend" },
-    { name: "Git", category: "tools" },
+    { name: "HTML", category: "frontend", icon: FaHtml5, color: "#E34F26" },
+    {
+        name: "JavaScript",
+        category: "frontend",
+        icon: FaJsSquare,
+        color: "#F7DF1E",
+    },
+    {
+        name: "TypeScript",
+        category: "frontend",
+        icon: SiTypescript,
+        color: "#3178C6",
+    },
+    { name: "React", category: "frontend", icon: FaReact, color: "#61DAFB" },
+    { name: "CSS", category: "styling", icon: FaCss3Alt, color: "#1572B6" },
+    { name: "SCSS/SASS", category: "styling", icon: FaSass, color: "#CC6699" },
+    {
+        name: "Bootstrap",
+        category: "styling",
+        icon: FaBootstrap,
+        color: "#7952B3",
+    },
+    {
+        name: "Tailwind",
+        category: "styling",
+        icon: SiTailwindcss,
+        color: "#06B6D4",
+    },
+    { name: "NodeJS", category: "backend", icon: FaNodeJs, color: "#339933" },
+    { name: "Express", category: "backend", icon: SiExpress, color: "#000000" },
+    { name: "MongoDB", category: "backend", icon: SiMongodb, color: "#47A248" },
+    { name: "Git", category: "tools", icon: FaGitAlt, color: "#F05032" },
 ];
 
 interface PhysicsContainerProps {
@@ -141,11 +180,26 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             ),
         ];
 
-        const pillWidth = Math.min(80, dimensions.width / 8);
-        const pillHeight = pillWidth / 3;
-        const cornerRadius = pillHeight / 3;
-        const pillPaddingX = 16;
+        const pillPaddingX = 12;
         const pillPaddingY = 8;
+        const baseWidth = 30;
+        const pillHeight = 30;
+        const cornerRadius = pillHeight / 3;
+
+        // Calculate standard pill size based on the longest name
+        const context = document.createElement("canvas").getContext("2d")!;
+        const fontSize = isMobile ? pillHeight * 0.6 : pillHeight * 0.5;
+        context.font = `bold ${fontSize}px ${poppins.style.fontFamily}, -apple-system, system-ui, BlinkMacSystemFont, sans-serif`;
+
+        const longestTextWidth = Math.max(
+            ...languages.map((lang) => context.measureText(lang.name).width)
+        );
+        const iconSize = fontSize * 1.5;
+        const spacing = 6;
+
+        // Calculate total pill width needed for the longest item
+        const contentWidth = iconSize + spacing + longestTextWidth;
+        const pillWidth = Math.max(contentWidth + pillPaddingX * 2, baseWidth); // Ensure minimum width
 
         const createPill = (x: number, y: number, language: Language) => {
             const pill = Bodies.rectangle(
@@ -244,9 +298,10 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             const context = render.context;
             pills.forEach((pill) => {
                 const name = pill.label as string;
-                const fontSize = isMobile ? pillHeight * 0.75 : pillHeight / 2;
+                const language = languages.find((lang) => lang.name === name)!;
+                const fontSize = isMobile ? pillHeight * 0.6 : pillHeight * 0.5;
                 context.font = `bold ${fontSize}px ${poppins.style.fontFamily}, -apple-system, system-ui, BlinkMacSystemFont, sans-serif`;
-                context.textAlign = "center";
+                context.textAlign = "left";
                 context.textBaseline = "middle";
 
                 const { x, y } = pill.position;
@@ -256,6 +311,7 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                 context.translate(x, y);
                 context.rotate(angle);
 
+                // Draw pill background
                 context.fillStyle = theme === "dark" ? "#000000" : "#ffffff";
                 context.strokeStyle = "#808080";
                 context.lineWidth = 1;
@@ -270,10 +326,43 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                 context.fill();
                 context.stroke();
 
+                // Draw text and icon
                 context.fillStyle = theme === "dark" ? "#ffffff" : "#000000";
-                context.fillText(name, 0, 0);
-                context.restore();
 
+                const IconComponent = language.icon;
+                const iconColor = theme === "dark" ? "#ffffff" : "#000000";
+                const svgString = ReactDOMServer.renderToString(
+                    <IconComponent style={{ color: iconColor }} />
+                );
+                const img = new Image();
+                img.src = `data:image/svg+xml;base64,${btoa(svgString)}`;
+
+                // Improved positioning calculations
+                const iconSize = fontSize * 1.2;
+                const textWidth = context.measureText(name).width;
+                const spacing = 6; // Slightly reduced spacing to keep things compact
+                const totalWidth = iconSize + spacing + textWidth;
+
+                // Center everything as a unit
+                const startX = -totalWidth / 2;
+
+                // Draw icon and text with proper spacing
+                context.drawImage(
+                    img,
+                    startX, // Icon starts at the left of the allocated space
+                    -iconSize / 2,
+                    iconSize,
+                    iconSize
+                );
+
+                // Position text after icon with spacing
+                context.fillText(
+                    name,
+                    startX + iconSize + spacing, // Text starts after icon + spacing
+                    0
+                );
+
+                context.restore();
                 resetPillIfOutOfBounds(pill);
             });
         });
@@ -333,14 +422,19 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
                                 {category}:
                             </h3>
                             <div className="flex flex-wrap gap-1.5">
-                                {items.map((lang) => (
-                                    <div
-                                        key={lang.name}
-                                        className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-sm font-medium inline-flex items-center"
-                                    >
-                                        {lang.name}
-                                    </div>
-                                ))}
+                                {items.map((lang) => {
+                                    const Icon = lang.icon;
+                                    return (
+                                        <div
+                                            key={lang.name}
+                                            className="bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-200 
+                                                 px-2 py-0.5 rounded text-sm font-medium inline-flex items-center gap-1.5"
+                                        >
+                                            <Icon className="w-4 h-4 text-gray-700 dark:text-gray-200" />
+                                            {lang.name}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     )
