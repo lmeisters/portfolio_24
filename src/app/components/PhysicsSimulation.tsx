@@ -30,42 +30,21 @@ interface Language {
     name: string;
     category: "frontend" | "backend" | "styling" | "tools";
     icon: React.ElementType;
-    color: string;
 }
 
 const languages: Language[] = [
-    { name: "HTML", category: "frontend", icon: FaHtml5, color: "#E34F26" },
-    {
-        name: "JavaScript",
-        category: "frontend",
-        icon: FaJsSquare,
-        color: "#F7DF1E",
-    },
-    {
-        name: "TypeScript",
-        category: "frontend",
-        icon: SiTypescript,
-        color: "#3178C6",
-    },
-    { name: "React", category: "frontend", icon: FaReact, color: "#61DAFB" },
-    { name: "CSS", category: "styling", icon: FaCss3Alt, color: "#1572B6" },
-    { name: "SCSS/SASS", category: "styling", icon: FaSass, color: "#CC6699" },
-    {
-        name: "Bootstrap",
-        category: "styling",
-        icon: FaBootstrap,
-        color: "#7952B3",
-    },
-    {
-        name: "Tailwind",
-        category: "styling",
-        icon: SiTailwindcss,
-        color: "#06B6D4",
-    },
-    { name: "NodeJS", category: "backend", icon: FaNodeJs, color: "#339933" },
-    { name: "Express", category: "backend", icon: SiExpress, color: "#000000" },
-    { name: "MongoDB", category: "backend", icon: SiMongodb, color: "#47A248" },
-    { name: "Git", category: "tools", icon: FaGitAlt, color: "#F05032" },
+    { name: "HTML", category: "frontend", icon: FaHtml5 },
+    { name: "JavaScript", category: "frontend", icon: FaJsSquare },
+    { name: "TypeScript", category: "frontend", icon: SiTypescript },
+    { name: "React", category: "frontend", icon: FaReact },
+    { name: "CSS", category: "styling", icon: FaCss3Alt },
+    { name: "SCSS/SASS", category: "styling", icon: FaSass },
+    { name: "Bootstrap", category: "styling", icon: FaBootstrap },
+    { name: "Tailwind", category: "styling", icon: SiTailwindcss },
+    { name: "NodeJS", category: "backend", icon: FaNodeJs },
+    { name: "Express", category: "backend", icon: SiExpress },
+    { name: "MongoDB", category: "backend", icon: SiMongodb },
+    { name: "Git", category: "tools", icon: FaGitAlt },
 ];
 
 interface PhysicsContainerProps {
