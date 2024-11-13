@@ -148,6 +148,7 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
 
         const runner = Runner.create();
 
+        const wallThickness = 60; // Increased wall thickness
         const wallOptions = {
             isStatic: true,
             render: {
@@ -156,28 +157,29 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             },
         };
 
-        const wallPadding = 50; // Minimum space from edges
-
         const walls = [
+            // Bottom wall
             Bodies.rectangle(
                 dimensions.width / 2,
-                dimensions.height,
+                dimensions.height + wallThickness / 2,
                 dimensions.width,
-                10,
+                wallThickness,
                 wallOptions
             ),
+            // Left wall
             Bodies.rectangle(
-                0,
+                -wallThickness / 2,
                 dimensions.height / 2,
-                10,
-                dimensions.height,
+                wallThickness,
+                dimensions.height * 2, // Extended height
                 wallOptions
             ),
+            // Right wall
             Bodies.rectangle(
-                dimensions.width,
+                dimensions.width + wallThickness / 2,
                 dimensions.height / 2,
-                10,
-                dimensions.height,
+                wallThickness,
+                dimensions.height * 2, // Extended height
                 wallOptions
             ),
         ];
@@ -187,6 +189,10 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
         const baseWidth = isMobile ? 24 : 30;
         const pillHeight = isMobile ? 24 : 30;
         const cornerRadius = pillHeight / 3;
+
+        // Add collision filter categories
+        const defaultCategory = 0x0001;
+        const pillCategory = 0x0002;
 
         // Calculate standard pill size based on the longest name
         const context = document.createElement("canvas").getContext("2d")!;
@@ -207,23 +213,34 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             // Calculate width for this specific language
             const textWidth = context.measureText(language.name).width;
             const iconSize = fontSize * 1.2;
-            const spacing = 4; // Reduced spacing
+            const spacing = 4;
             const contentWidth = iconSize + spacing + textWidth;
-            const individualPillWidth = contentWidth + pillPaddingX * 1.5; // Reduced padding
+            const individualPillWidth = contentWidth + pillPaddingX * 1.5;
 
+            // Create the actual collision body with the full dimensions including padding
             const pill = Bodies.rectangle(
                 x,
                 y,
-                individualPillWidth,
-                pillHeight + pillPaddingY * 2,
+                individualPillWidth + pillPaddingX * 2, // Add padding to collision width
+                pillHeight + pillPaddingY * 2, // Add padding to collision height
                 {
                     chamfer: { radius: cornerRadius },
                     render: {
                         fillStyle: theme === "dark" ? "#000000" : "#ffffff",
+                        // Optionally visualize the collision bounds for debugging
+                        // strokeStyle: "#FF0000",
+                        // lineWidth: 1
                     },
                     restitution: 0.2,
-                    friction: 0.1,
-                    density: 0.02,
+                    friction: 0.8,
+                    density: 0.003,
+                    collisionFilter: {
+                        category: pillCategory,
+                        mask: defaultCategory | pillCategory,
+                        group: 0,
+                    },
+                    slop: 0.01,
+                    timeScale: 0.7,
                 }
             ) as Matter.Body & {
                 label?: string;
@@ -238,11 +255,29 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             return pill;
         };
 
+        // Adjust pill positioning to prevent initial overlap
         const pills = languages.map((lang, index) => {
-            const x =
-                Math.random() * (dimensions.width - wallPadding * 2) +
-                wallPadding;
-            const y = -pillHeight * (index + 1);
+            const safeZone = 50;
+            const minX = safeZone;
+            const maxX = dimensions.width - safeZone;
+
+            // Calculate text width for proper spacing
+            const textWidth = context.measureText(lang.name).width;
+            const iconSize = fontSize * 1.2;
+            const spacing = 4;
+            const contentWidth = iconSize + spacing + textWidth;
+            const pillWidth = contentWidth + pillPaddingX * 1.5;
+
+            // Distribute pills in a grid-like pattern to prevent initial overlap
+            const columnsPerRow = Math.floor(
+                (maxX - minX) / (pillWidth + safeZone)
+            );
+            const column = index % columnsPerRow;
+            const row = Math.floor(index / columnsPerRow);
+
+            const x = minX + column * (pillWidth + safeZone);
+            const y = -pillHeight * (row + 1) * 2;
+
             return createPill(x, y, lang);
         });
 
@@ -291,10 +326,13 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
         Runner.run(runner, engine);
         Render.run(render);
 
+        // Update reset position logic
         const resetPillIfOutOfBounds = (
             pill: Matter.Body & { width?: number }
         ) => {
             const buffer = 100;
+            const safeZone = 50;
+
             if (
                 pill.position.y > dimensions.height + buffer ||
                 pill.position.x < -buffer ||
@@ -302,8 +340,8 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
             ) {
                 Matter.Body.setPosition(pill, {
                     x:
-                        Math.random() * (dimensions.width - wallPadding * 2) +
-                        wallPadding,
+                        safeZone +
+                        Math.random() * (dimensions.width - safeZone * 2),
                     y: -pillHeight,
                 });
                 Matter.Body.setVelocity(pill, { x: 0, y: 0 });
@@ -391,6 +429,12 @@ const PhysicsContainer: React.FC<PhysicsContainerProps> = ({ showPhysics }) => {
         };
 
         window.addEventListener("scroll", handleScroll);
+
+        // Update engine properties with better collision handling
+        engine.world.gravity.y = 1;
+        engine.constraintIterations = 8;
+        engine.positionIterations = 12;
+        engine.velocityIterations = 10;
 
         return () => {
             Render.stop(render);
