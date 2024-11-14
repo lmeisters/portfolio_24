@@ -29,6 +29,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     const [isInView, setIsInView] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
+    const playTimeoutRef = useRef<NodeJS.Timeout>();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -58,22 +59,39 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         }
     }, [isVideo, isInView]);
 
+    useEffect(() => {
+        return () => {
+            if (playTimeoutRef.current) {
+                clearTimeout(playTimeoutRef.current);
+            }
+        };
+    }, []);
+
     const handleLoad = () => {
         setIsLoading(false);
     };
 
     const handleMouseEnter = () => {
-        if (videoSrc && videoRef.current) {
-            setIsHovering(true);
-            videoRef.current.play();
+        setIsHovering(true);
+        if (videoRef.current) {
+            playTimeoutRef.current = setTimeout(() => {
+                const playPromise = videoRef.current?.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        // Ignore abort errors
+                    });
+                }
+            }, 100);
         }
     };
 
     const handleMouseLeave = () => {
-        if (videoSrc && videoRef.current) {
-            setIsHovering(false);
+        setIsHovering(false);
+        if (playTimeoutRef.current) {
+            clearTimeout(playTimeoutRef.current);
+        }
+        if (videoRef.current) {
             videoRef.current.pause();
-            videoRef.current.currentTime = 0;
         }
     };
 
