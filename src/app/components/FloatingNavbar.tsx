@@ -52,6 +52,7 @@ export const FloatingNavbar = () => {
                     <Link
                         href="/"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
+                        aria-label="Go to Home page"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             <House size={28} className="sm:w-6 sm:h-6" />
@@ -62,6 +63,7 @@ export const FloatingNavbar = () => {
                     <Link
                         href="/pages/works"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
+                        aria-label="View my works"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             <Briefcase size={28} className="sm:w-6 sm:h-6" />
@@ -72,6 +74,7 @@ export const FloatingNavbar = () => {
                     <Link
                         href="/pages/about"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
+                        aria-label="Learn more about me"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             <User size={28} className="sm:w-6 sm:h-6" />
@@ -84,6 +87,7 @@ export const FloatingNavbar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
+                        aria-label="View my resume"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             <FileText size={28} className="sm:w-6 sm:h-6" />
@@ -94,6 +98,7 @@ export const FloatingNavbar = () => {
                     <button
                         onClick={handleCopyEmail}
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
+                        aria-label="Copy email address"
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110">
                             {emailCopied ? (
@@ -108,6 +113,11 @@ export const FloatingNavbar = () => {
                     <button
                         onClick={toggleDarkMode}
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300 p-1"
+                        aria-label={
+                            isDarkMode
+                                ? "Switch to light mode"
+                                : "Switch to dark mode"
+                        }
                     >
                         <div className="transition-transform transform duration-300 hover:scale-110 flex items-center justify-center">
                             {isDarkMode ? (

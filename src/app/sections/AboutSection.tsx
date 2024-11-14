@@ -18,7 +18,10 @@ export default function AboutSection() {
                 designs. I turn inspiration into well-executed, user-centered
                 websites.
             </p>
-            <Link href="/pages/about" passHref>
+            <Link
+                href="/pages/about"
+                aria-label="Learn more about my background and experience as a frontend developer"
+            >
                 <button className="flex items-center text-gray-600 hover:text-black transition-colors duration-300 group">
                     Learn more
                     <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

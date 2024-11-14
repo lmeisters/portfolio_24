@@ -57,7 +57,7 @@ export default function ProjectsSection() {
                 videoSrc="/assets/videos/terrainly/terrainly_demo.webm"
             />
 
-            <Link href="/pages/works">
+            <Link href="/pages/works" aria-label="View all my projects">
                 <button className="flex items-center text-gray-600 hover:text-black transition-colors duration-300 group">
                     See all projects
                     <ArrowUpRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

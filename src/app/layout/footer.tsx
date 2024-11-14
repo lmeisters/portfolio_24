@@ -14,6 +14,7 @@ const Footer = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-gray-500 hover:text-gray-700 p-2 sm:p-1 inline-flex"
+                            aria-label="Connect with me on LinkedIn"
                         >
                             <Linkedin className="w-6 h-6 sm:w-5 sm:h-5" />
                         </a>
@@ -24,6 +25,7 @@ const Footer = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-gray-500 hover:text-gray-700 p-2 sm:p-1 inline-flex"
+                            aria-label="View my GitHub profile"
                         >
                             <Github className="w-6 h-6 sm:w-5 sm:h-5" />
                         </a>
