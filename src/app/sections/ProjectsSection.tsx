@@ -50,7 +50,7 @@ export default function ProjectsSection() {
                 title="Terrainly"
                 description="A full stack web app for discovering, reviewing, and managing parks around Latvia"
                 longDescription="I initially built this web app as a course project, but this year I chose to continue developing it to enhance its frontend and expand its functionality"
-                technologies={["Javascript", "Bootstrap", "MongoDB"]}
+                technologies={["Javascript", "Bootstrap", "Node.js"]}
                 githubUrl="https://github.com/lmeisters/Terrainly"
                 liveUrl="https://terrainly.onrender.com"
                 image={terrainlyImage}

@@ -22,6 +22,9 @@ import purePlaylistImage from "@/assets/images/pure_playlist.webp";
 import purePlaylistLogo from "@/assets/images/pure_playlist_logo.webp";
 import aiImageGeneratorImage from "@/assets/images/ai_image_generator.webp";
 
+// Add after the existing imports
+import { skillIcons } from "@/app/utils/skillIcons";
+
 function LogoElement({ project }: { project: (typeof projects)[number] }) {
     return (
         <div className="text-md font-bold border rounded-md px-1 py-1 bg-gray-100 hover:bg-gray-50 hover:border-gray-400 border-gray-200 transition-colors duration-300 ease-in-out flex items-center justify-center w-6 h-6">
@@ -74,7 +77,7 @@ const projects = [
         title: "Terrainly",
         description:
             "A full stack web app for discovering, reviewing, and managing parks around Latvia",
-        technologies: ["Javascript", "Bootstrap", "MongoDB"],
+        technologies: ["Javascript", "Bootstrap", "Node.js"],
         githubUrl: "https://github.com/lmeisters/Terrainly",
         liveUrl: "https://terrainly.onrender.com",
         image: terrainlyImage,
@@ -194,14 +197,20 @@ export default function ProjectsPage() {
                                 </p>
 
                                 <div className="flex flex-wrap gap-2 mb-3">
-                                    {project.technologies.map((tech) => (
-                                        <span
-                                            key={tech}
-                                            className="bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
+                                    {project.technologies.map((tech) => {
+                                        const Icon = skillIcons[tech];
+                                        return (
+                                            <span
+                                                key={tech}
+                                                className="bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1.5"
+                                            >
+                                                {Icon && (
+                                                    <Icon className="w-3.5 h-3.5" />
+                                                )}
+                                                {tech}
+                                            </span>
+                                        );
+                                    })}
                                 </div>
                             </div>
 

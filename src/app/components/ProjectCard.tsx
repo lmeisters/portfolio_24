@@ -4,6 +4,7 @@ import { GitFork, Globe } from "lucide-react";
 import Tooltip from "./ToolTip";
 import LazyLoadMedia from "./LazyLoadMedia";
 import Image from "next/image";
+import { skillIcons } from "@/app/utils/skillIcons";
 
 interface ProjectCardProps {
     logo?: string | StaticImageData;
@@ -101,14 +102,18 @@ const ProjectCard = ({
                 <div className="w-full md:w-1/2 flex flex-col justify-between gap-4">
                     <p className="font-medium">{description}</p>
                     <div className="flex flex-wrap gap-2">
-                        {technologies.map((tech, index) => (
-                            <span
-                                key={index}
-                                className="bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded"
-                            >
-                                {tech}
-                            </span>
-                        ))}
+                        {technologies.map((tech) => {
+                            const Icon = skillIcons[tech];
+                            return (
+                                <span
+                                    key={tech}
+                                    className="bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1.5"
+                                >
+                                    {Icon && <Icon className="w-3.5 h-3.5" />}
+                                    {tech}
+                                </span>
+                            );
+                        })}
                     </div>
                 </div>
                 <p className="text-gray-600 w-full md:w-1/2">
