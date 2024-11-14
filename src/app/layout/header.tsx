@@ -1,17 +1,28 @@
 import React from "react";
 import Link from "next/link";
-import Head from "next/head";
-import RigaTimeClock from "@/app/components/RigaTimeClock";
-import CurrentlyEmoji from "@/app/components/CurrentlyEmoji";
+import dynamic from "next/dynamic";
+
+// Preload these components with higher priority
+const RigaTimeClock = dynamic(() => import("@/app/components/RigaTimeClock"), {
+    ssr: false,
+    loading: () => (
+        <div className="w-32 h-6 bg-gray-200 rounded animate-pulse" />
+    ),
+});
+
+const CurrentlyEmoji = dynamic(
+    () => import("@/app/components/CurrentlyEmoji"),
+    {
+        ssr: false,
+        loading: () => (
+            <div className="w-6 h-6 bg-gray-200 rounded animate-pulse" />
+        ),
+    }
+);
 
 const Header = () => (
-    <>
-        <Head>
-            <title>Linards - Portfolio</title>
-            <meta name="description" content="Linards portfolio" />
-        </Head>
-
-        <header className="flex justify-between items-center mb-8">
+    <header>
+        <div className="flex justify-between items-center mb-8">
             <Link href="/">
                 <div className="text-md font-semibold cursor-pointer">LM</div>
             </Link>
@@ -21,8 +32,8 @@ const Header = () => (
                     <RigaTimeClock />
                 </span>
             </div>
-        </header>
-    </>
+        </div>
+    </header>
 );
 
 export default Header;

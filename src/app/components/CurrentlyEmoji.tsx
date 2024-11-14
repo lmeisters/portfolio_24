@@ -50,24 +50,41 @@ const getCurrentEmojiState = (): EmojiState => {
 };
 
 export default function CurrentlyEmoji() {
-    const [mounted, setMounted] = useState(false);
-    const [emojiState, setEmojiState] =
-        useState<EmojiState>(getCurrentEmojiState);
+    const [emojiState, setEmojiState] = useState<EmojiState>(() => {
+        if (typeof window !== "undefined") {
+            const cached = localStorage.getItem("currentEmojiState");
+            return cached ? JSON.parse(cached) : getCurrentEmojiState();
+        }
+        return getCurrentEmojiState();
+    });
+
+    const shouldAnimate =
+        typeof window !== "undefined" &&
+        !localStorage.getItem("initialPageLoad");
 
     useEffect(() => {
-        setMounted(true);
         const interval = setInterval(() => {
-            setEmojiState(getCurrentEmojiState());
+            const newState = getCurrentEmojiState();
+            setEmojiState(newState);
+            localStorage.setItem("currentEmojiState", JSON.stringify(newState));
         }, 60000);
 
-        return () => clearInterval(interval);
-    }, []);
+        if (shouldAnimate) {
+            localStorage.setItem("initialPageLoad", "true");
+        }
 
-    if (!mounted) return null;
+        return () => clearInterval(interval);
+    }, [shouldAnimate]);
 
     return (
         <Tooltip content={emojiState.tooltipContent}>
-            <span className="cursor-default">{emojiState.emoji}</span>
+            <span
+                className={`cursor-default ${
+                    shouldAnimate ? "initial-fade-in emoji-fade-in" : ""
+                }`}
+            >
+                {emojiState.emoji}
+            </span>
         </Tooltip>
     );
 }

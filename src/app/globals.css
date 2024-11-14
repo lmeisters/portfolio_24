@@ -142,3 +142,40 @@ code {
     background-size: 200% auto;
     animation: shimmer 2s ease-in-out 1s forwards;
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in forwards;
+    animation-delay: 0.1s;
+    opacity: 0;
+}
+
+@keyframes initialFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.initial-fade-in {
+    opacity: 0;
+    animation: initialFadeIn 0.8s ease-out forwards;
+}
+
+.emoji-fade-in {
+    animation-delay: 0.2s;
+}
+
+.clock-fade-in {
+    animation-delay: 0.3s;
+}
