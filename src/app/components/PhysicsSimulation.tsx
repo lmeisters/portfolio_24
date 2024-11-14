@@ -4,7 +4,6 @@ import { useTheme } from "next-themes";
 import { Poppins } from "next/font/google";
 import {
     FaHtml5,
-    FaJsSquare,
     FaReact,
     FaCss3Alt,
     FaSass,
@@ -12,12 +11,8 @@ import {
     FaNodeJs,
     FaGitAlt,
 } from "react-icons/fa";
-import {
-    SiTypescript,
-    SiTailwindcss,
-    SiExpress,
-    SiMongodb,
-} from "react-icons/si";
+import { SiTailwindcss, SiExpress, SiMongodb } from "react-icons/si";
+import { BiLogoTypescript, BiLogoJavascript } from "react-icons/bi";
 import ReactDOMServer from "react-dom/server";
 
 const poppins = Poppins({
@@ -34,8 +29,8 @@ interface Language {
 
 const languages: Language[] = [
     { name: "HTML", category: "frontend", icon: FaHtml5 },
-    { name: "JavaScript", category: "frontend", icon: FaJsSquare },
-    { name: "TypeScript", category: "frontend", icon: SiTypescript },
+    { name: "JavaScript", category: "frontend", icon: BiLogoJavascript },
+    { name: "TypeScript", category: "frontend", icon: BiLogoTypescript },
     { name: "React", category: "frontend", icon: FaReact },
     { name: "CSS", category: "styling", icon: FaCss3Alt },
     { name: "SCSS/SASS", category: "styling", icon: FaSass },

@@ -77,7 +77,7 @@ const projects = [
         title: "Terrainly",
         description:
             "A full stack web app for discovering, reviewing, and managing parks around Latvia",
-        technologies: ["Javascript", "Bootstrap", "Node.js"],
+        technologies: ["JavaScript", "Bootstrap", "Node.js"],
         githubUrl: "https://github.com/lmeisters/Terrainly",
         liveUrl: "https://terrainly.onrender.com",
         image: terrainlyImage,
