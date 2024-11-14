@@ -8,7 +8,14 @@ const nextConfig = {
         return config;
     },
     images: {
-        domains: ["portfoliolm.vercel.app"],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "portfoliolm.vercel.app",
+                port: "",
+                pathname: "/**",
+            },
+        ],
     },
 };
 
