@@ -8,6 +8,22 @@ import { Suspense, useState } from "react";
 import { LazyPhysicsContainer } from "@/app/components/LazyPhysicsContainer";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import Tooltip from "@/app/components/ToolTip";
+import {
+    FaHtml5,
+    FaJsSquare,
+    FaReact,
+    FaCss3Alt,
+    FaSass,
+    FaBootstrap,
+    FaNodeJs,
+    FaGitAlt,
+} from "react-icons/fa";
+import {
+    SiTypescript,
+    SiTailwindcss,
+    SiExpress,
+    SiMongodb,
+} from "react-icons/si";
 
 import avatar from "@/assets/images/avatar.webp";
 import mykoobLogo from "@/assets/images/mykoob_logo.webp";
@@ -22,6 +38,21 @@ interface TimelineItemProps {
     imageSrc: string;
     isCourse?: boolean;
 }
+
+const skillIcons: Record<string, React.ElementType> = {
+    HTML5: FaHtml5,
+    JavaScript: FaJsSquare,
+    "React.js": FaReact,
+    CSS3: FaCss3Alt,
+    "SCSS/SASS": FaSass,
+    Bootstrap: FaBootstrap,
+    "Node.js": FaNodeJs,
+    "Express.js": SiExpress,
+    MongoDB: SiMongodb,
+    TypeScript: SiTypescript,
+    Tailwind: SiTailwindcss,
+    Git: FaGitAlt,
+};
 
 const TimelineItem = ({
     title,
@@ -61,14 +92,18 @@ const TimelineItem = ({
                 <h3 className="font-medium">{title}</h3>
                 {Array.isArray(subtitle) ? (
                     <div className="flex flex-wrap gap-1 mt-1">
-                        {subtitle.map((skill, index) => (
-                            <span
-                                key={index}
-                                className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs"
-                            >
-                                {skill}
-                            </span>
-                        ))}
+                        {subtitle.map((skill, index) => {
+                            const Icon = skillIcons[skill];
+                            return (
+                                <span
+                                    key={index}
+                                    className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs inline-flex items-center gap-1.5"
+                                >
+                                    {Icon && <Icon className="w-3.5 h-3.5" />}
+                                    {skill}
+                                </span>
+                            );
+                        })}
                     </div>
                 ) : (
                     <p className="text-gray-600">{subtitle}</p>
@@ -92,7 +127,7 @@ const About = () => {
                             Thanks for stopping by
                         </h1>
                         <p className="text-gray-600 text-lg">
-                            Front-end Developer Crafting Seamless Web
+                            Front-End Developer Crafting Seamless Web
                             Experiences with Code and Creativity
                         </p>
                     </div>
@@ -191,7 +226,7 @@ const About = () => {
                     <h2 className="text-xl font-bold mb-4">Experience</h2>
                     <TimelineItem
                         title="Mykoob"
-                        subtitle="Front-end Developer Internship"
+                        subtitle="Front-End Developer Internship"
                         year={2024}
                         imageSrc={mykoobLogo.src}
                     />
@@ -208,7 +243,7 @@ const About = () => {
                     />
                     <TimelineItem
                         title="Advanced CSS and Sass"
-                        subtitle={["SCSS", "SASS", "Flexbox", "Grid"]}
+                        subtitle={["SCSS/SASS", "Flexbox", "Grid"]}
                         year={2024}
                         imageSrc={udemyLogo.src}
                         isCourse={true}
@@ -219,6 +254,7 @@ const About = () => {
                             "HTML5",
                             "CSS3",
                             "JavaScript",
+                            "Bootstrap",
                             "React.js",
                             "Node.js",
                             "Express.js",
