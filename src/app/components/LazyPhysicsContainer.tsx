@@ -39,7 +39,7 @@ export function LazyPhysicsContainer({
     }
 
     return (
-        <div className="relative h-64 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+        <div>
             <PhysicsContainer showPhysics={showPhysics} />
         </div>
     );
