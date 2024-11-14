@@ -1,31 +1,30 @@
+"use client";
+
 import { useState, useEffect } from "react";
 
-const RigaTimeClock = () => {
+function getCurrentRigaTime() {
+    return new Date().toLocaleTimeString("en-GB", {
+        timeZone: "Europe/Riga",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+    });
+}
+
+export default function RigaTimeClock() {
+    const [mounted, setMounted] = useState(false);
     const [time, setTime] = useState(getCurrentRigaTime());
 
-    function getCurrentRigaTime() {
-        const now = new Date();
-        const rigaTime = new Date(
-            now.toLocaleString("en-US", { timeZone: "Europe/Riga" })
-        );
-        return rigaTime.toLocaleTimeString("en-GB", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-        });
-    }
-
     useEffect(() => {
-        const updateTime = () => {
+        setMounted(true);
+        const interval = setInterval(() => {
             setTime(getCurrentRigaTime());
-        };
+        }, 1000);
 
-        const timerId = setInterval(updateTime, 1000);
-
-        return () => clearInterval(timerId);
+        return () => clearInterval(interval);
     }, []);
 
-    return <div>{time} Riga, Latvia</div>;
-};
+    if (!mounted) return null;
 
-export default RigaTimeClock;
+    return <div>{time} Riga, Latvia</div>;
+}
