@@ -12,5 +12,5 @@ export const skillIcons: Record<string, React.ElementType> = {
     MongoDB: dynamic(() => import('react-icons/si').then(mod => mod.SiMongodb)),
     TypeScript: dynamic(() => import('react-icons/bi').then(mod => mod.BiLogoTypescript)),
     Tailwind: dynamic(() => import('react-icons/si').then(mod => mod.SiTailwindcss)),
-    Git: dynamic(() => import('react-icons/fa').then(mod => mod.FaGitAlt)),
+    Git: dynamic(() => import('react-icons/fa').then(mod => mod.FaGitAlt))
 }; 

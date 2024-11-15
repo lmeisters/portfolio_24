@@ -30,7 +30,7 @@ export default function HeroSection() {
             <h1 className="text-5xl font-bold mb-2">Hey, I&apos;m Linards</h1>
             <p className="text-gray-600 mb-4 text-lg">
                 Front-End Developer creating efficient, user-friendly web
-                applications with modern design.
+                applications with modern design
             </p>
             <div className="flex space-x-2">
                 <button

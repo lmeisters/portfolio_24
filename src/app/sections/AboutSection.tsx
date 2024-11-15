@@ -16,7 +16,7 @@ export default function AboutSection() {
                 responsive web applications. I enjoy simplifying tasks with
                 custom apps and staying updated on UI/UX trends to improve my
                 designs. I turn inspiration into well-executed, user-centered
-                websites.
+                websites
             </p>
             <Link
                 href="/pages/about"

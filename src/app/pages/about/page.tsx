@@ -34,6 +34,7 @@ import butsLogo from "@/assets/images/buts_logo.webp";
 interface TimelineItemProps {
     title: string;
     subtitle: string | string[];
+    description?: string;
     year: number | string;
     imageSrc: string;
     isCourse?: boolean;
@@ -42,7 +43,7 @@ interface TimelineItemProps {
 const skillIcons: Record<string, React.ElementType> = {
     HTML5: FaHtml5,
     JavaScript: FaJsSquare,
-    "React.js": FaReact,
+    React: FaReact,
     CSS3: FaCss3Alt,
     "SCSS/SASS": FaSass,
     Bootstrap: FaBootstrap,
@@ -57,6 +58,7 @@ const skillIcons: Record<string, React.ElementType> = {
 const TimelineItem = ({
     title,
     subtitle,
+    description,
     year,
     imageSrc,
     isCourse = false,
@@ -90,6 +92,7 @@ const TimelineItem = ({
             </div>
             <div className="flex-grow">
                 <h3 className="font-medium">{title}</h3>
+                {description && <p className="text-gray-600">{description}</p>}
                 {Array.isArray(subtitle) ? (
                     <div className="flex flex-wrap gap-1 mt-1">
                         {subtitle.map((skill, index) => {
@@ -211,7 +214,7 @@ const About = () => {
                     <TimelineItem
                         title="Riga Technical University"
                         subtitle="Master's Degree of Computer Science"
-                        year="2023 - present"
+                        year="2023 - Present"
                         imageSrc={rtuLogo.src}
                     />
                     <TimelineItem
@@ -226,7 +229,8 @@ const About = () => {
                     <h2 className="text-xl font-bold mb-4">Experience</h2>
                     <TimelineItem
                         title="Mykoob"
-                        subtitle="Front-End Developer Internship"
+                        description="Front-End Developer Internship"
+                        subtitle={["JavaScript", "CSS3", "SCSS/SASS"]}
                         year={2024}
                         imageSrc={mykoobLogo.src}
                     />
@@ -255,7 +259,7 @@ const About = () => {
                             "CSS3",
                             "JavaScript",
                             "Bootstrap",
-                            "React.js",
+                            "React",
                             "Node.js",
                             "Express.js",
                             "MongoDB",

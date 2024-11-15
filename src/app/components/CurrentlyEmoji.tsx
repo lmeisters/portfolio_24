@@ -52,8 +52,21 @@ const getCurrentEmojiState = (): EmojiState => {
 export default function CurrentlyEmoji() {
     const [emojiState, setEmojiState] = useState<EmojiState>(() => {
         if (typeof window !== "undefined") {
-            const cached = localStorage.getItem("currentEmojiState");
-            return cached ? JSON.parse(cached) : getCurrentEmojiState();
+            try {
+                const cached = localStorage.getItem("currentEmojiState");
+                const currentState = getCurrentEmojiState();
+
+                if (cached) {
+                    const parsedCache = JSON.parse(cached);
+                    return parsedCache.tooltipContent ===
+                        currentState.tooltipContent
+                        ? parsedCache
+                        : currentState;
+                }
+                return currentState;
+            } catch (error) {
+                return getCurrentEmojiState();
+            }
         }
         return getCurrentEmojiState();
     });

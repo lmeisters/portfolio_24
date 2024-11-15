@@ -28,11 +28,11 @@ interface Language {
 }
 
 const languages: Language[] = [
-    { name: "HTML", category: "frontend", icon: FaHtml5 },
+    { name: "HTML5", category: "frontend", icon: FaHtml5 },
     { name: "JavaScript", category: "frontend", icon: BiLogoJavascript },
     { name: "TypeScript", category: "frontend", icon: BiLogoTypescript },
     { name: "React", category: "frontend", icon: FaReact },
-    { name: "CSS", category: "styling", icon: FaCss3Alt },
+    { name: "CSS3", category: "styling", icon: FaCss3Alt },
     { name: "SCSS/SASS", category: "styling", icon: FaSass },
     { name: "Bootstrap", category: "styling", icon: FaBootstrap },
     { name: "Tailwind", category: "styling", icon: SiTailwindcss },

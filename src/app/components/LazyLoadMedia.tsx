@@ -143,7 +143,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                 width={width}
                 height={height}
                 className={`${mediaClasses} ${
-                    isHovering ? "opacity-0" : "opacity-100"
+                    videoSrc && isHovering ? "opacity-0" : "opacity-100"
                 }`}
                 priority={width > 200}
                 onLoad={handleLoad}
