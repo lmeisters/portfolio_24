@@ -64,7 +64,7 @@ export default function CurrentlyEmoji() {
                         : currentState;
                 }
                 return currentState;
-            } catch (error) {
+            } catch {
                 return getCurrentEmojiState();
             }
         }
