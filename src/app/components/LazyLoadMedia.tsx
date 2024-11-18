@@ -146,23 +146,15 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                 {isZoomed && (
                     <div
                         className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center
-                        transition-all duration-300 ease-in-out"
+                        transition-all duration-300 ease-in-out overflow-hidden"
                         onClick={handleCloseZoom}
-                        style={{
-                            animation: "fadeIn 300ms ease-out",
-                        }}
+                        onTouchEnd={handleCloseZoom}
                     >
-                        <div
-                            className="relative max-w-[75vw] max-h-[75vh] transform transition-all duration-300 ease-out"
-                            onClick={(e) => e.stopPropagation()}
-                            style={{
-                                animation: "zoomIn 300ms ease-out",
-                            }}
-                        >
+                        <div className="relative w-full h-full flex items-center justify-center">
                             <button
                                 onClick={handleCloseZoom}
-                                className="absolute -top-10 right-0 text-white hover:text-gray-300 p-2
-                                transition-colors duration-200"
+                                className="absolute top-4 right-4 text-white hover:text-gray-300 p-2
+                                transition-colors duration-200 z-10"
                                 aria-label="Close"
                             >
                                 <svg
@@ -180,7 +172,14 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                                     />
                                 </svg>
                             </button>
-                            <VideoContent isZoomed />
+                            <div
+                                className="max-w-[90vw] max-h-[90vh] transform transition-all duration-300 ease-out"
+                                style={{
+                                    animation: "zoomIn 300ms ease-out",
+                                }}
+                            >
+                                <VideoContent isZoomed />
+                            </div>
                         </div>
                     </div>
                 )}
