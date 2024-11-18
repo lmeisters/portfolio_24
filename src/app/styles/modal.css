@@ -1,0 +1,77 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes zoomOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.3) translateY(20px);
+    }
+}
+
+/* Global scrollbar style */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--darker-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--dark-hover-bg);
+    opacity: 0.3;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    opacity: 0.4;
+}
+
+/* Modal-specific scrollbar style */
+body.modal-open::-webkit-scrollbar {
+    width: 10px;
+}
+
+body.modal-open::-webkit-scrollbar-track {
+    background: var(--darker-bg);
+}
+
+body.modal-open::-webkit-scrollbar-thumb {
+    background: var(--dark-hover-bg);
+    opacity: 0.3;
+    border-radius: 5px;
+}
+
+body.modal-open::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-hover-bg);
+}

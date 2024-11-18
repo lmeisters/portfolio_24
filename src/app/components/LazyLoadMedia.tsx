@@ -34,6 +34,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isZoomed, setIsZoomed] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -57,19 +58,25 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
 
     useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
-            if (e.key === "Escape") setIsZoomed(false);
+            if (e.key === "Escape") handleCloseZoom();
         };
 
-        if (isZoomed) {
+        if (isZoomed || isClosing) {
             document.addEventListener("keydown", handleEscape);
-            document.body.style.overflow = "hidden";
         }
 
         return () => {
             document.removeEventListener("keydown", handleEscape);
-            document.body.style.overflow = "unset";
         };
-    }, [isZoomed]);
+    }, [isZoomed, isClosing]);
+
+    useEffect(() => {
+        if (isZoomed || isClosing) {
+            document.body.classList.add("modal-open");
+        } else {
+            document.body.classList.remove("modal-open");
+        }
+    }, [isZoomed, isClosing]);
 
     const handleLoad = () => {
         setIsLoading(false);
@@ -96,7 +103,11 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     };
 
     const handleCloseZoom = () => {
-        setIsZoomed(false);
+        setIsClosing(true);
+        setTimeout(() => {
+            setIsClosing(false);
+            setIsZoomed(false);
+        }, 400);
     };
 
     const mediaClasses = `
@@ -119,7 +130,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
             playsInline
             preload="metadata"
             loop
-            autoPlay
+            autoPlay={isVideo}
             onLoadedData={handleLoad}
         >
             <source src={src} type="video/webm" />
@@ -143,13 +154,19 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                     {isInView && <VideoContent />}
                 </div>
 
-                {isZoomed && (
+                {(isZoomed || isClosing) && (
                     <div
-                        className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center
-                        transition-all duration-300 ease-in-out overflow-hidden"
+                        className="fixed inset-0 z-[100] flex items-center justify-center
+                        transition-all duration-500 ease-out"
                         onClick={handleCloseZoom}
                         onTouchEnd={handleCloseZoom}
+                        style={{
+                            animation: `${
+                                isClosing ? "fadeOut" : "fadeIn"
+                            } 400ms ease-out`,
+                        }}
                     >
+                        <div className="absolute inset-0 bg-black/90" />
                         <div className="relative w-full h-full flex items-center justify-center">
                             <button
                                 onClick={handleCloseZoom}
@@ -173,9 +190,12 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                                 </svg>
                             </button>
                             <div
-                                className="max-w-[90vw] max-h-[90vh] transform transition-all duration-300 ease-out"
+                                className="max-w-[90vw] max-h-[90vh] transform transition-all duration-500 ease-out
+                                will-change-transform"
                                 style={{
-                                    animation: "zoomIn 300ms ease-out",
+                                    animation: `${
+                                        isClosing ? "zoomOut" : "zoomIn"
+                                    } 400ms cubic-bezier(0.16, 1, 0.3, 1)`,
                                 }}
                             >
                                 <VideoContent isZoomed />
@@ -226,33 +246,5 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         </div>
     );
 };
-
-const styles = `
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes zoomIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-`;
-
-if (typeof document !== "undefined") {
-    const styleSheet = document.createElement("style");
-    styleSheet.textContent = styles;
-    document.head.appendChild(styleSheet);
-}
 
 export default LazyLoadMedia;

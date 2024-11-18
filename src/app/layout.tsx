@@ -3,6 +3,7 @@ import "./globals.css";
 import { Metadata } from "next";
 import { SpeedInsightsWrapper } from "./components/SpeedInsightsWrapper";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
+import "./styles/modal.css";
 
 const poppins = Poppins({
     weight: ["400", "700"],
