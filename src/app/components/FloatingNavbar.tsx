@@ -83,7 +83,7 @@ export const FloatingNavbar = () => {
                 </li>
                 <li>
                     <a
-                        href="https://drive.google.com/file/d/1_uUxYKSwakk_O9ZBZYH-jw03ZaM2X-gN/view"
+                        href="https://drive.google.com/file/d/1n1P4QFTfuhQN4Ob7TfwC-j3wxt8PApi2/view?usp=sharing"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"

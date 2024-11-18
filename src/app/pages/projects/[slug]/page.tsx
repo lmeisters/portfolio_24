@@ -14,7 +14,7 @@ const projects = [
         id: 1,
         name: "PurePlaylist",
         description:
-            "A Spotify playlist filtering web app that allows users to filter playlists based on various criteria such as genre, mood, and tempo.",
+            "A Spotify playlist filtering web app that allows users to filter playlists based on various criteria such as genre, mood, and tempo",
         year: "2024",
         slug: "pureplaylist",
         github: "github.com/lmeisters/PurePlaylist",
@@ -70,7 +70,7 @@ const projects = [
         id: 2,
         name: "SiteSelect",
         description:
-            "A curated platform offering a collection of the web's most innovative design galleries. Designed to inspire and elevate web projects, SiteSelect allows users to explore a diverse array of visual references. It features advanced search and filtering, responsive design, and dynamic content loading from a JSON file.",
+            "A curated platform offering a collection of the web's most innovative design galleries. Designed to inspire and elevate web projects, SiteSelect allows users to explore a diverse array of visual references. It features advanced search and filtering, responsive design, and dynamic content loading from a JSON file",
         year: "2024",
         slug: "siteselect",
         github: "github.com/lmeisters/SiteSelect",
@@ -119,7 +119,7 @@ const projects = [
         id: 3,
         name: "Terrainly",
         description:
-            "A full-stack web application that allows users to discover, create, and review parks around Latvia. This application leverages Node.js, Express, and MongoDB to deliver a robust and interactive user experience with features like user authentication, park management, and a review system. This platform is designed to connect nature enthusiasts and provide a comprehensive resource for outdoor adventures in Latvia's beautiful landscapes.",
+            "A full-stack web application that allows users to discover, create, and review parks around Latvia. This application leverages Node.js, Express, and MongoDB to deliver a robust and interactive user experience with features like user authentication, park management, and a review system. This platform is designed to connect nature enthusiasts and provide a comprehensive resource for outdoor adventures in Latvia's beautiful landscapes",
         year: "2024",
         slug: "terrainly",
         github: "github.com/lmeisters/Terrainly",
@@ -178,7 +178,7 @@ const projects = [
         id: 4,
         name: "AI Image Generator",
         description:
-            "This project is an AI image generator application built using React, Node.js, Express, and MongoDB. It leverages the DALL-E 2 AI model to create images from user-provided prompts. Users can generate unique images, share them on the website, and browse a community showcase of AI-generated art.",
+            "This project is an AI image generator application built using React, Node.js, Express, and MongoDB. It leverages the DALL-E 2 AI model to create images from user-provided prompts. Users can generate unique images, share them on the website, and browse a community showcase of AI-generated art",
         year: "2024",
         slug: "ai-image-generator",
         github: "github.com/lmeisters/AI_Image_Generator_Dall-E",
