@@ -3,12 +3,11 @@
 import { GoogleAnalytics as GA } from "@next/third-parties/google";
 import { useState, useEffect } from "react";
 import { ErrorBoundary } from "./ErrorBoundary";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export function GoogleAnalytics() {
     const [hasConsent, setHasConsent] = useState(false);
     const pathname = usePathname();
-    const searchParams = useSearchParams();
 
     useEffect(() => {
         const consent = localStorage.getItem("analytics-consent");
@@ -23,11 +22,11 @@ export function GoogleAnalytics() {
     useEffect(() => {
         if (hasConsent && window.gtag) {
             window.gtag("event", "page_view", {
-                page_path: pathname + searchParams.toString(),
+                page_path: pathname,
                 page_title: document.title,
             });
         }
-    }, [pathname, searchParams, hasConsent]);
+    }, [pathname, hasConsent]);
 
     if (!hasConsent) return null;
 
