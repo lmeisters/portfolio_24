@@ -124,7 +124,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
             width={width}
             height={height}
             className={`${mediaClasses} ${
-                isZoomed ? "max-h-[75vh] w-auto" : ""
+                isZoomed ? "!max-h-[65vh] !w-auto max-w-[90vw]" : ""
             }`}
             muted
             playsInline
@@ -167,10 +167,10 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                         }}
                     >
                         <div className="absolute inset-0 bg-black/90" />
-                        <div className="relative w-full h-full flex items-center justify-center">
+                        <div className="relative w-full h-full flex items-center justify-center p-8">
                             <button
                                 onClick={handleCloseZoom}
-                                className="absolute top-4 right-4 text-white hover:text-gray-300 p-2
+                                className="absolute top-8 right-8 text-white hover:text-gray-300 p-2
                                 transition-colors duration-200 z-10"
                                 aria-label="Close"
                             >
@@ -191,7 +191,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                             </button>
                             <div
                                 className="max-w-[90vw] max-h-[90vh] transform transition-all duration-500 ease-out
-                                will-change-transform"
+                                will-change-transform !w-auto"
                                 style={{
                                     animation: `${
                                         isClosing ? "zoomOut" : "zoomIn"
