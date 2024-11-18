@@ -56,6 +56,20 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         setIsLoading(false);
     };
 
+    const handleMouseEnter = () => {
+        if (!disableHover && videoSrc) {
+            setIsHovering(true);
+            videoRef.current?.play();
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (!disableHover && videoSrc) {
+            setIsHovering(false);
+            videoRef.current?.pause();
+        }
+    };
+
     const mediaClasses = `
         h-auto max-w-full max-h-full object-contain rounded-md
         transition-all duration-500 ease-in-out
@@ -96,6 +110,8 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         <div
             ref={containerRef}
             className={`relative w-full h-full ${!disableHover ? "group" : ""}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
             {isLoading && loadingPlaceholder}
             <Image
