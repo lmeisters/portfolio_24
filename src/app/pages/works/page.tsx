@@ -125,7 +125,7 @@ export default function ProjectsPage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {projects.map((project) => (
+                    {projects.map((project, index) => (
                         <div
                             key={project.title}
                             className="relative flex flex-col h-full"
@@ -237,6 +237,7 @@ export default function ProjectsPage() {
                                             width={565}
                                             height={400}
                                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                            priority={index === 0}
                                         />
                                     </Link>
                                 ) : (
@@ -248,6 +249,7 @@ export default function ProjectsPage() {
                                             width={565}
                                             height={400}
                                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                            priority={index === 0}
                                         />
                                     </div>
                                 )}

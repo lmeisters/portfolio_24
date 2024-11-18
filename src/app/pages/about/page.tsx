@@ -152,20 +152,20 @@ const About = () => {
                         Science from Riga Technical University, currently
                         pursuing my Master's degree. My skills include HTML,
                         CSS, JavaScript, and TypeScript, along with experience
-                        using frameworks like React, Next.js, and Tailwind.
+                        using frameworks like React, Next.js, and Tailwind
                     </p>
                     <p className="text-gray-600 mb-2">
                         During my internship at Mykoob, I built a strong
                         foundation in SCSS and modern JavaScript, working
                         through detailed projects that sharpened my coding and
-                        design skills.
+                        design skills
                     </p>
                     <p className="text-gray-600 mb-4">
                         Outside of work, I create web apps that solve real-life
                         problems, focusing on clear, user-centered
                         functionality. I draw design inspiration from industry
                         trends and continuously refine my approach to building
-                        responsive, well-architected websites.
+                        responsive, well-architected websites
                     </p>
                 </section>
 

@@ -20,9 +20,10 @@ export default function HeroSection() {
         <section className="mb-12">
             <Image
                 src={handEmoji}
-                alt="Hand emoji"
+                alt="Wave emoji"
                 width={32}
                 height={32}
+                priority
                 className={`cursor-default mb-2 w-8 h-8 ${
                     animate ? "animate-wave" : ""
                 } hover:animate-wave`}

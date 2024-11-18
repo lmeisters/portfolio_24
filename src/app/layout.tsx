@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
 import { SpeedInsightsWrapper } from "./components/SpeedInsightsWrapper";
+import { GoogleAnalytics } from "./components/GoogleAnalytics";
 
 const poppins = Poppins({
     weight: ["400", "700"],
@@ -81,11 +82,19 @@ export default function RootLayout({
                     href="https://fonts.gstatic.com"
                     crossOrigin="anonymous"
                 />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.googleapis.com"
+                    crossOrigin="anonymous"
+                />
+                <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+                <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
                 <link rel="icon" href="/favicon.ico" />
             </head>
             <body>
                 {children}
                 <SpeedInsightsWrapper />
+                <GoogleAnalytics />
             </body>
         </html>
     );

@@ -12,6 +12,7 @@ interface LazyLoadMediaProps {
     className?: string;
     isVideo?: boolean;
     disableHover?: boolean;
+    priority?: boolean;
 }
 
 const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
@@ -23,13 +24,13 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
     className,
     isVideo = false,
     disableHover = false,
+    priority = false,
 }) => {
     const [isHovering, setIsHovering] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isInView, setIsInView] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const playTimeoutRef = useRef<NodeJS.Timeout>();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -41,7 +42,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                     }
                 });
             },
-            { threshold: 0.1 }
+            { threshold: 0.1, rootMargin: "50px" }
         );
 
         if (containerRef.current) {
@@ -51,48 +52,8 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         return () => observer.disconnect();
     }, []);
 
-    useEffect(() => {
-        if (isVideo && isInView && videoRef.current) {
-            videoRef.current.play().catch((error) => {
-                console.log("Auto-play failed:", error);
-            });
-        }
-    }, [isVideo, isInView]);
-
-    useEffect(() => {
-        return () => {
-            if (playTimeoutRef.current) {
-                clearTimeout(playTimeoutRef.current);
-            }
-        };
-    }, []);
-
     const handleLoad = () => {
         setIsLoading(false);
-    };
-
-    const handleMouseEnter = () => {
-        setIsHovering(true);
-        if (videoRef.current) {
-            playTimeoutRef.current = setTimeout(() => {
-                const playPromise = videoRef.current?.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        // Ignore abort errors
-                    });
-                }
-            }, 100);
-        }
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovering(false);
-        if (playTimeoutRef.current) {
-            clearTimeout(playTimeoutRef.current);
-        }
-        if (videoRef.current) {
-            videoRef.current.pause();
-        }
     };
 
     const mediaClasses = `
@@ -102,10 +63,15 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         ${className || ""}
     `.trim();
 
-    // If it's a direct video without preview image
+    // Loading placeholder
+    const loadingPlaceholder = (
+        <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-md" />
+    );
+
     if (isVideo) {
         return (
-            <div ref={containerRef}>
+            <div ref={containerRef} className="relative">
+                {isLoading && loadingPlaceholder}
                 {isInView && (
                     <video
                         ref={videoRef}
@@ -116,6 +82,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                         playsInline
                         preload="metadata"
                         loop
+                        autoPlay
                         onLoadedData={handleLoad}
                     >
                         <source src={src} type="video/webm" />
@@ -125,18 +92,12 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
         );
     }
 
-    // For image with optional video hover
     return (
         <div
             ref={containerRef}
-            className={`relative w-full h-full overflow-hidden ${
-                !disableHover
-                    ? "group transition-transform duration-300 hover:scale-105"
-                    : ""
-            }`}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            className={`relative w-full h-full ${!disableHover ? "group" : ""}`}
         >
+            {isLoading && loadingPlaceholder}
             <Image
                 src={src}
                 alt={title}
@@ -145,8 +106,9 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
                 className={`${mediaClasses} ${
                     videoSrc && isHovering ? "opacity-0" : "opacity-100"
                 }`}
-                priority={width > 200}
+                priority={priority}
                 onLoad={handleLoad}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             {videoSrc && isInView && (
                 <video
