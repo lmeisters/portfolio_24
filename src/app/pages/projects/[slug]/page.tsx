@@ -331,6 +331,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                             height={400}
                             title={project.name}
                             isVideo={true}
+                            enableZoom={true}
                         />
                     </div>
 
