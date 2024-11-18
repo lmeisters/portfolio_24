@@ -124,7 +124,7 @@ const LazyLoadMedia: React.FC<LazyLoadMediaProps> = ({
             width={width}
             height={height}
             className={`${mediaClasses} ${
-                isZoomed ? "max-h-[90vh] w-auto" : ""
+                isZoomed ? "max-h-[75vh] w-auto" : ""
             }`}
             muted
             playsInline
