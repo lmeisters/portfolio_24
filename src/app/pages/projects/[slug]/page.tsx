@@ -8,6 +8,7 @@ import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
 import Tooltip from "@/app/components/ToolTip";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
+import { AlertCircle } from "lucide-react";
 
 const projects = [
     {
@@ -248,6 +249,16 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <div className="max-w-2xl mx-auto p-4 font-sans">
             <Header />
             <div className="">
+                {project.slug === "ai-image-generator" && (
+                    <div className="mb-4 p-1 bg-amber-50/80 border border-amber-200 rounded-lg">
+                        <div className="flex items-center gap-2">
+                            <AlertCircle className="h-4 w-4 ml-1 text-amber-500" />
+                            <p className="text-sm text-amber-700">
+                                Currently unavailable due to API usage limits
+                            </p>
+                        </div>
+                    </div>
+                )}
                 <h1 className="text-5xl font-semibold mb-4">{project.name}</h1>
                 <p className="text-sm text-gray-600 mb-6">
                     {project.description}

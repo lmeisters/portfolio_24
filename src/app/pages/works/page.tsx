@@ -179,7 +179,14 @@ export default function ProjectsPage() {
                                                 <GitFork className="w-5 h-5" />
                                             </a>
                                         </Tooltip>
-                                        <Tooltip content="View Live Site">
+                                        <Tooltip
+                                            content={
+                                                project.title ===
+                                                "AI Image Generator"
+                                                    ? "Currently unavailable due to API usage limits"
+                                                    : "View Live Site"
+                                            }
+                                        >
                                             <a
                                                 href={project.liveUrl}
                                                 target="_blank"
