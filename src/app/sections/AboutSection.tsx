@@ -12,14 +12,7 @@ export default function AboutSection() {
 
             <h2 className="text-3xl font-bold mb-2">About Me</h2>
             <p className="text-gray-600 mb-4">
-                I have a Bachelor's in Computer Science and a Master's in
-                progress at Riga Technical University. During my internship at
-                Mykoob, I focused on improving front-end workflows, creating
-                maintainable SCSS architecture, and optimizing performance for
-                responsive web design. I have certifications in advanced CSS and
-                JavaScript and currently specialize in building fast, accessible
-                web applications with tools like React, Next.js, and Tailwind
-                CSS
+            I have a Bachelor's in Computer Science and work as a UX Specialist, which means I spend my days designing A/B tests, analyzing user behavior, and turning research into actual design solutions. What makes my approach different is that I can take those designs all the way through. I build prototypes, implement fixes directly with GTM, ensure everything meets accessibility standards, and write the automation tests to verify it all works. My frontend background lets me move quickly between Figma, code, and data without losing context. I focus on creating experiences that are fast, accessible, and solve real problems for users
             </p>
             <Link
                 href="/pages/about"

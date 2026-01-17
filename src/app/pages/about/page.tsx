@@ -8,6 +8,7 @@ import { Suspense, useState } from "react";
 import { LazyPhysicsContainer } from "@/app/components/LazyPhysicsContainer";
 import LazyLoadMedia from "@/app/components/LazyLoadMedia";
 import Tooltip from "@/app/components/ToolTip";
+import airBalticLogo from "@/assets/images/airbaltic_logo.webp";
 import {
     FaHtml5,
     FaJsSquare,
@@ -130,8 +131,7 @@ const About = () => {
                             Thanks for stopping by
                         </h1>
                         <p className="text-gray-600 text-lg">
-                            Front-End Developer Crafting Seamless Web
-                            Experiences with Code and Creativity
+                            UX Specialist Crafting Data-Driven Experiences with Research and Code
                         </p>
                     </div>
                     <div className="w-1/3 flex">
@@ -148,24 +148,13 @@ const About = () => {
                 <section className="mb-8">
                     <h2 className="text-xl font-bold mb-2">About Me</h2>
                     <p className="text-gray-600 mb-2">
-                        I'm a front-end developer with a background in Computer
-                        Science from Riga Technical University, currently
-                        pursuing my Master's degree. My skills include HTML,
-                        CSS, JavaScript, and TypeScript, along with experience
-                        using frameworks like React, Next.js, and Tailwind
+                    I'm a UX Specialist with a Computer Science background from Riga Technical University. I combine user research and experimentation with hands-on technical skills. I design A/B tests, build prototypes, and implement solutions using HTML, CSS, JavaScript, TypeScript, React, Next.js, and Tailwind.
                     </p>
                     <p className="text-gray-600 mb-2">
-                        During my internship at Mykoob, I built a strong
-                        foundation in SCSS and modern JavaScript, working
-                        through detailed projects that sharpened my coding and
-                        design skills
+                    My foundation started during my internship at Mykoob, where I worked on SCSS architecture and modern JavaScript projects that taught me how to write maintainable, performant code. Now I split my time between optimizing user experiences at work and building side projects that solve real problems, things I actually wish existed.
                     </p>
                     <p className="text-gray-600 mb-4">
-                        Outside of work, I create web apps that solve real-life
-                        problems, focusing on clear, user-centered
-                        functionality. I draw design inspiration from industry
-                        trends and continuously refine my approach to building
-                        responsive, well-architected websites
+                    I stay inspired by following design trends and experimenting with new approaches, always focusing on creating experiences that are responsive, accessible, and genuinely useful.
                     </p>
                 </section>
 
@@ -213,8 +202,8 @@ const About = () => {
                     <h2 className="text-xl font-bold mb-4">Education</h2>
                     <TimelineItem
                         title="Riga Technical University"
-                        subtitle="Master's Degree of Computer Science"
-                        year="2023 - Present"
+                        subtitle="Incomplete Master's Degree of Computer Science"
+                        year="2023 - 2024"
                         imageSrc={rtuLogo.src}
                     />
                     <TimelineItem
@@ -227,6 +216,13 @@ const About = () => {
 
                 <section className="mb-8">
                     <h2 className="text-xl font-bold mb-4">Experience</h2>
+                    <TimelineItem
+                        title="airBaltic"
+                        description="UX Specialist"
+                        subtitle={["JavaScript", "MS Clarity", "Optimisely"]}
+                        year="2025 - Present"
+                        imageSrc={airBalticLogo.src}
+                    />
                     <TimelineItem
                         title="Mykoob"
                         description="Front-End Developer Internship"

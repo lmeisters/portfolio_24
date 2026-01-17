@@ -12,8 +12,7 @@ const Contact = () => {
             </div>
             <h2 className="text-3xl font-bold mb-2">Get in Touch</h2>
             <p className="text-gray-600 mb-6">
-                I'm actively seeking new opportunities to apply my skills. Let's connect and discuss how I can
-                contribute to your team
+                I'm available for new projects and collaborations. Let's connect and discuss how I can help solve your UX challenges
             </p>
             <CopyEmailButton email={email} variant="default" />
         </section>
