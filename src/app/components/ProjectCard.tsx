@@ -8,7 +8,6 @@ import { SkillTag } from "./icons";
 
 export interface CardProject {
     title: string;
-    /** Detail page path; omit for projects without one. */
     href?: string;
     logo?: StaticImageData | string;
     abbreviation?: string;
@@ -19,7 +18,6 @@ export interface CardProject {
     liveUrl: string;
     liveNotice?: string;
     image: StaticImageData | string;
-    /** Only needed when `image` is a string path. */
     imageWidth?: number;
     imageHeight?: number;
     videoSrc?: string;
@@ -28,7 +26,6 @@ export interface CardProject {
 
 interface ProjectCardProps {
     project: CardProject;
-    /** "full" is the home page layout, "compact" the works grid. */
     variant?: "full" | "compact";
     priority?: boolean;
 }

@@ -11,7 +11,6 @@ function rigaTime() {
     });
 }
 
-/** Notifies on every minute boundary. */
 function subscribe(onChange: () => void) {
     let interval: ReturnType<typeof setInterval> | undefined;
     const timeout = setTimeout(() => {
@@ -26,11 +25,6 @@ function subscribe(onChange: () => void) {
 
 const PLACEHOLDER = "--:--";
 
-/**
- * Local time in Riga. The server (and the hydrating client render) shows a
- * same-width placeholder; the real time appears right after hydration and
- * updates on the minute.
- */
 export default function RigaTimeClock() {
     const time = useSyncExternalStore(subscribe, rigaTime, () => PLACEHOLDER);
     return (

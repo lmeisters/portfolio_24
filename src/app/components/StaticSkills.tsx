@@ -15,7 +15,6 @@ const grouped = skills.reduce<Partial<Record<SkillCategory, Skill[]>>>(
     {}
 );
 
-/** Plain, screen-reader friendly list of skills grouped by category. */
 export default function StaticSkills({ className = "" }: { className?: string }) {
     return (
         <dl className={`grid grid-cols-1 gap-4 ${className}`}>

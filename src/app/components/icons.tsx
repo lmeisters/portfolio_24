@@ -11,11 +11,6 @@ import {
 import { SiExpress, SiMongodb, SiTailwindcss } from "react-icons/si";
 import { BiLogoJavascript, BiLogoTypescript } from "react-icons/bi";
 
-/**
- * Brand icons keyed by the label used in project/skill tags. Named imports
- * tree-shake to a few KB; wrapping them in next/dynamic pulled the whole
- * react-icons index into every page.
- */
 export const skillIcons: Record<string, IconType> = {
     HTML5: FaHtml5,
     JavaScript: BiLogoJavascript,
@@ -41,7 +36,6 @@ export interface Skill {
     icon: IconType;
 }
 
-/** Skills shown on the about page (static list and physics simulation). */
 export const skills: Skill[] = [
     { name: "HTML5", category: "frontend", icon: FaHtml5 },
     { name: "JavaScript", category: "frontend", icon: BiLogoJavascript },
@@ -62,7 +56,6 @@ interface SkillTagProps {
     className?: string;
 }
 
-/** Small pill with an optional brand icon; the icon is decorative. */
 export function SkillTag({ name, className = "" }: SkillTagProps) {
     const Icon = skillIcons[name];
     return (

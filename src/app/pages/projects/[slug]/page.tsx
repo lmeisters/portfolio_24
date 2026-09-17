@@ -38,7 +38,6 @@ export async function generateMetadata({
     };
 }
 
-/** "Label: text" bullet where the label is bold. */
 function LabelledItem({ text }: { text: string }) {
     const [label, ...rest] = text.split(":");
     const detail = rest.join(":");
@@ -159,7 +158,6 @@ export default async function ProjectPage({ params }: { params: Params }) {
                     </ol>
                 </section>
 
-                {/* Alternate feature videos with the remaining sections. */}
                 {project.videos.map((video, i) => (
                     <div key={video.src}>
                         <div className="mb-4">
@@ -199,7 +197,6 @@ export default async function ProjectPage({ params }: { params: Params }) {
                     </div>
                 ))}
 
-                {/* Projects with fewer than two videos still need these sections. */}
                 {project.videos.length < 2 && (
                     <section className="mb-8" aria-labelledby="challenges-heading">
                         <h3 id="challenges-heading" className="mb-2 text-2xl font-semibold">

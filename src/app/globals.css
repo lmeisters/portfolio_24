@@ -7,7 +7,6 @@
     color: #000000;
 }
 
-/* Scrollbar (WebKit only; Firefox uses the default). */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -25,7 +24,6 @@
     background: #4a4a4a;
 }
 
-/* "New" badge shimmer. */
 @keyframes shimmer {
     0% {
         background-position: -200% center;
@@ -57,7 +55,6 @@
     );
 }
 
-/* Header clock/emoji entrance. */
 @keyframes fade-in {
     from {
         opacity: 0;

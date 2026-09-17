@@ -21,12 +21,10 @@ export const metadata: Metadata = {
 
 interface TimelineItemProps {
     title: string;
-    /** Plain text, or a list of skills rendered as tags. */
     subtitle: string | string[];
     description?: string;
     year: string;
     logo: StaticImageData;
-    /** Organisation behind the logo (shown as tooltip/alt when it differs from the title). */
     organisation?: string;
 }
 

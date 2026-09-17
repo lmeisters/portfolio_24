@@ -68,11 +68,6 @@ export const viewport: Viewport = {
     ],
 };
 
-/**
- * Applies the saved (or system) colour scheme before first paint so dark-mode
- * users never see a flash of the light theme and Tailwind `dark:` utilities
- * are correct from the SSR'd HTML onwards.
- */
 const themeScript = `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d)}catch(e){}})();`;
 
 export default function RootLayout({
@@ -97,7 +92,6 @@ export default function RootLayout({
                     Skip to content
                 </a>
                 {children}
-                {/* The script only exists on Vercel; elsewhere it would 404. */}
                 {process.env.VERCEL === "1" && <SpeedInsights />}
                 <GoogleAnalytics />
             </body>

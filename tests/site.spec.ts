@@ -2,11 +2,6 @@ import { test, expect, type Page } from "@playwright/test";
 
 const PROJECT_SLUGS = ["pureplaylist", "siteselect", "terrainly", "ai-image-generator"];
 
-/**
- * Collects console errors and failed requests so every test can assert the
- * page loaded without runtime problems. The GA script is ignored because its
- * id comes from an env var that is not set outside Vercel.
- */
 function watchForErrors(page: Page) {
     const errors: string[] = [];
     page.on("console", (msg) => {
@@ -48,7 +43,6 @@ test.describe("pages render", () => {
         for (const section of ["About Me", "My Skills", "Education", "Experience", "Courses"]) {
             await expect(page.getByRole("heading", { name: section })).toBeVisible();
         }
-        // The matter-js physics simulation mounts a canvas.
         await expect(page.locator("canvas")).toHaveCount(1);
         expect(getErrors()).toEqual([]);
     });
@@ -119,8 +113,6 @@ test.describe("navigation", () => {
 
 test.describe("interactions", () => {
     test("copy email button copies to clipboard", async ({ page }) => {
-        // Stub the clipboard: the real one is a single OS resource and parallel
-        // workers race for it, which makes writeText() reject intermittently.
         await page.addInitScript(() => {
             (window as any).__copied = [];
             Object.defineProperty(navigator, "clipboard", {
@@ -134,9 +126,6 @@ test.describe("interactions", () => {
             });
         });
         await page.goto("/");
-        // The hero and the contact section each render one; click the hero's.
-        // A click that lands before React has hydrated is a no-op, so retry
-        // until the button reacts.
         const button = page.getByRole("button", { name: "Copy email", exact: true }).first();
         await expect(async () => {
             await button.click();

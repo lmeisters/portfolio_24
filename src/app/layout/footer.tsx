@@ -1,4 +1,3 @@
-// lucide-react 1.x dropped brand icons; react-icons/lu ships the same Lucide artwork.
 import { LuLinkedin, LuGithub } from "react-icons/lu";
 import Tooltip from "../components/Tooltip";
 import { GITHUB_URL, LINKEDIN_URL } from "../data/site";

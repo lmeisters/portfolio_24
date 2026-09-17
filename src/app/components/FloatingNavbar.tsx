@@ -33,8 +33,6 @@ function readTheme() {
 export function FloatingNavbar() {
     const pathname = usePathname();
     const { copied, copyEmail } = useCopyEmail(EMAIL);
-    // Only used for aria-pressed; the icon itself is switched with CSS so it
-    // is right on the very first paint.
     const [dark, setDark] = useState(false);
 
     useEffect(() => {
@@ -46,9 +44,7 @@ export function FloatingNavbar() {
         document.documentElement.classList.toggle("dark", next);
         try {
             localStorage.setItem("theme", next ? "dark" : "light");
-        } catch {
-            // Storage unavailable (private mode); the choice just won't persist.
-        }
+        } catch {}
         setDark(next);
     };
 

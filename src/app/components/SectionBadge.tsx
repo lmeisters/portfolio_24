@@ -1,4 +1,3 @@
-/** Small outlined pill above a section heading ("About", "Contact", ...). */
 export default function SectionBadge({
     children,
 }: {

@@ -14,7 +14,6 @@ function isDark() {
     return document.documentElement.classList.contains("dark");
 }
 
-/** Rasterises each brand icon once per theme; drawing SVG strings per frame was the old hot path. */
 function buildIconImages(dark: boolean) {
     const color = dark ? "#ffffff" : "#000000";
     return new Map(
@@ -30,15 +29,9 @@ function buildIconImages(dark: boolean) {
 }
 
 interface PhysicsSimulationProps {
-    /** Rendered height of the scene in px; the width follows the container. */
     height?: number;
 }
 
-/**
- * Skill "pills" falling into a box you can drag around. The simulation only
- * runs while the canvas is on screen and the tab is visible, and the icon
- * bitmaps are prepared once instead of on every frame.
- */
 export function PhysicsSimulation({ height = 256 }: PhysicsSimulationProps) {
     const sceneRef = useRef<HTMLDivElement>(null);
 
@@ -136,8 +129,6 @@ export function PhysicsSimulation({ height = 256 }: PhysicsSimulationProps) {
                 mouse,
                 constraint: { stiffness: 0.2, render: { visible: false } },
             });
-            // matter-js preventDefault()s wheel and touch events, which would
-            // trap page scrolling on the canvas. Dragging stays mouse-only.
             const m = mouse as unknown as {
                 mousewheel: EventListener;
                 mousemove: EventListener;
@@ -207,7 +198,6 @@ export function PhysicsSimulation({ height = 256 }: PhysicsSimulationProps) {
                 }
             });
 
-            // Re-skin when the theme toggles.
             const themeObserver = new MutationObserver(() => {
                 const next = isDark();
                 if (next !== dark) {
@@ -220,7 +210,6 @@ export function PhysicsSimulation({ height = 256 }: PhysicsSimulationProps) {
                 attributeFilter: ["class"],
             });
 
-            // Only simulate while visible.
             let running = false;
             let visible = false;
             const sync = () => {

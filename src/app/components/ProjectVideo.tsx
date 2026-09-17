@@ -5,21 +5,14 @@ import { Maximize2, X } from "lucide-react";
 
 interface ProjectVideoProps {
     src: string;
-    /** Describes the clip for assistive technology, e.g. "PurePlaylist – Track sorting". */
     label: string;
 }
 
-/**
- * Muted demo clip for project pages. It sits in a fixed 16:9 box (no layout
- * shift), downloads nothing until scrolled into view, pauses when scrolled
- * away, and can be enlarged in a native <dialog>.
- */
 export default function ProjectVideo({ src, label }: ProjectVideoProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const dialogRef = useRef<HTMLDialogElement>(null);
     const [open, setOpen] = useState(false);
 
-    // Autoplay only while visible.
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
@@ -67,7 +60,6 @@ export default function ProjectVideo({ src, label }: ProjectVideoProps) {
                 <Maximize2 aria-hidden="true" className="h-4 w-4" />
             </button>
 
-            {/* Backdrop click is a pointer convenience; keyboard users have Escape (native) and the close button. */}
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
             <dialog
                 ref={dialogRef}
