@@ -233,9 +233,10 @@ const projects = [
     },
 ];
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
+export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = React.use(params);
     const currentProjectIndex = projects.findIndex(
-        (p) => p.name.toLowerCase().replace(/\s+/g, "-") === params.slug
+        (p) => p.name.toLowerCase().replace(/\s+/g, "-") === slug
     );
 
     if (currentProjectIndex === -1) {
