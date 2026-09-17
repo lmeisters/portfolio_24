@@ -1,14 +1,28 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
 
-export const useCopyEmail = (email: string) => {
-  const [copied, setCopied] = useState(false);
+/**
+ * Copies `email` to the clipboard and reports "copied" for two seconds.
+ * The clipboard API rejects on insecure origins or denied permission; in
+ * that case `copied` simply stays false.
+ */
+export function useCopyEmail(email: string) {
+    const [copied, setCopied] = useState(false);
+    const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(email).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
+    useEffect(() => () => clearTimeout(timer.current), []);
 
-  return { copied, handleCopyEmail };
-};
+    const copyEmail = useCallback(() => {
+        if (!navigator.clipboard) return Promise.resolve(false);
+        return navigator.clipboard
+            .writeText(email)
+            .then(() => {
+                setCopied(true);
+                clearTimeout(timer.current);
+                timer.current = setTimeout(() => setCopied(false), 2000);
+                return true;
+            })
+            .catch(() => false);
+    }, [email]);
+
+    return { copied, copyEmail };
+}

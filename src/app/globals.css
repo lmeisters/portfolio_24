@@ -2,112 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: "Poppins";
-    font-display: swap;
-}
-
-:root {
-    --dark-bg: #121212;
-    --dark-bg-secondary: #1e1e1e;
-    --dark-text: #ffffff;
-    --dark-text-secondary: #b0b0b0;
-    --dark-border: #4a4a4a;
-    --dark-hover-bg: #2c2c2c;
-    --dark-hover-border: #5a5a5a;
-    --light-bg: #ffffff;
-    --darker-bg: #f0f0f0;
-    --light-text: #121212;
-    --hover-bg: #d1d5db;
-    --background-color: var(--light-bg);
-    --text-color: var(--light-text);
-    --transition-duration: 0.3s;
-    --font-sans: var(--font-poppins);
-    --font-mono: var(--font-fira-code);
-}
-
 ::selection {
     background-color: #ffd700;
     color: #000000;
 }
 
-::-moz-selection {
-    background-color: #ffd700;
-    color: #000000;
+/* Scrollbar (WebKit only; Firefox uses the default). */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+::-webkit-scrollbar-thumb {
+    background: #b0b0b0;
+    border-radius: 5px;
+}
+.dark ::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
 }
 
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    transition: color var(--transition-duration) ease,
-        background-color var(--transition-duration) ease;
-    font-family: var(--font-sans);
-}
-
-* {
-    transition: background-color var(--transition-duration) ease;
-}
-
-body.dark-mode {
-    --background-color: var(--dark-bg);
-    --text-color: var(--dark-text);
-}
-
-.dark-mode {
-    .bg-white {
-        background-color: var(--dark-bg-secondary);
-    }
-    .bg-white-100 {
-        background-color: var(--darker-bg);
-    }
-    .bg-black {
-        background-color: var(--light-bg);
-    }
-    .bg-gray-100 {
-        color: var(--light-text);
-    }
-
-    .text-white {
-        color: var(--light-text);
-    }
-    .text-gray-500,
-    .text-gray-600 {
-        color: var(--dark-text-secondary);
-    }
-
-    .text-gray-800 {
-        color: var(--dark-text);
-    }
-
-    .border-gray-300 {
-        border-color: var(--dark-border);
-    }
-    .border-gray-800 {
-        border-color: var(--light-bg);
-    }
-
-    .hover\:text-black:hover {
-        color: var(--dark-text);
-    }
-    .bg-black:hover {
-        background-color: var(--hover-bg);
-        border-color: var(--light-bg);
-    }
-    .hover\:bg-gray-100:hover {
-        background-color: var(--dark-hover-bg);
-    }
-    .hover\:border-gray-400:hover {
-        border-color: var(--dark-hover-border);
-    }
-    .text-gray-500:hover {
-        color: var(--hover-bg);
-    }
-}
-
-code {
-    font-family: var(--font-mono);
-}
-
+/* "New" badge shimmer. */
 @keyframes shimmer {
     0% {
         background-position: -200% center;
@@ -116,7 +34,6 @@ code {
         background-position: 200% center;
     }
 }
-
 .animate-shimmer {
     background: linear-gradient(
         110deg,
@@ -129,9 +46,8 @@ code {
     background-size: 200% auto;
     animation: shimmer 2s ease-in-out 1s forwards;
 }
-
-.dark-mode .animate-shimmer {
-    background: linear-gradient(
+.dark .animate-shimmer {
+    background-image: linear-gradient(
         110deg,
         #fff 0%,
         #fff 40%,
@@ -139,11 +55,10 @@ code {
         #fff 60%,
         #fff 100%
     );
-    background-size: 200% auto;
-    animation: shimmer 2s ease-in-out 1s forwards;
 }
 
-@keyframes fadeIn {
+/* Header clock/emoji entrance. */
+@keyframes fade-in {
     from {
         opacity: 0;
     }
@@ -151,31 +66,6 @@ code {
         opacity: 1;
     }
 }
-
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-in forwards;
-    animation-delay: 0.1s;
-    opacity: 0;
-}
-
-@keyframes initialFadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
 .initial-fade-in {
-    opacity: 0;
-    animation: initialFadeIn 0.8s ease-out forwards;
-}
-
-.emoji-fade-in {
-    animation-delay: 0.2s;
-}
-
-.clock-fade-in {
-    animation-delay: 0.3s;
+    animation: fade-in 0.8s ease-out both;
 }

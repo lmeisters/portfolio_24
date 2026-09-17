@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 
-function getCurrentRigaTime() {
+function rigaTime() {
     return new Date().toLocaleTimeString("en-GB", {
         timeZone: "Europe/Riga",
         hour: "2-digit",
@@ -11,40 +11,31 @@ function getCurrentRigaTime() {
     });
 }
 
+/** Notifies on every minute boundary. */
+function subscribe(onChange: () => void) {
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const timeout = setTimeout(() => {
+        onChange();
+        interval = setInterval(onChange, 60_000);
+    }, 60_000 - (Date.now() % 60_000));
+    return () => {
+        clearTimeout(timeout);
+        if (interval) clearInterval(interval);
+    };
+}
+
+const PLACEHOLDER = "--:--";
+
+/**
+ * Local time in Riga. The server (and the hydrating client render) shows a
+ * same-width placeholder; the real time appears right after hydration and
+ * updates on the minute.
+ */
 export default function RigaTimeClock() {
-    const [time, setTime] = useState(() => {
-        if (typeof window !== "undefined") {
-            const cached = localStorage.getItem("rigaTime");
-            return cached || getCurrentRigaTime();
-        }
-        return getCurrentRigaTime();
-    });
-
-    const shouldAnimate =
-        typeof window !== "undefined" &&
-        !localStorage.getItem("initialPageLoad");
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const newTime = getCurrentRigaTime();
-            setTime(newTime);
-            localStorage.setItem("rigaTime", newTime);
-        }, 1000);
-
-        if (shouldAnimate) {
-            localStorage.setItem("initialPageLoad", "true");
-        }
-
-        return () => clearInterval(interval);
-    }, [shouldAnimate]);
-
+    const time = useSyncExternalStore(subscribe, rigaTime, () => PLACEHOLDER);
     return (
-        <div
-            className={`${
-                shouldAnimate ? "initial-fade-in clock-fade-in" : ""
-            }`}
-        >
-            {time} Riga, Latvia
-        </div>
+        <p className="initial-fade-in tabular-nums">
+            <time>{time}</time> Riga, Latvia
+        </p>
     );
 }

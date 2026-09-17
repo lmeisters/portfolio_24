@@ -1,5 +1,3 @@
-"use client";
-
 import { FloatingNavbar } from "./components/FloatingNavbar";
 import Header from "./layout/header";
 import HeroSection from "./sections/HeroSection";
@@ -10,14 +8,14 @@ import Footer from "./layout/footer";
 
 export default function Home() {
     return (
-        <div className="max-w-2xl mx-auto p-4 font-sans">
+        <div className="mx-auto max-w-2xl p-4 pb-28 font-sans md:pb-4">
             <Header />
-
-            <HeroSection />
-            <ProjectsSection />
-            <AboutSection />
-            <ContactSection />
-
+            <main id="main">
+                <HeroSection />
+                <ProjectsSection />
+                <AboutSection />
+                <ContactSection />
+            </main>
             <Footer />
             <FloatingNavbar />
         </div>

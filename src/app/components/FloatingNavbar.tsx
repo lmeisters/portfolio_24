@@ -1,5 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
     House,
     Briefcase,
@@ -10,125 +13,104 @@ import {
     Moon,
     Check,
 } from "lucide-react";
-import Link from "next/link";
+import { useCopyEmail } from "@/app/hooks/useCopyEmail";
+import { EMAIL, RESUME_URL } from "@/app/data/site";
 
-export const FloatingNavbar = () => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const [emailCopied, setEmailCopied] = useState(false);
+const itemClasses =
+    "inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-600 transition-colors duration-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:text-neutral-400 dark:hover:text-white sm:h-9 sm:w-9 [&>svg]:transition-transform [&>svg]:duration-300 hover:[&>svg]:scale-110";
+const iconClasses = "h-7 w-7 sm:h-6 sm:w-6";
+
+const pages = [
+    { href: "/", label: "Home", Icon: House },
+    { href: "/pages/works", label: "Works", Icon: Briefcase },
+    { href: "/pages/about", label: "About", Icon: User },
+];
+
+function readTheme() {
+    return document.documentElement.classList.contains("dark");
+}
+
+export function FloatingNavbar() {
+    const pathname = usePathname();
+    const { copied, copyEmail } = useCopyEmail(EMAIL);
+    // Only used for aria-pressed; the icon itself is switched with CSS so it
+    // is right on the very first paint.
+    const [dark, setDark] = useState(false);
 
     useEffect(() => {
-        // Load dark mode preference from localStorage
-        const savedDarkMode = localStorage.getItem("darkMode") === "true";
-        setIsDarkMode(savedDarkMode);
-        applyDarkMode(savedDarkMode);
+        setDark(readTheme());
     }, []);
 
-    const toggleDarkMode = () => {
-        const newDarkMode = !isDarkMode;
-        setIsDarkMode(newDarkMode);
-        localStorage.setItem("darkMode", newDarkMode.toString());
-        applyDarkMode(newDarkMode);
-    };
-
-    const applyDarkMode = (darkMode: boolean) => {
-        if (darkMode) {
-            document.body.classList.add("dark-mode");
-        } else {
-            document.body.classList.remove("dark-mode");
+    const toggleTheme = () => {
+        const next = !readTheme();
+        document.documentElement.classList.toggle("dark", next);
+        try {
+            localStorage.setItem("theme", next ? "dark" : "light");
+        } catch {
+            // Storage unavailable (private mode); the choice just won't persist.
         }
-    };
-
-    const handleCopyEmail = () => {
-        navigator.clipboard.writeText("linards.meisters@gmail.com").then(() => {
-            setEmailCopied(true);
-            setTimeout(() => setEmailCopied(false), 2000);
-        });
+        setDark(next);
     };
 
     return (
-        <nav className="fixed bottom-14 md:bottom-8 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-lg px-4 sm:px-6 py-2 sm:py-3">
-            <ul className="flex items-center space-x-5 sm:space-x-6">
-                <li>
-                    <Link
-                        href="/"
-                        className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
-                        aria-label="Go to Home page"
-                    >
-                        <div className="transition-transform transform duration-300 hover:scale-110">
-                            <House size={28} className="sm:w-6 sm:h-6" />
-                        </div>
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        href="/pages/works"
-                        className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
-                        aria-label="View my works"
-                    >
-                        <div className="transition-transform transform duration-300 hover:scale-110">
-                            <Briefcase size={28} className="sm:w-6 sm:h-6" />
-                        </div>
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        href="/pages/about"
-                        className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
-                        aria-label="Learn more about me"
-                    >
-                        <div className="transition-transform transform duration-300 hover:scale-110">
-                            <User size={28} className="sm:w-6 sm:h-6" />
-                        </div>
-                    </Link>
-                </li>
+        <nav
+            aria-label="Primary"
+            className="fixed bottom-14 left-1/2 z-40 -translate-x-1/2 rounded-full md:bottom-8 bg-white px-3 py-1 shadow-lg ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10 sm:px-4 sm:py-2"
+        >
+            <ul className="flex items-center gap-1 sm:gap-2">
+                {pages.map(({ href, label, Icon }) => (
+                    <li key={href}>
+                        <Link
+                            href={href}
+                            className={itemClasses}
+                            aria-label={label}
+                            aria-current={pathname === href ? "page" : undefined}
+                        >
+                            <Icon aria-hidden="true" className={iconClasses} />
+                        </Link>
+                    </li>
+                ))}
                 <li>
                     <a
-                        href="https://drive.google.com/file/d/1LkvPZZSEmovQ2V2yJ_CWPzoRmJZz6Cd_/view?usp=sharing"
+                        href={RESUME_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
-                        aria-label="View my resume"
+                        className={itemClasses}
+                        aria-label="Resume (opens in a new tab)"
                     >
-                        <div className="transition-transform transform duration-300 hover:scale-110">
-                            <FileText size={28} className="sm:w-6 sm:h-6" />
-                        </div>
+                        <FileText aria-hidden="true" className={iconClasses} />
                     </a>
                 </li>
-                <li className="flex flex-col items-center">
+                <li>
                     <button
-                        onClick={handleCopyEmail}
-                        className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300"
+                        type="button"
+                        onClick={() => copyEmail()}
+                        className={itemClasses}
                         aria-label="Copy email address"
                     >
-                        <div className="transition-transform transform duration-300 hover:scale-110">
-                            {emailCopied ? (
-                                <Check size={28} className="sm:w-6 sm:h-6" />
-                            ) : (
-                                <Mail size={28} className="sm:w-6 sm:h-6" />
-                            )}
-                        </div>
+                        {copied ? (
+                            <Check aria-hidden="true" className={iconClasses} />
+                        ) : (
+                            <Mail aria-hidden="true" className={iconClasses} />
+                        )}
+                        <span role="status" className="sr-only">
+                            {copied ? "Email address copied to clipboard" : ""}
+                        </span>
                     </button>
                 </li>
-                <li className="flex items-center justify-center">
+                <li>
                     <button
-                        onClick={toggleDarkMode}
-                        className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-black transition-colors duration-300 p-1"
-                        aria-label={
-                            isDarkMode
-                                ? "Switch to light mode"
-                                : "Switch to dark mode"
-                        }
+                        type="button"
+                        onClick={toggleTheme}
+                        className={itemClasses}
+                        aria-label="Dark mode"
+                        aria-pressed={dark}
                     >
-                        <div className="transition-transform transform duration-300 hover:scale-110 flex items-center justify-center">
-                            {isDarkMode ? (
-                                <Moon size={28} className="sm:w-6 sm:h-6" />
-                            ) : (
-                                <Sun size={28} className="sm:w-6 sm:h-6" />
-                            )}
-                        </div>
+                        <Sun aria-hidden="true" className={`${iconClasses} dark:hidden`} />
+                        <Moon aria-hidden="true" className={`${iconClasses} hidden dark:block`} />
                     </button>
                 </li>
             </ul>
         </nav>
     );
-};
+}
