@@ -1,5 +1,6 @@
 import React from "react";
-import { Linkedin, Github } from "lucide-react";
+// lucide-react 1.x dropped brand icons; react-icons/lu ships the same Lucide artwork.
+import { LuLinkedin as Linkedin, LuGithub as Github } from "react-icons/lu";
 import Tooltip from "../components/ToolTip";
 
 const Footer = () => {

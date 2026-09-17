@@ -109,15 +109,33 @@ test.describe("navigation", () => {
 });
 
 test.describe("interactions", () => {
-    test("copy email button copies to clipboard", async ({ page, context, browserName }) => {
-        test.skip(browserName !== "chromium", "clipboard permissions are chromium-only");
-        await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    test("copy email button copies to clipboard", async ({ page }) => {
+        // Stub the clipboard: the real one is a single OS resource and parallel
+        // workers race for it, which makes writeText() reject intermittently.
+        await page.addInitScript(() => {
+            (window as any).__copied = [];
+            Object.defineProperty(navigator, "clipboard", {
+                value: {
+                    writeText: (text: string) => {
+                        (window as any).__copied.push(text);
+                        return Promise.resolve();
+                    },
+                },
+                configurable: true,
+            });
+        });
         await page.goto("/");
-        const button = page.getByRole("button", { name: "Copy email" }).first();
-        await button.click();
-        await expect(page.getByRole("button", { name: "Copied!" }).first()).toBeVisible();
-        const clipboard = await page.evaluate(() => navigator.clipboard.readText());
-        expect(clipboard).toContain("@");
+        // The hero and the contact section each render one; click the hero's.
+        // A click that lands before React has hydrated is a no-op, so retry
+        // until the button reacts.
+        const button = page.getByRole("button", { name: "Copy email", exact: true }).first();
+        await expect(async () => {
+            await button.click();
+            await expect(page.getByRole("button", { name: "Copied!" })).toBeVisible({ timeout: 1000 });
+        }).toPass({ timeout: 15_000 });
+        const copied = await page.evaluate(() => (window as any).__copied as string[]);
+        expect(copied).toHaveLength(1);
+        expect(copied[0]).toMatch(/^[^@\s]+@[^@\s]+\.[^@\s]+$/);
     });
 });
 
