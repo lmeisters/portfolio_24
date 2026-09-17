@@ -1,34 +1,32 @@
-"use client";
 import Link from "next/link";
 import { FloatingNavbar } from "./components/FloatingNavbar";
 import Header from "./layout/header";
 import Footer from "./layout/footer";
 
+export const metadata = { title: "Page not found" };
+
 export default function NotFound() {
     return (
-        <div className="relative flex flex-col min-h-screen font-sans max-w-2xl mx-auto p-4">
+        <div className="mx-auto flex min-h-screen max-w-2xl flex-col p-4 pb-28 font-sans md:pb-4">
             <Header />
-            <main className="flex-grow flex items-center justify-center">
+            <main id="main" className="flex flex-grow items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-5xl font-bold mb-4">404</h1>
-                    <h2 className="text-2xl font-semibold mb-6">
-                        Page Not Found
-                    </h2>
-                    <p className="text-gray-600 mb-8">
-                        Oops! The page you're looking for doesn't exist or has
-                        been moved.
+                    <h1 className="mb-4 text-5xl font-bold">404</h1>
+                    <p className="mb-6 text-2xl font-semibold">Page not found</p>
+                    <p className="mb-8 text-gray-600 dark:text-neutral-400">
+                        Oops! The page you&apos;re looking for doesn&apos;t
+                        exist or has been moved.
                     </p>
-                    <Link href="/">
-                        <span className="px-4 py-2 bg-black text-white rounded-full hover:bg-gray-800 transition-colors duration-300 ease-in-out">
-                            Go back home
-                        </span>
+                    <Link
+                        href="/"
+                        className="inline-block rounded-full bg-black px-4 py-2 text-white transition-colors duration-300 hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:bg-white dark:text-black dark:hover:bg-neutral-200"
+                    >
+                        Go back home
                     </Link>
                 </div>
             </main>
             <Footer />
-            <div className="fixed bottom-0 left-0 right-0 z-50">
-                <FloatingNavbar />
-            </div>
+            <FloatingNavbar />
         </div>
     );
 }
