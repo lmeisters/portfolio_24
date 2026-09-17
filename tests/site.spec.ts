@@ -148,6 +148,27 @@ test.describe("metadata", () => {
         await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /.+/);
     });
 
+    test("favicon.ico and icon links resolve", async ({ page, request }) => {
+        const ico = await request.get("/favicon.ico");
+        expect(ico.status()).toBe(200);
+        expect(ico.headers()["content-type"]).toMatch(/image\/(x-icon|vnd\.microsoft\.icon)/);
+
+        await page.goto("/");
+        const hrefs = await page.locator('link[rel="icon"], link[rel="apple-touch-icon"]').evaluateAll(
+            (links) => links.map((l) => (l as HTMLLinkElement).getAttribute("href")!)
+        );
+        expect(hrefs.length).toBeGreaterThan(0);
+        for (const href of hrefs) {
+            expect((await request.get(href)).status(), href).toBe(200);
+        }
+    });
+
+    test("web-app meta tags include the non-Apple variant", async ({ page }) => {
+        await page.goto("/");
+        await expect(page.locator('meta[name="mobile-web-app-capable"]').first()).toHaveAttribute("content", "yes");
+        await expect(page.locator('meta[name="apple-mobile-web-app-capable"]').first()).toHaveAttribute("content", "yes");
+    });
+
     test("images are optimised via next/image", async ({ page }) => {
         const optimised: string[] = [];
         page.on("response", (res) => {

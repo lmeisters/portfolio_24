@@ -68,10 +68,11 @@ export const metadata: Metadata = {
     other: {
         "google-font-preconnect": ["https://fonts.gstatic.com"],
         generator: "Next.js",
-        framework: "Next.js 14",
+        framework: "Next.js 15",
         language: "TypeScript",
         viewport: "width=device-width, initial-scale=1.0",
         "theme-color": "#000000",
+        "mobile-web-app-capable": "yes",
         "apple-mobile-web-app-capable": "yes",
         "apple-mobile-web-app-status-bar-style": "default",
         "format-detection": "telephone=no",
@@ -101,16 +102,15 @@ export default function RootLayout({
                 />
                 <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
                 <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-                <link rel="icon" href="/favicon.ico" />
-
                 <meta name="generator" content="Next.js" />
-                <meta name="framework" content="Next.js 14" />
+                <meta name="framework" content="Next.js 15" />
                 <meta name="language" content="TypeScript" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 />
                 <meta name="theme-color" content="#000000" />
+                <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta
                     name="apple-mobile-web-app-status-bar-style"
