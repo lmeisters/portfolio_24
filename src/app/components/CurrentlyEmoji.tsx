@@ -8,7 +8,6 @@ interface EmojiState {
     label: string;
 }
 
-/** What I'm probably doing right now, based on the time of day in Riga. */
 function currentActivity(): EmojiState {
     const parts = new Intl.DateTimeFormat("en-GB", {
         timeZone: "Europe/Riga",
@@ -36,11 +35,8 @@ function currentActivity(): EmojiState {
     return { emoji: "🌙", label: "Winding down for the night" };
 }
 
-// The server can't know when the visitor will load the page, so it renders a
-// fixed state that the client replaces right after hydration (no mismatch).
 const SERVER_STATE: EmojiState = { emoji: "💻", label: "Currently programming" };
 
-// Snapshots must be referentially stable between reads, so cache by label.
 let cached = SERVER_STATE;
 function getSnapshot() {
     const next = currentActivity();

@@ -18,6 +18,11 @@ for (const theme of ["light", "dark"] as const) {
             test(`${path} has no violations`, async ({ page }) => {
                 await page.goto(path);
                 await expect(page.locator("main")).toBeVisible();
+                await page.evaluate(() =>
+                    Promise.all(
+                        document.getAnimations().map((a) => a.finished.catch(() => {}))
+                    )
+                );
                 const results = await new AxeBuilder({ page })
                     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"])
                     .analyze();
@@ -54,7 +59,6 @@ test.describe("keyboard and theme", () => {
         await expect(page.locator("html")).toHaveClass(/dark/);
         expect(await page.evaluate(() => localStorage.getItem("theme"))).toBe("dark");
 
-        // The inline script must set the class on the raw document, before React runs.
         await page.reload({ waitUntil: "commit" });
         await expect(page.locator("html")).toHaveClass(/dark/);
     });

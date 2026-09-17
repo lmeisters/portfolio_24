@@ -7,22 +7,14 @@ import { useRef, useState } from "react";
 interface MediaPreviewProps {
     image: StaticImageData | string;
     alt: string;
-    /** Required only for string paths; static imports carry their own size. */
     width?: number;
     height?: number;
-    /** Muted demo clip played while the card is hovered or focused. */
     videoSrc?: string;
-    /** When set the whole preview is a link. */
     href?: string;
     priority?: boolean;
     className?: string;
 }
 
-/**
- * Project still with an optional hover/focus video preview. The still is a
- * normal next/image (lazy, blurred placeholder for static imports); the video
- * has preload="none" so nothing is downloaded until the user shows interest.
- */
 export default function MediaPreview({
     image,
     alt,

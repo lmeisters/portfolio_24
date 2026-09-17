@@ -11,11 +11,6 @@ interface TooltipProps {
 
 type Mode = "hidden" | "mouse" | "focus";
 
-/**
- * Decorative tooltip. With a mouse it follows the cursor; on keyboard focus
- * it anchors under the trigger. It is linked with aria-describedby and hidden
- * on touch devices. It must never be the only accessible name of a control.
- */
 export default function Tooltip({
     content,
     children,
@@ -25,7 +20,6 @@ export default function Tooltip({
     const bubble = useRef<HTMLSpanElement>(null);
     const [mode, setMode] = useState<Mode>("hidden");
 
-    // Position is written straight to the DOM so mouse moves don't re-render.
     const follow = (e: React.MouseEvent) => {
         const el = bubble.current;
         if (!el) return;

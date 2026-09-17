@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/**
- * Copies `email` to the clipboard and reports "copied" for two seconds.
- * The clipboard API rejects on insecure origins or denied permission; in
- * that case `copied` simply stays false.
- */
 export function useCopyEmail(email: string) {
     const [copied, setCopied] = useState(false);
     const timer = useRef<ReturnType<typeof setTimeout>>(undefined);

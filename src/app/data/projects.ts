@@ -15,31 +15,21 @@ export interface ProjectVideo {
 export interface Project {
     slug: string;
     title: string;
-    /** Logo image; when absent `abbreviation` is shown instead. */
     logo?: StaticImageData;
     abbreviation?: string;
-    /** One-line summary used on cards. */
     description: string;
-    /** Second paragraph on the home page card. */
     longDescription: string;
-    /** Full description on the project page. */
     detail: string;
-    /** Tags shown on cards. */
     tags: string[];
     year: string;
     githubUrl: string;
     liveUrl: string;
-    /** Set when the live demo is down; shown instead of the plain link. */
     liveNotice?: string;
     deployment: string;
-    /** Hosts that sleep between requests (Render free tier). */
     slowStart?: boolean;
     image: StaticImageData;
-    /** Alternative still used on the works page, if different. */
     worksImage?: StaticImageData;
-    /** Demo video shown on hover and at the top of the project page. */
     videoSrc: string;
-    /** Additional feature videos on the project page. */
     videos: ProjectVideo[];
     features: string[];
     techStack: string[];
@@ -314,5 +304,4 @@ export const projectPath = (slug: string) => `/pages/projects/${slug}`;
 export const getProject = (slug: string) =>
     projects.find((p) => p.slug === slug);
 
-/** Strips the scheme so a URL can be shown as short link text. */
 export const displayUrl = (url: string) => url.replace(/^https?:\/\//, "");

@@ -17,10 +17,6 @@ const PhysicsSimulation = dynamic(() => import("./PhysicsSimulation"), {
     ),
 });
 
-/**
- * "My Skills" block with a toggle between the physics playground and a plain
- * list. Screen readers always get the list because the canvas is only an image.
- */
 export default function SkillsSection() {
     const [showPhysics, setShowPhysics] = useState(true);
 

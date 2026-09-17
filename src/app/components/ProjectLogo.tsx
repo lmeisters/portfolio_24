@@ -6,7 +6,6 @@ interface ProjectLogoProps {
     className?: string;
 }
 
-/** 32px square tile showing a project's logo or its two-letter abbreviation. */
 export default function ProjectLogo({
     logo,
     abbreviation,

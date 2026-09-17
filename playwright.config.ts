@@ -17,7 +17,6 @@ export default defineConfig({
         { name: "desktop", use: { ...devices["Desktop Chrome"] } },
         { name: "mobile", use: { ...devices["Pixel 7"] } },
     ],
-    // Test the production build, i.e. what Vercel actually serves.
     webServer: {
         command: `npm run build && npx next start -p ${PORT}`,
         url: `http://localhost:${PORT}`,
