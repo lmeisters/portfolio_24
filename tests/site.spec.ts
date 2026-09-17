@@ -28,7 +28,7 @@ test.describe("pages render", () => {
         await page.goto("/");
         await expect(page.getByRole("heading", { level: 1, name: /Hey, I'm Linards/ })).toBeVisible();
         await expect(page.getByRole("heading", { name: "My latest works" })).toBeVisible();
-        await expect(page.getByRole("link", { name: "View my works" })).toBeVisible();
+        await expect(page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Works" })).toBeVisible();
         expect(getErrors()).toEqual([]);
     });
 
@@ -80,25 +80,34 @@ test.describe("pages render", () => {
 
 test.describe("navigation", () => {
     test("floating navbar links between pages", async ({ page }) => {
+        const nav = page.getByRole("navigation", { name: "Primary" });
         await page.goto("/");
-        await page.getByRole("link", { name: "View my works" }).click();
+        await nav.getByRole("link", { name: "Works" }).click();
         await expect(page).toHaveURL(/\/pages\/works$/);
         await expect(page.getByRole("heading", { level: 1, name: "All Projects" })).toBeVisible();
+        await expect(nav.getByRole("link", { name: "Works" })).toHaveAttribute("aria-current", "page");
 
-        await page.getByRole("link", { name: "Learn more about me" }).click();
+        await nav.getByRole("link", { name: "About" }).click();
         await expect(page).toHaveURL(/\/pages\/about$/);
         await expect(page.getByRole("heading", { level: 1, name: "Thanks for stopping by" })).toBeVisible();
 
-        await page.getByRole("link", { name: "Go to Home page" }).click();
+        await nav.getByRole("link", { name: "Home" }).click();
         await expect(page).toHaveURL(/\/$/);
         await expect(page.getByRole("heading", { level: 1, name: /Hey, I'm Linards/ })).toBeVisible();
     });
 
     test("project card links to project page", async ({ page }) => {
         await page.goto("/");
-        await page.getByRole("link", { name: /PurePlaylist logo/ }).first().click();
+        await page.getByRole("link", { name: /^PurePlaylist/ }).first().click();
         await expect(page).toHaveURL(/\/pages\/projects\/pureplaylist$/);
         await expect(page.getByRole("heading", { level: 1, name: "PurePlaylist" })).toBeVisible();
+    });
+
+    test("project page links to the next project", async ({ page }) => {
+        await page.goto("/pages/projects/pureplaylist");
+        await page.getByRole("link", { name: /Next project: SiteSelect/ }).click();
+        await expect(page).toHaveURL(/\/pages\/projects\/siteselect$/);
+        await expect(page.getByRole("heading", { level: 1, name: "SiteSelect" })).toBeVisible();
     });
 
     test("404 page links back home", async ({ page }) => {
@@ -163,10 +172,26 @@ test.describe("metadata", () => {
         }
     });
 
-    test("web-app meta tags include the non-Apple variant", async ({ page }) => {
+    test("web-app meta tags are present exactly once", async ({ page }) => {
         await page.goto("/");
-        await expect(page.locator('meta[name="mobile-web-app-capable"]').first()).toHaveAttribute("content", "yes");
-        await expect(page.locator('meta[name="apple-mobile-web-app-capable"]').first()).toHaveAttribute("content", "yes");
+        await expect(page.locator('meta[name="mobile-web-app-capable"]')).toHaveCount(1);
+        await expect(page.locator('meta[name="mobile-web-app-capable"]')).toHaveAttribute("content", "yes");
+        await expect(page.locator('meta[name="viewport"]')).toHaveCount(1);
+        await expect(page.locator('link[rel="sitemap"], link[rel="canonical"]')).toHaveCount(0);
+    });
+
+    test("project pages have their own title and description", async ({ page }) => {
+        await page.goto("/pages/projects/terrainly");
+        await expect(page).toHaveTitle(/^Terrainly \| Linards Meisters$/);
+        await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /parks around Latvia/);
+    });
+
+    test("sitemap and robots are served", async ({ request }) => {
+        const sitemap = await request.get("/sitemap.xml");
+        expect(sitemap.status()).toBe(200);
+        expect(await sitemap.text()).toContain("/pages/projects/pureplaylist");
+        const robots = await request.get("/robots.txt");
+        expect(await robots.text()).toContain("sitemap.xml");
     });
 
     test("images are optimised via next/image", async ({ page }) => {

@@ -1,38 +1,22 @@
-"use client";
+import Script from "next/script";
 
-import { GoogleAnalytics as GA } from "@next/third-parties/google";
-import { useState, useEffect } from "react";
-import { ErrorBoundary } from "./ErrorBoundary";
-import { usePathname } from "next/navigation";
+const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
+/**
+ * GA4 tag, loaded after the page is idle so it never competes with hydration.
+ * Renders nothing when no measurement id is configured (local dev, previews).
+ */
 export function GoogleAnalytics() {
-    const [hasConsent, setHasConsent] = useState(false);
-    const pathname = usePathname();
-
-    useEffect(() => {
-        const consent = localStorage.getItem("analytics-consent");
-        if (!consent) {
-            localStorage.setItem("analytics-consent", "granted");
-            setHasConsent(true);
-        } else {
-            setHasConsent(consent === "granted");
-        }
-    }, []);
-
-    useEffect(() => {
-        if (hasConsent && window.gtag) {
-            window.gtag("event", "page_view", {
-                page_path: pathname,
-                page_title: document.title,
-            });
-        }
-    }, [pathname, hasConsent]);
-
-    if (!hasConsent) return null;
-
+    if (!GA_ID) return null;
     return (
-        <ErrorBoundary>
-            <GA gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
-        </ErrorBoundary>
+        <>
+            <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                strategy="lazyOnload"
+            />
+            <Script id="ga-init" strategy="lazyOnload">
+                {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');`}
+            </Script>
+        </>
     );
 }

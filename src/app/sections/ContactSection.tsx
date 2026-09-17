@@ -1,22 +1,20 @@
 import { CopyEmailButton } from "../components/CopyEmailButton";
+import SectionBadge from "../components/SectionBadge";
+import { EMAIL } from "../data/site";
 
-const Contact = () => {
-    const email = "linards.meisters@gmail.com";
-
+export default function ContactSection() {
     return (
-        <section>
-            <div className="flex items-center space-x-2 mb-4">
-                <span className="border border-gray-800 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                    Contact
-                </span>
-            </div>
-            <h2 className="text-3xl font-bold mb-2">Get in Touch</h2>
-            <p className="text-gray-600 mb-6">
-                I'm available for new projects and collaborations. Let's connect and discuss how I can help solve your UX challenges
+        <section aria-labelledby="contact-heading">
+            <SectionBadge>Contact</SectionBadge>
+            <h2 id="contact-heading" className="mb-2 text-3xl font-bold">
+                Get in Touch
+            </h2>
+            <p className="mb-6 text-gray-600 dark:text-neutral-400">
+                I&apos;m available for new projects and collaborations.
+                Let&apos;s connect and discuss how I can help solve your UX
+                challenges.
             </p>
-            <CopyEmailButton email={email} variant="default" />
+            <CopyEmailButton email={EMAIL} variant="default" />
         </section>
     );
-};
-
-export default Contact;
+}

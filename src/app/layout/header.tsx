@@ -1,39 +1,20 @@
-import React from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import RigaTimeClock from "@/app/components/RigaTimeClock";
+import CurrentlyEmoji from "@/app/components/CurrentlyEmoji";
 
-// Preload these components with higher priority
-const RigaTimeClock = dynamic(() => import("@/app/components/RigaTimeClock"), {
-    ssr: false,
-    loading: () => (
-        <div className="w-32 h-6 bg-gray-200 rounded animate-pulse" />
-    ),
-});
-
-const CurrentlyEmoji = dynamic(
-    () => import("@/app/components/CurrentlyEmoji"),
-    {
-        ssr: false,
-        loading: () => (
-            <div className="w-6 h-6 bg-gray-200 rounded animate-pulse" />
-        ),
-    }
-);
-
-const Header = () => (
-    <header>
-        <div className="flex justify-between items-center mb-8">
-            <Link href="/">
-                <div className="text-md font-semibold cursor-pointer">LM</div>
+export default function Header() {
+    return (
+        <header className="mb-8 flex items-center justify-between">
+            <Link
+                href="/"
+                className="rounded font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
+            >
+                LM<span className="sr-only"> – Linards Meisters, home</span>
             </Link>
-            <div className="text-md flex items-center">
+            <div className="flex items-center gap-2">
                 <CurrentlyEmoji />
-                <span className="ml-2">
-                    <RigaTimeClock />
-                </span>
+                <RigaTimeClock />
             </div>
-        </div>
-    </header>
-);
-
-export default Header;
+        </header>
+    );
+}

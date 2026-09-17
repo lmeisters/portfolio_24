@@ -1,23 +1,31 @@
 import { Poppins } from "next/font/google";
-import "./globals.css";
-import { Metadata } from "next";
-import { SpeedInsightsWrapper } from "./components/SpeedInsightsWrapper";
+import type { Metadata, Viewport } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
-import "./styles/modal.css";
+import "./globals.css";
 
 const poppins = Poppins({
     weight: ["400", "700"],
     subsets: ["latin"],
     display: "swap",
     variable: "--font-poppins",
-    preload: true,
 });
+
+const SITE_NAME = "Linards Meisters | UX Specialist & Frontend Developer";
+const DESCRIPTION =
+    "Portfolio of Linards Meisters, a UX specialist and frontend developer from Riga, Latvia: projects, skills and experience.";
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://portfoliolm.vercel.app"),
-    title: "Linards Meisters | Frontend Developer Portfolio",
-    description:
-        "Welcome to my portfolio - Showcasing web development projects and skills",
+    title: {
+        default: SITE_NAME,
+        template: "%s | Linards Meisters",
+    },
+    description: DESCRIPTION,
+    applicationName: "Portfolio",
+    authors: [{ name: "Linards Meisters" }],
+    creator: "Linards Meisters",
+    keywords: ["UX", "frontend", "portfolio", "React", "Next.js", "Riga"],
     icons: {
         icon: [
             { url: "/favicon.png", sizes: "32x32" },
@@ -27,60 +35,45 @@ export const metadata: Metadata = {
     },
     openGraph: {
         type: "website",
-        locale: "en_LV",
-        url: "https://portfoliolm.vercel.app",
-        title: "Linards Meisters | Frontend Developer Portfolio",
-        description:
-            "Welcome to my portfolio - Showcasing web development projects and skills",
-        siteName: "Linards Meisters | Frontend Developer Portfolio",
+        locale: "en_US",
+        url: "/",
+        siteName: SITE_NAME,
+        title: SITE_NAME,
+        description: DESCRIPTION,
         images: [
             {
                 url: "/og-image.png",
                 width: 1200,
                 height: 630,
-                alt: "Linards Meisters | Frontend Developer Portfolio",
+                alt: "Linards Meisters portfolio",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Linards Meisters | Frontend Developer Portfolio",
-        description:
-            "Welcome to my portfolio - Showcasing web development projects and skills",
+        title: SITE_NAME,
+        description: DESCRIPTION,
         images: ["/og-image.png"],
     },
-    keywords: [
-        "web development",
-        "portfolio",
-        "React",
-        "Next.js",
-        "frontend",
-        "backend",
-    ],
-    authors: [{ name: "Linards Meisters" }],
-    creator: "Linards Meisters",
-    publisher: "Linards Meisters",
-    formatDetection: {
-        email: false,
-        address: false,
-        telephone: false,
-    },
-    other: {
-        "google-font-preconnect": ["https://fonts.gstatic.com"],
-        generator: "Next.js",
-        framework: "Next.js 15",
-        language: "TypeScript",
-        viewport: "width=device-width, initial-scale=1.0",
-        "theme-color": "#000000",
-        "mobile-web-app-capable": "yes",
-        "apple-mobile-web-app-capable": "yes",
-        "apple-mobile-web-app-status-bar-style": "default",
-        "format-detection": "telephone=no",
-        "application-name": "Portfolio",
-        "apple-mobile-web-app-title": "Portfolio",
-        "next-head-count": "0",
-    },
+    formatDetection: { email: false, address: false, telephone: false },
+    appleWebApp: { capable: true, title: "Portfolio", statusBarStyle: "default" },
 };
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    themeColor: [
+        { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+        { media: "(prefers-color-scheme: dark)", color: "#121212" },
+    ],
+};
+
+/**
+ * Applies the saved (or system) colour scheme before first paint so dark-mode
+ * users never see a flash of the light theme and Tailwind `dark:` utilities
+ * are correct from the SSR'd HTML onwards.
+ */
+const themeScript = `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d)}catch(e){}})();`;
 
 export default function RootLayout({
     children,
@@ -88,42 +81,24 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${poppins.variable} font-sans`}>
+        <html
+            lang="en"
+            className={`${poppins.variable} font-sans`}
+            suppressHydrationWarning
+        >
             <head>
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.googleapis.com"
-                    crossOrigin="anonymous"
-                />
-                <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-                <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-                <meta name="generator" content="Next.js" />
-                <meta name="framework" content="Next.js 15" />
-                <meta name="language" content="TypeScript" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                />
-                <meta name="theme-color" content="#000000" />
-                <meta name="mobile-web-app-capable" content="yes" />
-                <meta name="apple-mobile-web-app-capable" content="yes" />
-                <meta
-                    name="apple-mobile-web-app-status-bar-style"
-                    content="default"
-                />
-                <meta name="format-detection" content="telephone=no" />
-                <meta name="application-name" content="Portfolio" />
-                <meta name="apple-mobile-web-app-title" content="Portfolio" />
-                <meta name="next-head-count" content="0" />
+                <script dangerouslySetInnerHTML={{ __html: themeScript }} />
             </head>
-            <body>
+            <body className="bg-white text-gray-900 transition-colors duration-300 dark:bg-[#121212] dark:text-white">
+                <a
+                    href="#main"
+                    className="sr-only rounded-full bg-black px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] dark:bg-white dark:text-black"
+                >
+                    Skip to content
+                </a>
                 {children}
-                <SpeedInsightsWrapper />
+                {/* The script only exists on Vercel; elsewhere it would 404. */}
+                {process.env.VERCEL === "1" && <SpeedInsights />}
                 <GoogleAnalytics />
             </body>
         </html>

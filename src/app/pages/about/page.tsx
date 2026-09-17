@@ -1,282 +1,226 @@
-"use client";
-
-import Image from "next/image";
+import type { Metadata } from "next";
+import Image, { StaticImageData } from "next/image";
 import { FloatingNavbar } from "@/app/components/FloatingNavbar";
 import Header from "@/app/layout/header";
 import Footer from "@/app/layout/footer";
-import { Suspense, useState } from "react";
-import { LazyPhysicsContainer } from "@/app/components/LazyPhysicsContainer";
-import LazyLoadMedia from "@/app/components/LazyLoadMedia";
-import Tooltip from "@/app/components/ToolTip";
-import airBalticLogo from "@/assets/images/airbaltic_logo.webp";
-import {
-    FaHtml5,
-    FaJsSquare,
-    FaReact,
-    FaCss3Alt,
-    FaSass,
-    FaBootstrap,
-    FaNodeJs,
-    FaGitAlt,
-} from "react-icons/fa";
-import {
-    SiTypescript,
-    SiTailwindcss,
-    SiExpress,
-    SiMongodb,
-} from "react-icons/si";
-
+import SkillsSection from "@/app/components/SkillsSection";
+import Tooltip from "@/app/components/Tooltip";
+import { SkillTag } from "@/app/components/icons";
 import avatar from "@/assets/images/avatar.webp";
+import airBalticLogo from "@/assets/images/airbaltic_logo.webp";
 import mykoobLogo from "@/assets/images/mykoob_logo.webp";
 import udemyLogo from "@/assets/images/udemy_logo.svg";
 import rtuLogo from "@/assets/images/rtu_logo.svg";
 import butsLogo from "@/assets/images/buts_logo.webp";
 
-interface TimelineItemProps {
-    title: string;
-    subtitle: string | string[];
-    description?: string;
-    year: number | string;
-    imageSrc: string;
-    isCourse?: boolean;
-}
-
-const skillIcons: Record<string, React.ElementType> = {
-    HTML5: FaHtml5,
-    JavaScript: FaJsSquare,
-    React: FaReact,
-    CSS3: FaCss3Alt,
-    "SCSS/SASS": FaSass,
-    Bootstrap: FaBootstrap,
-    "Node.js": FaNodeJs,
-    "Express.js": SiExpress,
-    MongoDB: SiMongodb,
-    TypeScript: SiTypescript,
-    Tailwind: SiTailwindcss,
-    Git: FaGitAlt,
+export const metadata: Metadata = {
+    title: "About",
+    description:
+        "Linards Meisters: UX specialist with a computer science degree from Riga Technical University. Skills, education, experience and courses.",
 };
 
-const TimelineItem = ({
+interface TimelineItemProps {
+    title: string;
+    /** Plain text, or a list of skills rendered as tags. */
+    subtitle: string | string[];
+    description?: string;
+    year: string;
+    logo: StaticImageData;
+    /** Organisation behind the logo (shown as tooltip/alt when it differs from the title). */
+    organisation?: string;
+}
+
+function TimelineItem({
     title,
     subtitle,
     description,
     year,
-    imageSrc,
-    isCourse = false,
-}: TimelineItemProps) => {
-    const getTooltipContent = () => {
-        if (isCourse) {
-            if (imageSrc.includes("udemy")) {
-                return "Udemy";
-            } else if (imageSrc.includes("buts")) {
-                return "Learning center BUTS";
-            }
-        }
-        return title;
-    };
-
+    logo,
+    organisation,
+}: TimelineItemProps) {
+    const org = organisation ?? title;
     return (
-        <div className="flex items-start space-x-4 mb-4">
-            <div className="w-12 h-12 relative flex-shrink-0 rounded-full overflow-hidden bg-white-100 flex items-center justify-center border border-gray-200">
-                <Tooltip content={getTooltipContent()}>
-                    <div className="transition-transform duration-500 ease-in-out hover:scale-110">
-                        <Image
-                            src={imageSrc}
-                            alt={title}
-                            width={48}
-                            height={48}
-                            className="rounded-full w-9 h-9"
-                            style={{ objectFit: "contain" }}
-                        />
-                    </div>
-                </Tooltip>
-            </div>
+        <li className="mb-4 flex items-start gap-4">
+            <Tooltip content={org}>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gray-200 bg-white dark:border-neutral-700">
+                    <Image
+                        src={logo}
+                        alt={`${org} logo`}
+                        width={36}
+                        height={36}
+                        className="h-9 w-9 rounded-full object-contain transition-transform duration-500 ease-in-out hover:scale-110"
+                    />
+                </span>
+            </Tooltip>
             <div className="flex-grow">
                 <h3 className="font-medium">{title}</h3>
-                {description && <p className="text-gray-600">{description}</p>}
+                {description && (
+                    <p className="text-gray-600 dark:text-neutral-400">{description}</p>
+                )}
                 {Array.isArray(subtitle) ? (
-                    <div className="flex flex-wrap gap-1 mt-1">
-                        {subtitle.map((skill, index) => {
-                            const Icon = skillIcons[skill];
-                            return (
-                                <span
-                                    key={index}
-                                    className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs inline-flex items-center gap-1.5"
-                                >
-                                    {Icon && <Icon className="w-3.5 h-3.5" />}
-                                    {skill}
-                                </span>
-                            );
-                        })}
-                    </div>
+                    <ul className="mt-1 flex flex-wrap gap-1" aria-label="Skills">
+                        {subtitle.map((skill) => (
+                            <li key={skill}>
+                                <SkillTag name={skill} />
+                            </li>
+                        ))}
+                    </ul>
                 ) : (
-                    <p className="text-gray-600">{subtitle}</p>
+                    <p className="text-gray-600 dark:text-neutral-400">{subtitle}</p>
                 )}
             </div>
-            <span className="text-gray-500">{year}</span>
-        </div>
+            <span className="shrink-0 text-gray-600 dark:text-neutral-400">{year}</span>
+        </li>
     );
-};
+}
 
-const About = () => {
-    const [showPhysics, setShowPhysics] = useState(true);
-
+export default function AboutPage() {
     return (
-        <div className="max-w-2xl mx-auto p-4 font-sans">
+        <div className="mx-auto max-w-2xl p-4 pb-28 font-sans md:pb-4">
             <Header />
-            <main>
-                <section className="mb-12 flex items-center">
+            <main id="main">
+                <section className="mb-12 flex items-center" aria-labelledby="about-heading">
                     <div className="w-2/3">
-                        <h1 className="text-4xl font-semibold mb-2">
+                        <h1 id="about-heading" className="mb-2 text-4xl font-semibold">
                             Thanks for stopping by
                         </h1>
-                        <p className="text-gray-600 text-lg">
-                            UX Specialist Crafting Data-Driven Experiences with Research and Code
+                        <p className="text-lg text-gray-600 dark:text-neutral-400">
+                            UX Specialist crafting data-driven experiences with
+                            research and code
                         </p>
                     </div>
-                    <div className="w-1/3 flex">
-                        <LazyLoadMedia
-                            src={avatar.src}
-                            title="Memoji avatar"
+                    <div className="flex w-1/3">
+                        <Image
+                            src={avatar}
+                            alt="Memoji avatar of Linards"
                             width={125}
                             height={125}
-                            className="rounded-full h-auto max-w-[125px] ml-auto"
-                            disableHover={true}
+                            priority
+                            className="ml-auto h-auto max-w-[125px] rounded-full"
                         />
                     </div>
                 </section>
-                <section className="mb-8">
-                    <h2 className="text-xl font-bold mb-2">About Me</h2>
-                    <p className="text-gray-600 mb-2">
-                    I'm a UX Specialist with a Computer Science background from Riga Technical University. I combine user research and experimentation with hands-on technical skills. I design A/B tests, build prototypes, and implement solutions using HTML, CSS, JavaScript, TypeScript, React, Next.js, and Tailwind.
+
+                <section className="mb-8" aria-labelledby="about-me-heading">
+                    <h2 id="about-me-heading" className="mb-2 text-xl font-bold">
+                        About Me
+                    </h2>
+                    <p className="mb-2 text-gray-600 dark:text-neutral-400">
+                        I&apos;m a UX Specialist with a Computer Science
+                        background from Riga Technical University. I combine
+                        user research and experimentation with hands-on
+                        technical skills. I design A/B tests, build prototypes,
+                        and implement solutions using HTML, CSS, JavaScript,
+                        TypeScript, React, Next.js, and Tailwind.
                     </p>
-                    <p className="text-gray-600 mb-2">
-                    My foundation started during my internship at Mykoob, where I worked on SCSS architecture and modern JavaScript projects that taught me how to write maintainable, performant code. Now I split my time between optimizing user experiences at work and building side projects that solve real problems, things I actually wish existed.
+                    <p className="mb-2 text-gray-600 dark:text-neutral-400">
+                        My foundation started during my internship at Mykoob,
+                        where I worked on SCSS architecture and modern
+                        JavaScript projects that taught me how to write
+                        maintainable, performant code. Now I split my time
+                        between optimizing user experiences at work and
+                        building side projects that solve real problems, things
+                        I actually wish existed.
                     </p>
-                    <p className="text-gray-600 mb-4">
-                    I stay inspired by following design trends and experimenting with new approaches, always focusing on creating experiences that are responsive, accessible, and genuinely useful.
+                    <p className="mb-4 text-gray-600 dark:text-neutral-400">
+                        I stay inspired by following design trends and
+                        experimenting with new approaches, always focusing on
+                        creating experiences that are responsive, accessible,
+                        and genuinely useful.
                     </p>
                 </section>
 
-                <section className="mb-8">
-                    <div className="flex items-center gap-2 mb-4">
-                        <h2 className="text-xl font-bold">My Skills</h2>
-                        <div className="flex items-center gap-2 ml-auto">
-                            <Tooltip
-                                content={
-                                    showPhysics
-                                        ? "Switch to static grid view"
-                                        : "Switch to interactive physics view"
-                                }
-                            >
-                                <button
-                                    onClick={() => setShowPhysics(!showPhysics)}
-                                    className="relative inline-flex h-5 w-10 items-center rounded-full transition-colors
-                                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-                                        focus-visible:ring-offset-white
-                                        bg-black"
-                                    role="switch"
-                                    aria-checked={showPhysics}
-                                >
-                                    <span
-                                        className={`${
-                                            showPhysics
-                                                ? "translate-x-6"
-                                                : "translate-x-1"
-                                        } inline-block h-3 w-3 transform rounded-full bg-white transition-transform`}
-                                    />
-                                </button>
-                            </Tooltip>
-                        </div>
-                    </div>
-                    <Suspense
-                        fallback={
-                            <div className="relative h-64 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden animate-pulse bg-gray-100 dark:bg-gray-800" />
-                        }
-                    >
-                        <LazyPhysicsContainer showPhysics={showPhysics} />
-                    </Suspense>
+                <SkillsSection />
+
+                <section className="mb-8" aria-labelledby="education-heading">
+                    <h2 id="education-heading" className="mb-4 text-xl font-bold">
+                        Education
+                    </h2>
+                    <ul>
+                        <TimelineItem
+                            title="Riga Technical University"
+                            subtitle="Incomplete Master's Degree of Computer Science"
+                            year="2023 - 2024"
+                            logo={rtuLogo}
+                        />
+                        <TimelineItem
+                            title="Riga Technical University"
+                            subtitle="Bachelor's Degree of Computer Science"
+                            year="2016 - 2020"
+                            logo={rtuLogo}
+                        />
+                    </ul>
                 </section>
 
-                <section className="mb-8">
-                    <h2 className="text-xl font-bold mb-4">Education</h2>
-                    <TimelineItem
-                        title="Riga Technical University"
-                        subtitle="Incomplete Master's Degree of Computer Science"
-                        year="2023 - 2024"
-                        imageSrc={rtuLogo.src}
-                    />
-                    <TimelineItem
-                        title="Riga Technical University"
-                        subtitle="Bachelor's Degree of Computer Science"
-                        year="2016 - 2020"
-                        imageSrc={rtuLogo.src}
-                    />
+                <section className="mb-8" aria-labelledby="experience-heading">
+                    <h2 id="experience-heading" className="mb-4 text-xl font-bold">
+                        Experience
+                    </h2>
+                    <ul>
+                        <TimelineItem
+                            title="airBaltic"
+                            description="UX Specialist"
+                            subtitle={["JavaScript", "MS Clarity", "Optimisely"]}
+                            year="2025 - Present"
+                            logo={airBalticLogo}
+                        />
+                        <TimelineItem
+                            title="Mykoob"
+                            description="Front-End Developer Internship"
+                            subtitle={["JavaScript", "CSS3", "SCSS/SASS"]}
+                            year="2024"
+                            logo={mykoobLogo}
+                        />
+                    </ul>
                 </section>
 
-                <section className="mb-8">
-                    <h2 className="text-xl font-bold mb-4">Experience</h2>
-                    <TimelineItem
-                        title="airBaltic"
-                        description="UX Specialist"
-                        subtitle={["JavaScript", "MS Clarity", "Optimisely"]}
-                        year="2025 - Present"
-                        imageSrc={airBalticLogo.src}
-                    />
-                    <TimelineItem
-                        title="Mykoob"
-                        description="Front-End Developer Internship"
-                        subtitle={["JavaScript", "CSS3", "SCSS/SASS"]}
-                        year={2024}
-                        imageSrc={mykoobLogo.src}
-                    />
-                </section>
-
-                <section className="mb-8">
-                    <h2 className="text-xl font-bold mb-4">Courses</h2>
-                    <TimelineItem
-                        title="The Complete JavaScript Course 2024"
-                        subtitle={["JavaScript"]}
-                        year={2024}
-                        imageSrc={udemyLogo.src}
-                        isCourse={true}
-                    />
-                    <TimelineItem
-                        title="Advanced CSS and Sass"
-                        subtitle={["SCSS/SASS", "Flexbox", "Grid"]}
-                        year={2024}
-                        imageSrc={udemyLogo.src}
-                        isCourse={true}
-                    />
-                    <TimelineItem
-                        title="The Web Developer Bootcamp 2023"
-                        subtitle={[
-                            "HTML5",
-                            "CSS3",
-                            "JavaScript",
-                            "Bootstrap",
-                            "React",
-                            "Node.js",
-                            "Express.js",
-                            "MongoDB",
-                        ]}
-                        year={2023}
-                        imageSrc={udemyLogo.src}
-                        isCourse={true}
-                    />
-                    <TimelineItem
-                        title="Web risinājumu izstrāde"
-                        subtitle={["Web Development"]}
-                        year={2022}
-                        imageSrc={butsLogo.src}
-                        isCourse={true}
-                    />
+                <section className="mb-8" aria-labelledby="courses-heading">
+                    <h2 id="courses-heading" className="mb-4 text-xl font-bold">
+                        Courses
+                    </h2>
+                    <ul>
+                        <TimelineItem
+                            title="The Complete JavaScript Course 2024"
+                            subtitle={["JavaScript"]}
+                            year="2024"
+                            logo={udemyLogo}
+                            organisation="Udemy"
+                        />
+                        <TimelineItem
+                            title="Advanced CSS and Sass"
+                            subtitle={["SCSS/SASS", "Flexbox", "Grid"]}
+                            year="2024"
+                            logo={udemyLogo}
+                            organisation="Udemy"
+                        />
+                        <TimelineItem
+                            title="The Web Developer Bootcamp 2023"
+                            subtitle={[
+                                "HTML5",
+                                "CSS3",
+                                "JavaScript",
+                                "Bootstrap",
+                                "React",
+                                "Node.js",
+                                "Express.js",
+                                "MongoDB",
+                            ]}
+                            year="2023"
+                            logo={udemyLogo}
+                            organisation="Udemy"
+                        />
+                        <TimelineItem
+                            title="Web risinājumu izstrāde"
+                            subtitle={["Web Development"]}
+                            year="2022"
+                            logo={butsLogo}
+                            organisation="Learning center BUTS"
+                        />
+                    </ul>
                 </section>
             </main>
             <Footer />
             <FloatingNavbar />
         </div>
     );
-};
-
-export default About;
+}
