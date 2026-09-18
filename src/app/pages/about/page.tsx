@@ -78,7 +78,7 @@ function TimelineItem({
 
 export default function AboutPage() {
     return (
-        <div className="mx-auto max-w-2xl p-4 pb-28 font-sans md:pb-4">
+        <div className="mx-auto max-w-2xl p-4 font-sans">
             <Header />
             <main id="main">
                 <section className="mb-12 flex items-center" aria-labelledby="about-heading">

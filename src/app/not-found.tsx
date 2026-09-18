@@ -7,7 +7,7 @@ export const metadata = { title: "Page not found" };
 
 export default function NotFound() {
     return (
-        <div className="mx-auto flex min-h-screen max-w-2xl flex-col p-4 pb-28 font-sans md:pb-4">
+        <div className="mx-auto flex min-h-screen max-w-2xl flex-col p-4 font-sans">
             <Header />
             <main id="main" className="flex flex-grow items-center justify-center">
                 <div className="text-center">

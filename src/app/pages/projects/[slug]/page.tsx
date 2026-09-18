@@ -63,7 +63,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
     const nextProject = projects[(index + 1) % projects.length];
 
     return (
-        <div className="mx-auto max-w-2xl p-4 pb-28 font-sans md:pb-4">
+        <div className="mx-auto max-w-2xl p-4 font-sans">
             <Header />
             <main id="main">
                 {project.liveNotice && (
