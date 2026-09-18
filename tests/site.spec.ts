@@ -53,7 +53,7 @@ test.describe("pages render", () => {
             await page.goto(`/pages/projects/${slug}`);
             await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
             await expect(page.getByRole("heading", { name: "Project Details" })).toBeVisible();
-            await expect(page.getByText("Live Demo")).toBeVisible();
+            await expect(page.getByText("Live demo", { exact: true })).toBeVisible();
             expect(getErrors()).toEqual([]);
         });
     }

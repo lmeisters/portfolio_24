@@ -25,6 +25,7 @@ export interface Project {
     githubUrl: string;
     liveUrl: string;
     liveNotice?: string;
+    liveUnavailable?: string;
     deployment: string;
     slowStart?: boolean;
     image: StaticImageData;
@@ -52,6 +53,9 @@ export const projects: Project[] = [
         year: "2024",
         githubUrl: "https://github.com/lmeisters/PurePlaylist",
         liveUrl: "https://pureplaylist.vercel.app",
+        liveNotice:
+            "Live demo unavailable: Spotify no longer grants API access to small independent projects",
+        liveUnavailable: "Not available: Spotify API no longer supports small projects",
         deployment: "Vercel",
         image: purePlaylistImage,
         videoSrc: "/assets/videos/pure_playlist/pure_playlist_demo.webm",
@@ -173,6 +177,7 @@ export const projects: Project[] = [
         year: "2024",
         githubUrl: "https://github.com/lmeisters/Terrainly",
         liveUrl: "https://terrainly.onrender.com",
+        liveUnavailable: "No longer online",
         deployment: "Render",
         slowStart: true,
         image: terrainlyImage,
@@ -248,6 +253,7 @@ export const projects: Project[] = [
         githubUrl: "https://github.com/lmeisters/AI_Image_Generator_Dall-E",
         liveUrl: "https://image-generator-beed6.web.app",
         liveNotice: "Currently unavailable due to API usage limits",
+        liveUnavailable: "Not available: API usage limits reached",
         deployment: "Render & Firebase",
         slowStart: true,
         image: aiImageGeneratorImage,
