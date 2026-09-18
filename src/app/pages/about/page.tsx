@@ -38,8 +38,8 @@ function TimelineItem({
 }: TimelineItemProps) {
     const org = organisation ?? title;
     return (
-        <li className="mb-4 flex items-start gap-4">
-            <Tooltip content={org}>
+        <li className="mb-4 grid grid-cols-[auto_1fr_auto] items-start gap-x-4">
+            <Tooltip content={org} className="row-span-2">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gray-200 bg-white dark:border-neutral-700">
                     <Image
                         src={logo}
@@ -50,31 +50,35 @@ function TimelineItem({
                     />
                 </span>
             </Tooltip>
-            <div className="flex-grow">
+            <div>
                 <h3 className="font-medium">{title}</h3>
                 {description && (
                     <p className="text-gray-600 dark:text-neutral-400">{description}</p>
                 )}
-                {Array.isArray(subtitle) ? (
-                    <ul className="mt-1 flex flex-wrap gap-1" aria-label="Skills">
-                        {subtitle.map((skill) => (
-                            <li key={skill}>
-                                <SkillTag name={skill} />
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
+                {!Array.isArray(subtitle) && (
                     <p className="text-gray-600 dark:text-neutral-400">{subtitle}</p>
                 )}
             </div>
-            <span className="shrink-0 text-gray-600 dark:text-neutral-400">{year}</span>
+            <span className="text-gray-600 dark:text-neutral-400">{year}</span>
+            {Array.isArray(subtitle) && (
+                <ul
+                    className="col-span-2 col-start-2 mt-1 flex flex-wrap gap-1"
+                    aria-label="Skills"
+                >
+                    {subtitle.map((skill) => (
+                        <li key={skill}>
+                            <SkillTag name={skill} />
+                        </li>
+                    ))}
+                </ul>
+            )}
         </li>
     );
 }
 
 export default function AboutPage() {
     return (
-        <div className="mx-auto max-w-2xl p-4 pb-28 font-sans md:pb-4">
+        <div className="mx-auto max-w-2xl p-4 font-sans">
             <Header />
             <main id="main">
                 <section className="mb-12 flex items-center" aria-labelledby="about-heading">
@@ -130,26 +134,6 @@ export default function AboutPage() {
 
                 <SkillsSection />
 
-                <section className="mb-8" aria-labelledby="education-heading">
-                    <h2 id="education-heading" className="mb-4 text-xl font-bold">
-                        Education
-                    </h2>
-                    <ul>
-                        <TimelineItem
-                            title="Riga Technical University"
-                            subtitle="Incomplete Master's Degree of Computer Science"
-                            year="2023 - 2024"
-                            logo={rtuLogo}
-                        />
-                        <TimelineItem
-                            title="Riga Technical University"
-                            subtitle="Bachelor's Degree of Computer Science"
-                            year="2016 - 2020"
-                            logo={rtuLogo}
-                        />
-                    </ul>
-                </section>
-
                 <section className="mb-8" aria-labelledby="experience-heading">
                     <h2 id="experience-heading" className="mb-4 text-xl font-bold">
                         Experience
@@ -168,6 +152,26 @@ export default function AboutPage() {
                             subtitle={["JavaScript", "CSS3", "SCSS/SASS"]}
                             year="2024"
                             logo={mykoobLogo}
+                        />
+                    </ul>
+                </section>
+
+                <section className="mb-8" aria-labelledby="education-heading">
+                    <h2 id="education-heading" className="mb-4 text-xl font-bold">
+                        Education
+                    </h2>
+                    <ul>
+                        <TimelineItem
+                            title="Riga Technical University"
+                            subtitle="Incomplete Master's Degree of Computer Science"
+                            year="2023 - 2024"
+                            logo={rtuLogo}
+                        />
+                        <TimelineItem
+                            title="Riga Technical University"
+                            subtitle="Bachelor's Degree of Computer Science"
+                            year="2016 - 2020"
+                            logo={rtuLogo}
                         />
                     </ul>
                 </section>

@@ -63,7 +63,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
     const nextProject = projects[(index + 1) % projects.length];
 
     return (
-        <div className="mx-auto max-w-2xl p-4 pb-28 font-sans md:pb-4">
+        <div className="mx-auto max-w-2xl p-4 font-sans">
             <Header />
             <main id="main">
                 {project.liveNotice && (
@@ -90,27 +90,39 @@ export default async function ProjectPage({ params }: { params: Params }) {
                     <div className="flex items-center justify-between border-b border-gray-200 pb-2 dark:border-neutral-800">
                         <dt className="text-sm font-medium">Live demo</dt>
                         <dd>
-                            <Tooltip
-                                content={
-                                    project.liveNotice ??
-                                    (project.slowStart
-                                        ? "Hosted on Render: allow ~40 s to spin up"
-                                        : "Open live site")
-                                }
-                            >
-                                <a
-                                    href={project.liveUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={linkClasses}
-                                >
-                                    {displayUrl(project.liveUrl)}
-                                    <span className="sr-only">
-                                        {" "}
-                                        (opens in a new tab)
+                            {project.liveUnavailable ? (
+                                <Tooltip content={project.liveUnavailable}>
+                                    <span className="cursor-not-allowed text-sm text-gray-500 line-through dark:text-neutral-400">
+                                        {displayUrl(project.liveUrl)}
+                                        <span className="sr-only">
+                                            {" "}
+                                            ({project.liveUnavailable.toLowerCase()})
+                                        </span>
                                     </span>
-                                </a>
-                            </Tooltip>
+                                </Tooltip>
+                            ) : (
+                                <Tooltip
+                                    content={
+                                        project.liveNotice ??
+                                        (project.slowStart
+                                            ? "Hosted on Render: allow ~40 s to spin up"
+                                            : "Open live site")
+                                    }
+                                >
+                                    <a
+                                        href={project.liveUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={linkClasses}
+                                    >
+                                        {displayUrl(project.liveUrl)}
+                                        <span className="sr-only">
+                                            {" "}
+                                            (opens in a new tab)
+                                        </span>
+                                    </a>
+                                </Tooltip>
+                            )}
                         </dd>
                     </div>
                     <div className="flex items-center justify-between border-b border-gray-200 pb-2 dark:border-neutral-800">

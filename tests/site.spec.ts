@@ -23,7 +23,7 @@ test.describe("pages render", () => {
         await page.goto("/");
         await expect(page.getByRole("heading", { level: 1, name: /Hey, I'm Linards/ })).toBeVisible();
         await expect(page.getByRole("heading", { name: "My latest works" })).toBeVisible();
-        await expect(page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Works" })).toBeVisible();
+        await expect(page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Work" })).toBeVisible();
         expect(getErrors()).toEqual([]);
     });
 
@@ -53,7 +53,7 @@ test.describe("pages render", () => {
             await page.goto(`/pages/projects/${slug}`);
             await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
             await expect(page.getByRole("heading", { name: "Project Details" })).toBeVisible();
-            await expect(page.getByText("Live Demo")).toBeVisible();
+            await expect(page.getByText("Live demo", { exact: true })).toBeVisible();
             expect(getErrors()).toEqual([]);
         });
     }
@@ -76,10 +76,10 @@ test.describe("navigation", () => {
     test("floating navbar links between pages", async ({ page }) => {
         const nav = page.getByRole("navigation", { name: "Primary" });
         await page.goto("/");
-        await nav.getByRole("link", { name: "Works" }).click();
+        await nav.getByRole("link", { name: "Work" }).click();
         await expect(page).toHaveURL(/\/pages\/works$/);
         await expect(page.getByRole("heading", { level: 1, name: "All Projects" })).toBeVisible();
-        await expect(nav.getByRole("link", { name: "Works" })).toHaveAttribute("aria-current", "page");
+        await expect(nav.getByRole("link", { name: "Work" })).toHaveAttribute("aria-current", "page");
 
         await nav.getByRole("link", { name: "About" }).click();
         await expect(page).toHaveURL(/\/pages\/about$/);

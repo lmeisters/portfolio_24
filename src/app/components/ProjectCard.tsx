@@ -17,6 +17,7 @@ export interface CardProject {
     githubUrl: string;
     liveUrl: string;
     liveNotice?: string;
+    liveUnavailable?: string;
     image: StaticImageData | string;
     imageWidth?: number;
     imageHeight?: number;
@@ -44,6 +45,7 @@ export default function ProjectCard({
         githubUrl,
         liveUrl,
         liveNotice,
+        liveUnavailable,
         image,
         videoSrc,
         isNew,
@@ -91,19 +93,32 @@ export default function ProjectCard({
                             <GitFork aria-hidden="true" className="h-5 w-5" />
                         </a>
                     </Tooltip>
-                    <Tooltip content={liveNotice ?? "Live site"}>
-                        <a
-                            href={liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${title} live site${
-                                liveNotice ? `, ${liveNotice.toLowerCase()}` : ""
-                            } (opens in a new tab)`}
-                            className="inline-flex rounded-md p-1 text-gray-600 transition-colors hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:text-neutral-400 dark:hover:text-white"
-                        >
-                            <Globe aria-hidden="true" className="h-5 w-5" />
-                        </a>
-                    </Tooltip>
+                    {liveUnavailable ? (
+                        <Tooltip content={liveUnavailable}>
+                            <span
+                                role="link"
+                                aria-disabled="true"
+                                aria-label={`${title} live site, ${liveUnavailable.toLowerCase()}`}
+                                className="inline-flex cursor-not-allowed rounded-md p-1 text-gray-400 dark:text-neutral-600"
+                            >
+                                <Globe aria-hidden="true" className="h-5 w-5" />
+                            </span>
+                        </Tooltip>
+                    ) : (
+                        <Tooltip content={liveNotice ?? "Live site"}>
+                            <a
+                                href={liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${title} live site${
+                                    liveNotice ? `, ${liveNotice.toLowerCase()}` : ""
+                                } (opens in a new tab)`}
+                                className="inline-flex rounded-md p-1 text-gray-600 transition-colors hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:text-neutral-400 dark:hover:text-white"
+                            >
+                                <Globe aria-hidden="true" className="h-5 w-5" />
+                            </a>
+                        </Tooltip>
+                    )}
                 </div>
             </div>
 
