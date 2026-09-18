@@ -60,7 +60,7 @@ export function SkillTag({ name, className = "" }: SkillTagProps) {
     const Icon = skillIcons[name];
     return (
         <span
-            className={`inline-flex items-center gap-1.5 rounded bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700 dark:bg-neutral-800 dark:text-neutral-300 ${className}`}
+            className={`inline-flex items-center gap-1.5 rounded align-top bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700 dark:bg-neutral-800 dark:text-neutral-300 ${className}`}
         >
             {Icon && <Icon aria-hidden="true" className="h-3.5 w-3.5" />}
             {name}
