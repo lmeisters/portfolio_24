@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import type { Metadata, Viewport } from "next";
+import { unstable_ViewTransition as ViewTransition } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
 import "./globals.css";
@@ -91,7 +92,7 @@ export default function RootLayout({
                 >
                     Skip to content
                 </a>
-                {children}
+                <ViewTransition default="page">{children}</ViewTransition>
                 {process.env.VERCEL === "1" && <SpeedInsights />}
                 <GoogleAnalytics />
             </body>

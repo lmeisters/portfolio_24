@@ -66,3 +66,11 @@
 .initial-fade-in {
     animation: fade-in 0.8s ease-out both;
 }
+
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(.page),
+::view-transition-new(.page) {
+    animation-duration: 220ms;
+    animation-timing-function: ease-in-out;
+}
