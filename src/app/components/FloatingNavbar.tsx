@@ -13,17 +13,19 @@ import {
     Moon,
     Check,
 } from "lucide-react";
+import Tooltip from "./Tooltip";
 import { useCopyEmail } from "@/app/hooks/useCopyEmail";
 import { EMAIL, RESUME_URL } from "@/app/data/site";
 
 const itemClasses =
     "inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-600 transition-colors duration-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:text-neutral-400 dark:hover:text-white sm:h-9 sm:w-9 [&>svg]:transition-transform [&>svg]:duration-300 hover:[&>svg]:scale-110";
+const pageLinkClasses = `${itemClasses} relative after:absolute after:bottom-0.5 after:left-1/2 after:h-1 after:w-1 after:-translate-x-1/2 after:rounded-full after:bg-current after:opacity-0 after:transition-opacity after:duration-300 aria-[current=page]:text-black aria-[current=page]:after:opacity-100 dark:aria-[current=page]:text-white sm:after:bottom-0`;
 const iconClasses = "h-7 w-7 sm:h-6 sm:w-6";
 
 const pages = [
     { href: "/", label: "Home", Icon: House },
-    { href: "/pages/works", label: "Works", Icon: Briefcase },
-    { href: "/pages/about", label: "About", Icon: User },
+    { href: "/pages/works", label: "Work", Icon: Briefcase },
+    { href: "/pages/about", label: "About me", Icon: User },
 ];
 
 function readTheme() {
@@ -56,55 +58,63 @@ export function FloatingNavbar() {
             <ul className="flex items-center gap-1 sm:gap-2">
                 {pages.map(({ href, label, Icon }) => (
                     <li key={href}>
-                        <Link
-                            href={href}
-                            className={itemClasses}
-                            aria-label={label}
-                            aria-current={pathname === href ? "page" : undefined}
-                        >
-                            <Icon aria-hidden="true" className={iconClasses} />
-                        </Link>
+                        <Tooltip content={label} placement="top">
+                            <Link
+                                href={href}
+                                className={pageLinkClasses}
+                                aria-label={label}
+                                aria-current={pathname === href ? "page" : undefined}
+                            >
+                                <Icon aria-hidden="true" className={iconClasses} />
+                            </Link>
+                        </Tooltip>
                     </li>
                 ))}
                 <li>
-                    <a
-                        href={RESUME_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={itemClasses}
-                        aria-label="Resume (opens in a new tab)"
-                    >
-                        <FileText aria-hidden="true" className={iconClasses} />
-                    </a>
+                    <Tooltip content="Resume" placement="top">
+                        <a
+                            href={RESUME_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={itemClasses}
+                            aria-label="Resume (opens in a new tab)"
+                        >
+                            <FileText aria-hidden="true" className={iconClasses} />
+                        </a>
+                    </Tooltip>
                 </li>
                 <li>
-                    <button
-                        type="button"
-                        onClick={() => copyEmail()}
-                        className={itemClasses}
-                        aria-label="Copy email address"
-                    >
-                        {copied ? (
-                            <Check aria-hidden="true" className={iconClasses} />
-                        ) : (
-                            <Mail aria-hidden="true" className={iconClasses} />
-                        )}
-                        <span role="status" className="sr-only">
-                            {copied ? "Email address copied to clipboard" : ""}
-                        </span>
-                    </button>
+                    <Tooltip content={copied ? "Copied!" : "Email"} placement="top">
+                        <button
+                            type="button"
+                            onClick={() => copyEmail()}
+                            className={itemClasses}
+                            aria-label="Copy email address"
+                        >
+                            {copied ? (
+                                <Check aria-hidden="true" className={iconClasses} />
+                            ) : (
+                                <Mail aria-hidden="true" className={iconClasses} />
+                            )}
+                            <span role="status" className="sr-only">
+                                {copied ? "Email address copied to clipboard" : ""}
+                            </span>
+                        </button>
+                    </Tooltip>
                 </li>
                 <li>
-                    <button
-                        type="button"
-                        onClick={toggleTheme}
-                        className={itemClasses}
-                        aria-label="Dark mode"
-                        aria-pressed={dark}
-                    >
-                        <Sun aria-hidden="true" className={`${iconClasses} dark:hidden`} />
-                        <Moon aria-hidden="true" className={`${iconClasses} hidden dark:block`} />
-                    </button>
+                    <Tooltip content={dark ? "Light mode" : "Dark mode"} placement="top">
+                        <button
+                            type="button"
+                            onClick={toggleTheme}
+                            className={itemClasses}
+                            aria-label="Dark mode"
+                            aria-pressed={dark}
+                        >
+                            <Sun aria-hidden="true" className={`${iconClasses} dark:hidden`} />
+                            <Moon aria-hidden="true" className={`${iconClasses} hidden dark:block`} />
+                        </button>
+                    </Tooltip>
                 </li>
             </ul>
         </nav>
